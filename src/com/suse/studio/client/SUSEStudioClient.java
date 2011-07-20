@@ -110,7 +110,8 @@ public class SUSEStudioClient {
     }
 
     /**
-     * Return the encoded credentials.
+     * Return the encoded credentials. TODO: Replace BASE64Encoder with 
+     * something else, see the warnings during compilation!
      * 
      * @return encoded credentials as {@link String}
      */
