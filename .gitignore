@@ -1,0 +1,10 @@
+# eclipse files
+.project
+.classpath
+
+# binaries and jars
+bin
+dist
+
+# vim swap files
+*.swp
