@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="jar" name="susestudio-lib-java">
+    <!-- Properties -->
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+
+    <!-- Classpath -->
+    <path id="susestudio-lib-java.classpath">
+        <pathelement location="bin"/>
+    </path>
+
+    <!-- Init -->
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- Clean -->
+    <target name="clean">
+        <delete dir="bin"/>
+        <delete dir="dist"/>
+    </target>
+
+    <!-- Build -->
+    <target depends="init" name="build">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="susestudio-lib-java.classpath"/>
+        </javac>
+    </target>
+
+    <!-- Jar -->
+    <target depends="build" name="jar">
+        <mkdir dir="dist"/>
+        <jar destfile="dist/susestudio-lib-java.jar" basedir="bin"/>
+    </target>
+</project>
