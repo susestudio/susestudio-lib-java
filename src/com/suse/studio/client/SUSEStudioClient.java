@@ -33,10 +33,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import sun.misc.BASE64Encoder;
-
 import com.suse.studio.client.data.Appliance;
 import com.suse.studio.client.data.Appliances;
+import com.suse.studio.util.Base64;
 
 /**
  * Library class for the SUSE Studio REST API.
@@ -110,13 +109,11 @@ public class SUSEStudioClient {
     }
 
     /**
-     * Return the encoded credentials. TODO: Replace BASE64Encoder with 
-     * something else, see the warnings during compilation!
+     * Return the encoded credentials. 
      * 
      * @return encoded credentials as {@link String}
      */
     private String getEncodedCredentials() {
-        BASE64Encoder encoder = new BASE64Encoder();
-        return encoder.encode((user + ":" + apiKey).getBytes());
+        return Base64.encodeBytes((user + ":" + apiKey).getBytes());
     }
 }
