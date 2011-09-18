@@ -25,19 +25,27 @@ package com.suse.studio.client.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "builds")
+@Root(strict=false)
 public class Builds {
-
-    @XmlElement(name = "build")
-    private List<Build> builds;
-
+	
+	@Attribute
+	private String type;
+	
+	public String getType() {
+		return type;
+	}
+	
+	@ElementList(inline=true, required=false)
+	private List<Build> build;
+	
     public List<Build> getBuilds() {
-        if (this.builds == null) {
-            this.builds = new ArrayList<Build>();
+        if (build == null) {
+        	build = new ArrayList<Build>();
         }
-        return this.builds;
+        return this.build;
     }
 }

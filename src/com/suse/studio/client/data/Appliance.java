@@ -24,42 +24,51 @@ package com.suse.studio.client.data;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "appliance")
+@Root(strict=false)
 public class Appliance {
 
-    @XmlElement(name = "name")
-    private String name;
+	@Element
+	private int id;
 
-    @XmlElement(name = "arch")
-    private String arch;
+	@Element
+	private String name;
 
-    @XmlElement(name = "type")
-    private String type;
+	@Element
+	private String arch;
 
-    @XmlElement(name = "builds")
-    private Builds builds;
+	@Element
+	private String type;
 
-    public String getName() {
-        return this.name;
-    }
+	@Element
+	private String basesystem;
 
-    public String getArch() {
-        return this.arch;
-    }
+	@Element
+	private Builds builds;
 
-    public String getType() {
-        return this.type;
-    }
+	public int getId() {
+		return id;
+	}
 
-    /**
-     * Directly return the contained list.
-     * 
-     * @return list of builds
-     */
-    public List<Build> getBuilds() {
-        return this.builds.getBuilds();
-    }
+	public String getName() {
+		return name;
+	}
+
+	public String getArch() {
+		return arch;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public String getBasesystem() {
+		return basesystem;
+	}
+
+	public List<Build> getBuilds() {
+		return builds.getBuilds();
+	}
 }

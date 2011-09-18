@@ -40,28 +40,23 @@ public class SUSEStudioClientDemo {
 	 *
 	 * @param args
 	 */
+	
+	public static final String user = "";
+	public static final String key = "";
 	public static void main(String[] args) {
 		// Check the number of arguments
-		if (args.length != 2) {
-			System.out.println("Wrong number of arguments!");
-			System.out.println("Usage: java -jar SUSEStudioClient.jar <user> <apikey>");
-			System.exit(1);
-		}
+		
 		// Create the client object and do something with it
-		SUSEStudioClient client = new SUSEStudioClient(args[0], args[1]);
+		SUSEStudioClient client = new SUSEStudioClient(user, key);
 		try {
 			List<Appliance> appliances = client.getAppliances();
 			for (Appliance a : appliances) {
 				System.out.println("---------- Appliance ----------");
 				System.out.println("Name: " + a.getName());
-				System.out.println("Type: " + a.getType());
-				for (Build b : a.getBuilds()) {
-					System.out.println("- Build:");
-					System.out.println("ID: " + b.getId());
-					System.out.println("Version: " + b.getVersion());
-					System.out.println("Image Type: " + b.getImageType());
-					System.out.println("Download URL: " + b.getDownloadURL());
+				for(Build b : a.getBuilds()) {
+					System.out.println(b.getDownloadUrl());
 				}
+				
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);

@@ -25,22 +25,27 @@ package com.suse.studio.client.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "appliances")
-@XmlAccessorType(XmlAccessType.FIELD)
+@Root
 public class Appliances {
 
-    @XmlElement(name = "appliance")
-    private List<Appliance> appliances;
+	@Attribute
+	private String type;
+	
+	@ElementList(inline=true)
+    private List<Appliance> appliance;
+	
+	public String getType() {
+		return type;
+	}
 
     public List<Appliance> getAppliances() {
-        if (appliances == null) {
-            appliances = new ArrayList<Appliance>();
+        if (appliance == null) {
+            appliance = new ArrayList<Appliance>();
         }
-        return this.appliances;
+        return this.appliance;
     }
 }

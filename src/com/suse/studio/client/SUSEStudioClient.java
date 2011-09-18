@@ -29,9 +29,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
 import com.suse.studio.client.data.Appliance;
 import com.suse.studio.client.data.Appliances;
@@ -87,23 +86,21 @@ public class SUSEStudioClient {
                 + getEncodedCredentials());
 
         // Do the request
-        long time = System.currentTimeMillis();
         connection.connect();
         InputStream responseBodyStream = connection.getInputStream();
 
         // Parse the resulting XML
-        Appliances result;
+        Appliances result = null;
+
+        Serializer serializer = new Persister();
         try {
-            JAXBContext context = JAXBContext.newInstance(Appliances.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            result = (Appliances) unmarshaller.unmarshal(responseBodyStream);
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
+			result = serializer.read(Appliances.class, responseBodyStream);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
         connection.disconnect();
-        time = System.currentTimeMillis() - time;
 
         return result.getAppliances();
     }

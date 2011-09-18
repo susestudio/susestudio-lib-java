@@ -22,37 +22,37 @@
 
 package com.suse.studio.client.data;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
-@XmlRootElement(name = "build")
+@Root(strict=false)
 public class Build {
-
-    @XmlElement(name = "id")
-    private String id;
 	
-    @XmlElement(name = "version")
-    private String version;
-
-    @XmlElement(name = "image_type")
-    private String imageType;
-
-    @XmlElement(name = "download_url")
-    private String downloadURL;
-
-    public String getId() {
-    	return this.id;
-    }
-    
-    public String getVersion() {
-        return this.version;
-    }
-
-    public String getImageType() {
-        return this.imageType;
-    }
-
-    public String getDownloadURL() {
-        return this.downloadURL;
-    }
+	@Element
+	private int id;
+	
+	@Element
+	private String version;
+	
+	@Element(name="image_type")
+	private String imageType;
+	
+	@Element(name="download_url", required=false)
+	private String downloadUrl;
+	
+	public int getId() {
+		return id;
+	}
+	
+	public String getVersion() {
+		return version;
+	}
+	
+	public String getImageType() {
+		return imageType;
+	}
+	
+	public String getDownloadUrl() {
+		return downloadUrl;
+	}
 }
