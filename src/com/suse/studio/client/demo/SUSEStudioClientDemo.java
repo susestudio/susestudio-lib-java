@@ -28,6 +28,8 @@ import java.util.List;
 import com.suse.studio.client.SUSEStudioClient;
 import com.suse.studio.client.data.Appliance;
 import com.suse.studio.client.data.Build;
+import com.suse.studio.client.data.DiskQuota;
+import com.suse.studio.client.data.User;
 
 /**
  * Demo program for testing the SUSE Studio client library.
@@ -35,28 +37,33 @@ import com.suse.studio.client.data.Build;
  * @author Johannes Renner
  */
 public class SUSEStudioClientDemo {
+	
+	public static final String user = "";
+	public static final String key = "";
+
 	/**
 	 * Takes the credentials (user and API key) as arguments.
 	 *
 	 * @param args
 	 */
-	
-	public static final String user = "";
-	public static final String key = "";
 	public static void main(String[] args) {
 		// Check the number of arguments
 		
 		// Create the client object and do something with it
 		SUSEStudioClient client = new SUSEStudioClient(user, key);
 		try {
+			User user = client.getUser();
+			DiskQuota dq = user.getDiskQuota();
+			System.out.println("Name: " + user.getUsername());
+			System.out.println("DiskQuota: " + dq.getUsed() + " of " + dq.getAvailable());
+			
 			List<Appliance> appliances = client.getAppliances();
 			for (Appliance a : appliances) {
 				System.out.println("---------- Appliance ----------");
 				System.out.println("Name: " + a.getName());
 				for(Build b : a.getBuilds()) {
-					System.out.println(b.getDownloadUrl());
+					System.out.println("Download url: " + b.getDownloadUrl());
 				}
-				
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);

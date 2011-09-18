@@ -23,17 +23,12 @@
 package com.suse.studio.client;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
-
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 
 import com.suse.studio.client.data.Appliance;
 import com.suse.studio.client.data.Appliances;
+import com.suse.studio.client.data.User;
+import com.suse.studio.client.net.StudioConnection;
 import com.suse.studio.util.Base64;
 
 /**
@@ -44,16 +39,11 @@ import com.suse.studio.util.Base64;
  */
 public class SUSEStudioClient {
 
-    /* The credentials */
     private final String user;
     private final String apiKey;
 
-    // The base URL for accessing the API
-    private String baseURL = "http://susestudio.com/api/v2";
-    
-    /**
-     * Constructor
-     */
+    public static final String baseURL = "http://susestudio.com/api/v2";
+
     public SUSEStudioClient(String user, String apiKey) {
         if (user == null || apiKey == null) {
             throw new RuntimeException("We need the user and API key!");
@@ -61,47 +51,28 @@ public class SUSEStudioClient {
     	this.user = user;
         this.apiKey = apiKey;
     }
+    
+    /**
+     * GET /api/v2/user/account
+     * @return current user
+     * @throws IOException
+     */
+    public User getUser() throws IOException {
+    	StudioConnection sc = new StudioConnection("/user/account", getEncodedCredentials());
+        User result = sc.get(User.class);
+        return result;
+    }
 
     /**
-     * List all appliances of the current user.
+     * Get all appliances of the current user.
      * GET /api/v2/user/appliances
      * 
      * @return list of the current user's appliances
+     * @throws IOException 
      */
     public List<Appliance> getAppliances() throws IOException {
-        // Init the URL
-        URL url;
-        try {
-            url = new URL(baseURL + "/user/appliances");
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-
-        // Init the connection
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-
-        // Write auth header
-        connection.setRequestProperty("Authorization", "BASIC "
-                + getEncodedCredentials());
-
-        // Do the request
-        connection.connect();
-        InputStream responseBodyStream = connection.getInputStream();
-
-        // Parse the resulting XML
-        Appliances result = null;
-
-        Serializer serializer = new Persister();
-        try {
-			result = serializer.read(Appliances.class, responseBodyStream);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        connection.disconnect();
-
+    	StudioConnection sc = new StudioConnection("/user/appliances", getEncodedCredentials());
+        Appliances result = sc.get(Appliances.class);
         return result.getAppliances();
     }
 
