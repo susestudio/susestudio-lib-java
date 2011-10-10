@@ -5,7 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.suse.studio.client.SUSEStudioClient;
+import com.suse.studio.client.SUSEStudio;
 
 public class Request {
 	
@@ -28,7 +28,7 @@ public class Request {
 	private static HttpURLConnection request(String method, String uri) throws IOException {
 		URL url;
         try {
-            url = new URL(SUSEStudioClient.baseURL + uri);
+            url = new URL(SUSEStudio.baseURL + uri);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

@@ -25,63 +25,46 @@ package com.suse.studio.client;
 import java.io.IOException;
 import java.util.List;
 
+import com.suse.studio.client.SUSEStudioClient;
 import com.suse.studio.client.data.Appliance;
-import com.suse.studio.client.data.Appliances;
+import com.suse.studio.client.data.Build;
+import com.suse.studio.client.data.DiskQuota;
 import com.suse.studio.client.data.User;
-import com.suse.studio.client.net.StudioConnection;
-import com.suse.studio.util.Base64;
 
 /**
- * Library class for the SUSE Studio REST API.
- * TODO: Implement the REST of the API.
- * 
- * @author Johannes Renner
+ * Demo program for testing the SUSE Studio client library.
  */
 public class SUSEStudioClient {
 
-    private final String user;
-    private final String apiKey;
+	public static final String user = "";
+	public static final String key = "";
 
-    public static final String baseURL = "http://susestudio.com/api/v2";
+	/**
+	 * Takes the credentials (user and API key) as arguments.
+	 *
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// Check the number of arguments
 
-    public SUSEStudioClient(String user, String apiKey) {
-        if (user == null || apiKey == null) {
-            throw new RuntimeException("We need the user and API key!");
-        }
-    	this.user = user;
-        this.apiKey = apiKey;
-    }
-    
-    /**
-     * GET /api/v2/user/account
-     * @return current user
-     * @throws IOException
-     */
-    public User getUser() throws IOException {
-    	StudioConnection sc = new StudioConnection("/user/account", getEncodedCredentials());
-        User result = sc.get(User.class);
-        return result;
-    }
+		// Create the client object and do something with it
+		SUSEStudio studio = new SUSEStudio(user, key);
+		try {
+			User user = studio.getUser();
+			DiskQuota dq = user.getDiskQuota();
+			System.out.println("Name: " + user.getUsername());
+			System.out.println("DiskQuota: " + dq.getUsed() + " of " + dq.getAvailable());
 
-    /**
-     * Get all appliances of the current user.
-     * GET /api/v2/user/appliances
-     * 
-     * @return list of the current user's appliances
-     * @throws IOException 
-     */
-    public List<Appliance> getAppliances() throws IOException {
-    	StudioConnection sc = new StudioConnection("/user/appliances", getEncodedCredentials());
-        Appliances result = sc.get(Appliances.class);
-        return result.getAppliances();
-    }
-
-    /**
-     * Return the encoded credentials. 
-     * 
-     * @return encoded credentials as {@link String}
-     */
-    private String getEncodedCredentials() {
-        return Base64.encodeBytes((user + ":" + apiKey).getBytes());
-    }
+			List<Appliance> appliances = studio.getAppliances();
+			for (Appliance a : appliances) {
+				System.out.println("---------- Appliance ----------");
+				System.out.println("Name: " + a.getName());
+				for(Build b : a.getBuilds()) {
+					System.out.println("Download url: " + b.getDownloadUrl());
+				}
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
