@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="jar" name="susestudio-lib-java">
-    <!-- Properties -->
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.6"/>
-    <property name="source" value="1.6"/>
+  <!-- Properties -->
+  <property name="debuglevel" value="source,lines,vars" />
+  <property name="target" value="1.6" />
+  <property name="source" value="1.6" />
 
-    <!-- Classpath -->
-    <path id="susestudio-lib-java.classpath">
-        <pathelement location="bin"/>
-    </path>
+  <!-- Directories -->
+  <property name="dir-src" value="src" />
+  <property name="dir-lib" value="lib" />
+  <property name="dir-bin" value="bin" />
+  <property name="dir-dist" value="dist" />
 
-    <!-- Init -->
-    <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
-            <fileset dir="src">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
+  <!-- Classpath -->
+  <path id="classpath-build">
+    <pathelement location="${dir-lib}/simple-xml-2.6.jar" />
+  </path>
 
-    <!-- Clean -->
-    <target name="clean">
-        <delete dir="bin"/>
-        <delete dir="dist"/>
-    </target>
+  <!-- Clean -->
+  <target name="clean">
+    <delete dir="${dir-bin}" />
+    <delete dir="${dir-dist}" />
+  </target>
 
-    <!-- Build -->
-    <target depends="init" name="build">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="susestudio-lib-java.classpath"/>
-        </javac>
-    </target>
+  <!-- Init -->
+  <target name="init">
+    <mkdir dir="${dir-bin}" />
+    <copy includeemptydirs="false" todir="${dir-bin}">
+      <fileset dir="${dir-src}">
+        <exclude name="**/*.launch" />
+        <exclude name="**/*.java" />
+      </fileset>
+    </copy>
+  </target>
 
-    <!-- Jar -->
-    <target depends="build" name="jar">
-        <mkdir dir="dist"/>
-        <jar destfile="dist/susestudio-lib-java.jar" basedir="bin"/>
-    </target>
+  <!-- Build -->
+  <target name="build" depends="init">
+    <echo message="${ant.project.name}: ${ant.file}" />
+    <javac debug="true" debuglevel="${debuglevel}" destdir="${dir-bin}" source="${source}" target="${target}" includeantruntime="false">
+      <src path="${dir-src}" />
+      <classpath refid="classpath-build" />
+    </javac>
+  </target>
+
+  <!-- Jar -->
+  <target name="jar" depends="build">
+    <mkdir dir="${dir-dist}" />
+    <jar destfile="${dir-dist}/susestudio-lib-java.jar" basedir="${dir-bin}" />
+  </target>
 </project>
