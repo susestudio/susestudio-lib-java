@@ -30,56 +30,68 @@ import com.suse.studio.client.data.Appliances;
 import com.suse.studio.client.data.User;
 import com.suse.studio.client.net.StudioConnection;
 import com.suse.studio.util.Base64;
+import com.suse.studio.util.Prefs;
 
 /**
  * Library class for the SUSE Studio REST API.
  */
 public class SUSEStudio {
 
-    private final String user;
-    private final String apiKey;
+    // The encoded credentials
+    private final String credentials;
 
-    public static final String baseURL = "http://susestudio.com/api/v2";
-
+    /**
+     * Create a client object by providing user and API key. This client will
+     * talk to the public SUSE Studio default URL.
+     *
+     * @param user
+     * @param apiKey
+     */
     public SUSEStudio(String user, String apiKey) {
         if (user == null || apiKey == null) {
             throw new RuntimeException("We need the user and API key!");
         }
-        this.user = user;
-        this.apiKey = apiKey;
+        // Encode the credentials
+        this.credentials = Base64.encodeBytes((user + ":" + apiKey).getBytes());
     }
 
     /**
+     * Create a client by providing user, API key and a base URL of the API.
+     *
+     * @param user
+     * @param apiKey
+     * @param url
+     */
+    public SUSEStudio(String user, String apiKey, String url) {
+        this(user, apiKey);
+        Prefs.put(Prefs.BASE_URL, url);
+    }
+
+    /**
+     * Get information about the user associated with this client.
+     *
      * GET /api/v2/user/account
      *
      * @return current user
      * @throws IOException
      */
     public User getUser() throws IOException {
-        StudioConnection sc = new StudioConnection("/user/account", getEncodedCredentials());
+        StudioConnection sc = new StudioConnection("/user/account", credentials);
         User result = sc.get(User.class);
         return result;
     }
 
     /**
      * Get all appliances of the current user.
+     *
      * GET /api/v2/user/appliances
      *
      * @return list of the current user's appliances
      * @throws IOException
      */
     public List<Appliance> getAppliances() throws IOException {
-        StudioConnection sc = new StudioConnection("/user/appliances", getEncodedCredentials());
+        StudioConnection sc = new StudioConnection("/user/appliances", credentials);
         Appliances result = sc.get(Appliances.class);
         return result.getAppliances();
-    }
-
-    /**
-     * Return the encoded credentials.
-     *
-     * @return encoded credentials as {@link String}
-     */
-    private String getEncodedCredentials() {
-        return Base64.encodeBytes((user + ":" + apiKey).getBytes());
     }
 }
