@@ -39,6 +39,7 @@ public class SUSEStudio {
 
     // The encoded credentials
     private final String credentials;
+    private final String URL_API_SUFFIX = "/api/v2";
 
     /**
      * Create a client object by providing user and API key. This client will
@@ -64,7 +65,11 @@ public class SUSEStudio {
      */
     public SUSEStudio(String user, String apiKey, String url) {
         this(user, apiKey);
-        Prefs.put(Prefs.BASE_URL, url);
+        // Remove trailing slashes
+        while (url.endsWith("/")) {
+            url = url.substring(0, url.length()-1);
+        }
+        Prefs.put(Prefs.BASE_URL, url + URL_API_SUFFIX);
     }
 
     /**
