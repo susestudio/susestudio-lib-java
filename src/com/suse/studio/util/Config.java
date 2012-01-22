@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Novell Inc.
+ * Copyright (c) 2012 Novell
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,12 @@
 
 package com.suse.studio.util;
 
-import java.util.prefs.Preferences;
+import java.util.Properties;
 
 /**
  * Utility class for providing access to properties needed during runtime.
- *
- * @author jrenner
  */
-public class Prefs {
+public class Config {
 
     // Keys to be used
     public static String BASE_URL = "baseURL";
@@ -37,9 +35,8 @@ public class Prefs {
     // Default values
     private static final String DEFAULT_URL = "http://susestudio.com/api/v2";
 
-    // The Preferences node
-    private static Preferences prefs = Preferences.userRoot().node(
-            Prefs.class.getName());
+    // The properties object
+    private static Properties properties = new Properties();
 
     /**
      * Set a preference given by key and value. Use one of the public key
@@ -49,7 +46,7 @@ public class Prefs {
      * @param value
      */
     public static void put(String key, String value) {
-        prefs.put(key, value);
+        properties.setProperty(key, value);
     }
 
     /**
@@ -58,6 +55,6 @@ public class Prefs {
      * @return base URL
      */
     public static String getBaseURL() {
-        return prefs.get(BASE_URL, DEFAULT_URL);
+        return properties.getProperty(BASE_URL, DEFAULT_URL);
     }
 }

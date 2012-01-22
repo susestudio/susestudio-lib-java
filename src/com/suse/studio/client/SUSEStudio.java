@@ -30,7 +30,7 @@ import com.suse.studio.client.data.Appliances;
 import com.suse.studio.client.data.User;
 import com.suse.studio.client.net.StudioConnection;
 import com.suse.studio.util.Base64;
-import com.suse.studio.util.Prefs;
+import com.suse.studio.util.Config;
 
 /**
  * Library class for the SUSE Studio REST API.
@@ -57,7 +57,7 @@ public class SUSEStudio {
     }
 
     /**
-     * Create a client by providing user, API key and a base URL of the API.
+     * Create a client by providing user, API key and SUSE Studio base URL.
      *
      * @param user
      * @param apiKey
@@ -67,9 +67,9 @@ public class SUSEStudio {
         this(user, apiKey);
         // Remove trailing slashes
         while (url.endsWith("/")) {
-            url = url.substring(0, url.length()-1);
+            url = url.substring(0, url.length() - 1);
         }
-        Prefs.put(Prefs.BASE_URL, url + URL_API_SUFFIX);
+        Config.put(Config.BASE_URL, url + URL_API_SUFFIX);
     }
 
     /**
