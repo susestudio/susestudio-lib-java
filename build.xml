@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="jar" name="susestudio-lib-java">
+<project basedir="." default="dist" name="susestudio-lib-java">
   <!-- Properties -->
   <property name="debuglevel" value="source,lines,vars" />
   <property name="target" value="1.6" />
@@ -10,6 +10,9 @@
   <property name="dir-lib" value="lib" />
   <property name="dir-bin" value="bin" />
   <property name="dir-dist" value="dist" />
+
+  <!-- Load properties from file -->
+  <property file="${basedir}/buildconf/build.properties" />
 
   <!-- Classpath -->
   <path id="classpath-build">
@@ -43,8 +46,8 @@
   </target>
 
   <!-- Jar -->
-  <target name="jar" depends="build">
+  <target name="dist" depends="build">
     <mkdir dir="${dir-dist}" />
-    <jar destfile="${dir-dist}/susestudio-lib-java.jar" basedir="${dir-bin}" />
+    <jar destfile="${dir-dist}/susestudio-${version}.jar" basedir="${dir-bin}" />
   </target>
 </project>
