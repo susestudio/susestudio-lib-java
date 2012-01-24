@@ -16,7 +16,9 @@
 
   <!-- Classpath -->
   <path id="classpath-build">
-    <pathelement location="${dir-lib}/simple-xml-2.6.jar" />
+    <fileset dir="${dir-lib}">
+      <include name="**/*.jar"/>
+    </fileset>
   </path>
 
   <!-- Clean -->
