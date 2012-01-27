@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Novell Inc.
+ * Copyright (c) 2012 Novell
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,7 @@ import java.util.List;
 
 import com.suse.studio.client.data.Appliance;
 import com.suse.studio.client.data.Appliances;
+import com.suse.studio.client.data.Gallery;
 import com.suse.studio.client.data.User;
 import com.suse.studio.client.net.StudioConnection;
 import com.suse.studio.util.Base64;
@@ -39,7 +40,14 @@ public class SUSEStudio {
 
     // The encoded credentials
     private final String credentials;
+
+    // Generic suffix for the v2 API
     private final String URL_API_SUFFIX = "/api/v2";
+
+    // Currently available query types for gallery
+    public static final String GALLERY_LATEST = "latest";
+    public static final String GALLERY_POPULAR = "popular";
+    public static final String GALLERY_USERNAME = "username";
 
     /**
      * Create a client object by providing user and API key. This client will
@@ -98,5 +106,41 @@ public class SUSEStudio {
         StudioConnection sc = new StudioConnection("/user/appliances", credentials);
         Appliances result = sc.get(Appliances.class);
         return result.getAppliances();
+    }
+
+    /**
+     * Query appliances from SUSE Gallery (latest|popular|username).
+     *
+     * GET /api/v2/user/gallery/appliances
+     *
+     * @param queryType
+     *            the type of the query, choose from constants
+     * @return list of appliances queried from gallery
+     * @throws IOException
+     */
+    public Gallery getGallery(String queryType) throws IOException {
+        StringBuffer uri = new StringBuffer("/user/gallery/appliances?");
+        uri.append(queryType);
+        StudioConnection sc = new StudioConnection(uri.toString(), credentials);
+        Gallery gallery = sc.get(Gallery.class);
+        return gallery;
+    }
+
+    /**
+     * Search for appliances within SUSE Gallery.
+     *
+     * GET /api/v2/user/gallery/appliances
+     *
+     * @param searchquery
+     *            query string
+     * @return list of appliances queried from gallery
+     * @throws IOException
+     */
+    public Gallery searchGallery(String searchquery) throws IOException {
+        StringBuffer uri = new StringBuffer("/user/gallery/appliances?search=");
+        uri.append(searchquery);
+        StudioConnection sc = new StudioConnection(uri.toString(), credentials);
+        Gallery gallery = sc.get(Gallery.class);
+        return gallery;
     }
 }
