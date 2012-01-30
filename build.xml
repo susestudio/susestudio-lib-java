@@ -50,6 +50,6 @@
   <!-- Jar -->
   <target name="dist" depends="build">
     <mkdir dir="${dir-dist}" />
-    <jar destfile="${dir-dist}/susestudio-${version}.jar" basedir="${dir-bin}" />
+    <jar destfile="${dir-dist}/susestudio-java-client-${version}.jar" basedir="${dir-bin}" />
   </target>
 </project>
