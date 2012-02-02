@@ -42,7 +42,7 @@ public class GalleryAppliances {
     @Element
     private int current_page;
 
-    @ElementList(name = "appliance", inline = true)
+    @ElementList(name = "appliance", inline = true, required = false)
     private List<GalleryAppliance> appliance;
 
     public int getCount() {
