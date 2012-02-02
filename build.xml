@@ -2,8 +2,6 @@
 <project basedir="." default="dist" name="susestudio-java-client">
   <!-- Properties -->
   <property name="debuglevel" value="source,lines,vars" />
-  <property name="target" value="1.6" />
-  <property name="source" value="1.6" />
 
   <!-- Directories -->
   <property name="dir-src" value="src" />
@@ -41,7 +39,7 @@
   <!-- Build -->
   <target name="build" depends="init">
     <echo message="${ant.project.name}: ${ant.file}" />
-    <javac debug="true" debuglevel="${debuglevel}" destdir="${dir-bin}" source="${source}" target="${target}" includeantruntime="false">
+    <javac debug="true" debuglevel="${debuglevel}" destdir="${dir-bin}" includeantruntime="false">
       <src path="${dir-src}" />
       <classpath refid="classpath-build" />
     </javac>
