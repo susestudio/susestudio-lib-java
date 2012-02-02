@@ -119,7 +119,7 @@ public class SUSEStudio {
      * @throws IOException
      */
     public Gallery getGallery(String queryType) throws IOException {
-        StringBuffer uri = new StringBuffer("/user/gallery/appliances?");
+        StringBuilder uri = new StringBuilder("/user/gallery/appliances?");
         uri.append(queryType);
         StudioConnection sc = new StudioConnection(uri.toString(), credentials);
         Gallery gallery = sc.get(Gallery.class);
@@ -137,7 +137,7 @@ public class SUSEStudio {
      * @throws IOException
      */
     public Gallery searchGallery(String searchquery) throws IOException {
-        StringBuffer uri = new StringBuffer("/user/gallery/appliances?search=");
+        StringBuilder uri = new StringBuilder("/user/gallery/appliances?search=");
         uri.append(searchquery);
         StudioConnection sc = new StudioConnection(uri.toString(), credentials);
         Gallery gallery = sc.get(Gallery.class);
