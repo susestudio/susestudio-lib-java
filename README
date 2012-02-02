@@ -1,2 +1,2 @@
-A Java library for accessing the SUSE Studio REST API (WIP).
-For building the library from the sources, simply call 'ant'.
+A Java client library for accessing SUSE Studio via its REST API.
+Use 'ant' for building a jarfile from sources.
