@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="dist" name="susestudio-lib-java">
+<project basedir="." default="dist" name="susestudio-java-client">
   <!-- Properties -->
   <property name="debuglevel" value="source,lines,vars" />
   <property name="target" value="1.6" />
@@ -49,7 +49,22 @@
 
   <!-- Jar -->
   <target name="dist" depends="build">
-    <mkdir dir="${dir-dist}" />
-    <jar destfile="${dir-dist}/susestudio-java-client-${version}.jar" basedir="${dir-bin}" />
+    <jar destfile="${dir-dist}/${ant.project.name}-${version}.jar" basedir="${dir-bin}" />
+  </target>
+
+  <!-- Create a tar.bz2 archive containing the sources -->
+  <target name="src">
+    <tar destfile="${dir-dist}/${ant.project.name}-${version}.tar.bz2" compression="bzip2">
+      <tarfileset dir="${basedir}" prefix="${ant.project.name}-${version}">
+        <include name="src/**" />
+        <include name="lib/**" />
+        <include name="buildconf/**" />
+        <include name="build.xml" />
+        <include name="LICENSE" />
+        <include name="README" />
+        <!-- Exclude since this is for testing only -->
+        <exclude name="**/SUSEStudioClient.java" />
+      </tarfileset>
+    </tar>
   </target>
 </project>
