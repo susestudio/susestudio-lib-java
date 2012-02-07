@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
+import com.suse.studio.util.StudioConfig;
+
 public class StudioConnection {
 	
 	private HttpURLConnection connection;
@@ -14,15 +16,15 @@ public class StudioConnection {
 	private String uri = null;
 	private String encodedCredentials = null;
 
-	public StudioConnection(String uri) {
-		this.uri = uri;
-	}
-	
-	public StudioConnection(String uri, String encodedCredentials) {
-		this.uri = uri;
-		this.encodedCredentials = encodedCredentials;
-	}
-	
+    /**
+     * Init a connection to SUSE Studio with given configuration.
+     * @param config
+     */
+    public StudioConnection(String uri, StudioConfig config) {
+        this.uri = config.getBaseURL() + uri;
+        this.encodedCredentials = config.getEncodedCredentials();
+    }
+
 	public <T> T get(Class<T> class1) throws IOException {
 		if (encodedCredentials == null) {
 			connection = Request.get(uri);

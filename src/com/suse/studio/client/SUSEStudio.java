@@ -31,15 +31,12 @@ import com.suse.studio.client.data.Gallery;
 import com.suse.studio.client.data.User;
 import com.suse.studio.client.net.StudioConnection;
 import com.suse.studio.util.Base64;
-import com.suse.studio.util.Config;
+import com.suse.studio.util.StudioConfig;
 
 /**
  * Library class for the SUSE Studio REST API.
  */
 public class SUSEStudio {
-
-    // The encoded credentials
-    private final String credentials;
 
     // Generic suffix for the v2 API
     private final String URL_API_SUFFIX = "/api/v2";
@@ -48,6 +45,9 @@ public class SUSEStudio {
     public static final String GALLERY_LATEST = "latest";
     public static final String GALLERY_POPULAR = "popular";
     public static final String GALLERY_USERNAME = "username";
+
+    // Every instance needs a config object
+    private StudioConfig config;
 
     /**
      * Create a client object by providing user and API key. This client will
@@ -60,8 +60,11 @@ public class SUSEStudio {
         if (user == null || apiKey == null) {
             throw new RuntimeException("We need the user and API key!");
         }
+        // Create the configuration
+        this.config = new StudioConfig();
         // Encode the credentials
-        this.credentials = Base64.encodeBytes((user + ":" + apiKey).getBytes());
+        String credentials = Base64.encodeBytes((user + ":" + apiKey).getBytes());
+        this.config.put(StudioConfig.KEY_ENCODED_CREDS, credentials);
     }
 
     /**
@@ -77,7 +80,7 @@ public class SUSEStudio {
         while (url.endsWith("/")) {
             url = url.substring(0, url.length() - 1);
         }
-        Config.put(Config.BASE_URL, url + URL_API_SUFFIX);
+        config.put(StudioConfig.KEY_BASE_URL, url + URL_API_SUFFIX);
     }
 
     /**
@@ -89,7 +92,7 @@ public class SUSEStudio {
      * @throws IOException
      */
     public User getUser() throws IOException {
-        StudioConnection sc = new StudioConnection("/user/account", credentials);
+        StudioConnection sc = new StudioConnection("/user/account", config);
         User result = sc.get(User.class);
         return result;
     }
@@ -103,7 +106,7 @@ public class SUSEStudio {
      * @throws IOException
      */
     public List<Appliance> getAppliances() throws IOException {
-        StudioConnection sc = new StudioConnection("/user/appliances", credentials);
+        StudioConnection sc = new StudioConnection("/user/appliances", config);
         Appliances result = sc.get(Appliances.class);
         return result.getAppliances();
     }
@@ -121,7 +124,7 @@ public class SUSEStudio {
     public Gallery getGallery(String queryType) throws IOException {
         StringBuilder uri = new StringBuilder("/user/gallery/appliances?");
         uri.append(queryType);
-        StudioConnection sc = new StudioConnection(uri.toString(), credentials);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
         Gallery gallery = sc.get(Gallery.class);
         return gallery;
     }
@@ -139,7 +142,7 @@ public class SUSEStudio {
     public Gallery searchGallery(String searchquery) throws IOException {
         StringBuilder uri = new StringBuilder("/user/gallery/appliances?search=");
         uri.append(searchquery);
-        StudioConnection sc = new StudioConnection(uri.toString(), credentials);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
         Gallery gallery = sc.get(Gallery.class);
         return gallery;
     }

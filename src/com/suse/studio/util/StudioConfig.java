@@ -27,16 +27,24 @@ import java.util.Properties;
 /**
  * Utility class for providing access to properties needed during runtime.
  */
-public class Config {
+public class StudioConfig {
 
     // Keys to be used
-    public static String BASE_URL = "baseURL";
+    public static String KEY_BASE_URL = "baseURL";
+    public static String KEY_ENCODED_CREDS = "encodedCreds";
 
     // Default values
     private static final String DEFAULT_URL = "http://susestudio.com/api/v2";
 
     // The properties object
-    private static Properties properties = new Properties();
+    private Properties properties;
+
+    /**
+     * Constructor.
+     */
+    public StudioConfig() {
+        this.properties = new Properties();
+    }
 
     /**
      * Set a preference given by key and value. Use one of the public key
@@ -45,7 +53,7 @@ public class Config {
      * @param key
      * @param value
      */
-    public static void put(String key, String value) {
+    public void put(String key, String value) {
         properties.setProperty(key, value);
     }
 
@@ -54,7 +62,16 @@ public class Config {
      *
      * @return base URL
      */
-    public static String getBaseURL() {
-        return properties.getProperty(BASE_URL, DEFAULT_URL);
+    public String getBaseURL() {
+        return properties.getProperty(KEY_BASE_URL, DEFAULT_URL);
+    }
+
+    /**
+     * Return the encoded credentials or null.
+     *
+     * @return credentials
+     */
+    public String getEncodedCredentials() {
+        return properties.getProperty(KEY_ENCODED_CREDS, null);
     }
 }
