@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011 Novell Inc.
+ * Copyright (c) 2012 Novell Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,53 +22,96 @@
 
 package com.suse.studio.client.data;
 
+import java.util.Date;
 import java.util.List;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(strict=false)
+@Root(strict = false)
 public class Appliance {
 
-	@Element
-	private int id;
+    @Element
+    private int id;
 
-	@Element
-	private String name;
+    @Element
+    private String name;
 
-	@Element
-	private String arch;
+    @Element(required = false)
+    private String arch;
 
-	@Element
-	private String type;
+    @Element(required = false)
+    private String type;
 
-	@Element
-	private String basesystem;
+    @Element(name = "last_edited")
+    private Date lastEdited;
 
-	@Element
-	private Builds builds;
+    @Element(name = "estimated_raw_size", required = false)
+    private String estimatedRawSize;
 
-	public int getId() {
-		return id;
-	}
+    @Element(name = "estimated_compressed_size", required = false)
+    private String estimatedCompressedSize;
 
-	public String getName() {
-		return name;
-	}
+    @Element(name = "edit_url")
+    private String editUrl;
 
-	public String getArch() {
-		return arch;
-	}
+    @Element(required = false)
+    private String basesystem;
 
-	public String getType() {
-		return type;
-	}
+    @Element(required = false)
+    private String uuid;
 
-	public String getBasesystem() {
-		return basesystem;
-	}
+    @Element
+    private Parent parent;
 
-	public List<Build> getBuilds() {
-		return builds.getBuilds();
-	}
+    @Element
+    private Builds builds;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getArch() {
+        return arch;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Date getLastEdited() {
+        return lastEdited;
+    }
+
+    public String getEstimatedRawSize() {
+        return estimatedRawSize;
+    }
+
+    public String getEstimatedCompressedSize() {
+        return estimatedCompressedSize;
+    }
+
+    public String getEditUrl() {
+        return editUrl;
+    }
+
+    public String getBasesystem() {
+        return basesystem;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public Parent getParent() {
+        return parent;
+    }
+
+    public List<Build> getBuilds() {
+        return builds.getBuilds();
+    }
 }

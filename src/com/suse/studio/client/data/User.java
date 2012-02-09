@@ -1,5 +1,7 @@
 package com.suse.studio.client.data;
 
+import java.util.Date;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -14,7 +16,10 @@ public class User {
 	
 	@Element
 	private String email;
-	
+
+	@Element(name="created_at")
+	private Date createdAt;
+
 	@Element(name="disk_quota")
 	private DiskQuota diskQuota;
 	
@@ -30,7 +35,11 @@ public class User {
 		return email;
 	}
 	
-	public DiskQuota getDiskQuota() {
+	public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public DiskQuota getDiskQuota() {
 		return diskQuota;
 	}
 }

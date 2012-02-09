@@ -25,48 +25,20 @@ package com.suse.studio.client.data;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(strict = false)
-public class Build {
+@Root(strict=false)
+public class Parent {
 
-    @Element
-    private int id;
+	@Element
+	private int id;
 
-    @Element
-    private String version;
+	@Element
+	private String name;
 
-    @Element(name = "image_type")
-    private String imageType;
+	public int getId() {
+		return id;
+	}
 
-    @Element(name = "image_size")
-    private String imageSize;
-
-    @Element(name = "compressed_image_size")
-    private String compressedImageSize;
-
-    @Element(name = "download_url")
-    private String downloadUrl;
-
-    public int getId() {
-        return id;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public String getImageType() {
-        return imageType;
-    }
-
-    public String getImageSize() {
-        return imageSize;
-    }
-
-    public String getCompressedImageSize() {
-        return compressedImageSize;
-    }
-
-    public String getDownloadUrl() {
-        return downloadUrl;
-    }
+	public String getName() {
+		return name;
+	}
 }
