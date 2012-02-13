@@ -51,7 +51,7 @@ public class SUSEStudio {
 
     /**
      * Create a client object by providing user and API key. This client will
-     * talk to the public SUSE Studio default URL.
+     * talk to the public SUSE Studio default URL (http://susestudio.com).
      *
      * @param user
      * @param apiKey
@@ -69,6 +69,8 @@ public class SUSEStudio {
 
     /**
      * Create a client by providing user, API key and SUSE Studio base URL.
+     * Passing <code>null</code> as the url is supported, we will fall back to
+     * the public SUSE Studio default URL (http://susestudio.com) in this case.
      *
      * @param user
      * @param apiKey
@@ -76,11 +78,13 @@ public class SUSEStudio {
      */
     public SUSEStudio(String user, String apiKey, String url) {
         this(user, apiKey);
-        // Remove trailing slashes
-        while (url.endsWith("/")) {
-            url = url.substring(0, url.length() - 1);
+        if (url != null) {
+            // Remove trailing slashes
+            while (url.endsWith("/")) {
+                url = url.substring(0, url.length() - 1);
+            }
+            config.put(StudioConfig.KEY_BASE_URL, url + URL_API_SUFFIX);
         }
-        config.put(StudioConfig.KEY_BASE_URL, url + URL_API_SUFFIX);
     }
 
     /**
