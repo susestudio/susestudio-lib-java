@@ -32,15 +32,15 @@ import org.simpleframework.xml.Root;
 @Root
 public class Appliances {
 
-	@Attribute
-	private String type;
-	
-	@ElementList(inline=true)
+    @Attribute
+    private String type;
+
+    @ElementList(inline = true, required = false)
     private List<Appliance> appliance;
-	
-	public String getType() {
-		return type;
-	}
+
+    public String getType() {
+        return type;
+    }
 
     public List<Appliance> getAppliances() {
         if (appliance == null) {
