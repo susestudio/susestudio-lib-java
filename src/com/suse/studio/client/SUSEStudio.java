@@ -116,6 +116,22 @@ public class SUSEStudio {
     }
 
     /**
+     * Get the details of an appliance given by id.
+     *
+     * GET /api/v2/user/appliances/<id>
+     *
+     * @return details of appliance with given id
+     * @throws IOException
+     */
+    public Appliance getAppliance(long id) throws IOException {
+        StringBuilder uri = new StringBuilder("/user/appliances/");
+        uri.append(id);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        Appliance result = sc.get(Appliance.class);
+        return result;
+    }
+
+    /**
      * Query appliances from SUSE Gallery (latest|popular|username).
      *
      * GET /api/v2/user/gallery/appliances
