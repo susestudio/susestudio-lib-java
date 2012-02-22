@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.suse.studio.util;
+package com.suse.studio.client.util;
 
 import java.util.Properties;
 

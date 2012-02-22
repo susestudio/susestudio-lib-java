@@ -1,4 +1,4 @@
-package com.suse.studio.util;
+package com.suse.studio.client.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
-import com.suse.studio.util.ParserUtils;
-import com.suse.studio.util.StudioConfig;
+import com.suse.studio.client.util.ParserUtils;
+import com.suse.studio.client.util.StudioConfig;
 
 public class StudioConnection {
 

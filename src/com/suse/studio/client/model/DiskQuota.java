@@ -1,4 +1,4 @@
-package com.suse.studio.client.data;
+package com.suse.studio.client.model;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;

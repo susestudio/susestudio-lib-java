@@ -145,7 +145,7 @@
  * @author rob@iharder.net
  * @version 2.3.7
  */
-package com.suse.studio.util;
+package com.suse.studio.client.util;
 
 public class Base64
 {

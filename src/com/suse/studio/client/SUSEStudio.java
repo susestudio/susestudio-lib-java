@@ -25,13 +25,13 @@ package com.suse.studio.client;
 import java.io.IOException;
 import java.util.List;
 
-import com.suse.studio.client.data.Appliance;
-import com.suse.studio.client.data.Appliances;
-import com.suse.studio.client.data.Gallery;
-import com.suse.studio.client.data.User;
+import com.suse.studio.client.model.Appliance;
+import com.suse.studio.client.model.Appliances;
+import com.suse.studio.client.model.Gallery;
+import com.suse.studio.client.model.User;
 import com.suse.studio.client.net.StudioConnection;
-import com.suse.studio.util.Base64;
-import com.suse.studio.util.StudioConfig;
+import com.suse.studio.client.util.Base64;
+import com.suse.studio.client.util.StudioConfig;
 
 /**
  * Library class for the SUSE Studio REST API.

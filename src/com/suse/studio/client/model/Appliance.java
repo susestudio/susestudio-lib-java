@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.suse.studio.client.data;
+package com.suse.studio.client.model;
 
 import java.util.Date;
 import java.util.List;

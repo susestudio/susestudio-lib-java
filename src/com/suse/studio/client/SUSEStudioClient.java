@@ -26,10 +26,10 @@ import java.io.IOException;
 import java.util.List;
 
 import com.suse.studio.client.SUSEStudioClient;
-import com.suse.studio.client.data.Appliance;
-import com.suse.studio.client.data.Build;
-import com.suse.studio.client.data.DiskQuota;
-import com.suse.studio.client.data.User;
+import com.suse.studio.client.model.Appliance;
+import com.suse.studio.client.model.Build;
+import com.suse.studio.client.model.DiskQuota;
+import com.suse.studio.client.model.User;
 
 /**
  * Demo program for testing the SUSE Studio client library.
