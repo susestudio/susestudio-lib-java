@@ -25,6 +25,7 @@ package com.suse.studio.client;
 import java.io.IOException;
 import java.util.List;
 
+import com.suse.studio.client.model.Version;
 import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Appliances;
 import com.suse.studio.client.model.Gallery;
@@ -99,6 +100,20 @@ public class SUSEStudio {
         StudioConnection sc = new StudioConnection("/user/account", config);
         User result = sc.get(User.class);
         return result;
+    }
+
+    /**
+     * Return the running API version including the minor version.
+     *
+     * GET /api/v2/user/api_version
+     *
+     * @return API version including minor version
+     * @throws IOException
+     */
+    public String getApiVersion() throws IOException {
+        StudioConnection sc = new StudioConnection("/user/api_version", config);
+        Version version = sc.get(Version.class);
+        return version.getValue();
     }
 
     /**
