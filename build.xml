@@ -60,8 +60,6 @@
         <include name="build.xml" />
         <include name="LICENSE" />
         <include name="README" />
-        <!-- Exclude since this is for testing only -->
-        <exclude name="**/SUSEStudioClient.java" />
       </tarfileset>
     </tar>
   </target>
