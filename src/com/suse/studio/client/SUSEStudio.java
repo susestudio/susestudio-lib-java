@@ -25,6 +25,7 @@ package com.suse.studio.client;
 import java.io.IOException;
 import java.util.List;
 
+import com.suse.studio.client.model.Status;
 import com.suse.studio.client.model.Version;
 import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Appliances;
@@ -144,6 +145,23 @@ public class SUSEStudio {
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         Appliance result = sc.get(Appliance.class);
         return result;
+    }
+
+    /**
+     * Get information about the status of an appliance given by id.
+     *
+     * GET /api/v2/user/appliances/<id>/status
+     *
+     * @return status of appliance with given id
+     * @throws IOException
+     */
+    public Status getApplianceStatus(long id) throws IOException {
+        StringBuilder uri = new StringBuilder("/user/appliances/");
+        uri.append(id);
+        uri.append("/status");
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        Status status = sc.get(Status.class);
+        return status;
     }
 
     /**
