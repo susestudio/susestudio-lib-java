@@ -1,0 +1,2 @@
+A Java client library for accessing SUSE Studio via its REST API.
+Use 'ant' for building a jarfile from sources.
