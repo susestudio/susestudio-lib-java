@@ -47,11 +47,13 @@
 
   <!-- Jar -->
   <target name="dist" depends="build">
+    <mkdir dir="${dir-dist}" />
     <jar destfile="${dir-dist}/${ant.project.name}-${version}.jar" basedir="${dir-bin}" />
   </target>
 
   <!-- Create a tar.bz2 archive containing the sources -->
   <target name="src">
+    <mkdir dir="${dir-dist}" />
     <tar destfile="${dir-dist}/${ant.project.name}-${version}.tar.bz2" compression="bzip2">
       <tarfileset dir="${basedir}" prefix="${ant.project.name}-${version}">
         <include name="src/**" />
