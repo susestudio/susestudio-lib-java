@@ -1,2 +1,61 @@
-A Java client library for accessing SUSE Studio via its REST API.
-Use 'ant' for building a jarfile from sources.
+h1. SUSE Studio Java Client SDK
+
+This is a Java based library for development of client applications communicating with SUSE Studio via the 
+REST API. Please be aware that at the moment this is still work in Progress and only a subset of the API is
+currently implemented. Feel free to send Pull Requests.
+
+h2. Example Usage
+
+h3. General Information
+
+<pre>
+// Initialize
+SUSEStudio studio = new SUSEStudio("username", "password");
+System.out.println("Version: " + studio.getApiVersion());
+
+// Get user details
+User user = studio.getUser();
+System.out.println("Name: " + user.getUsername());
+
+// Disk quota
+DiskQuota dq = user.getDiskQuota();
+System.out.println("DiskQuota: " + dq.getUsed() + " of " + dq.getAvailable());
+</pre>
+
+h3. Appliances
+
+<pre>
+// Get the appliances
+List<Appliance> appliances = studio.getAppliances();
+for (Appliance a : appliances) {
+    System.out.println("Name: " + a.getName());
+    System.out.println("UUID: " + a.getUuid());
+    System.out.println("Basesystem: " + a.getBasesystem());
+    System.out.println("Type: " + a.getType());
+    System.out.println("Edit URL: " + a.getEditUrl());
+    System.out.println("Raw Size: " + a.getEstimatedRawSize());
+
+    // List the builds
+    for(Build b : a.getBuilds()) {
+        System.out.println("Build ID: " + b.getId());
+        System.out.println("Download URL: " + b.getDownloadUrl());
+    }
+}
+</pre>
+
+h3. Gallery
+
+<pre>
+// Get popular appliances
+Gallery gallery = studio.getGallery(SUSEStudio.GALLERY_POPULAR);
+GalleryAppliances appliances = gallery.getAppliances();
+System.out.println(appliances.getCount());
+</pre>
+
+h2. Build From Sources
+
+Calling 'ant' on the commandline will build the library jarfile from sources and put in the 'dist' folder.
+
+h2. License
+
+See the LICENSE file.
