@@ -1,8 +1,6 @@
 h1. SUSE Studio Java Client SDK
 
-This is a Java based library for development of client applications communicating with SUSE Studio via the 
-REST API. Please be aware that at the moment this is still work in Progress and only a subset of the API is
-currently implemented. Feel free to send Pull Requests.
+This is a Java based library for interacting with the "SUSE Studio":http://susestudio.com image store and appliances toolkit. The library is supposed to enable developers to easily implement client applications for SUSE Studio in Java, even for mobile platforms like Android. The implementation however is at the moment still a work in progress and only the most basic parts of the "REST API":http://susestudio.com/help/api/v2 are currently covered.
 
 h2. Example Usage
 
@@ -54,7 +52,7 @@ System.out.println(appliances.getCount());
 
 h2. Build From Sources
 
-Calling 'ant' on the commandline will build the library jarfile from sources and put in the 'dist' folder.
+Calling 'ant' on the commandline will build the library jarfile from sources and put it in a folder called 'dist'.
 
 h2. License
 
