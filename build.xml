@@ -30,25 +30,33 @@
     <mkdir dir="${dir-bin}" />
     <copy includeemptydirs="false" todir="${dir-bin}">
       <fileset dir="${dir-src}">
-        <exclude name="**/*.launch" />
         <exclude name="**/*.java" />
       </fileset>
     </copy>
   </target>
 
-  <!-- Build -->
+  <!-- Build without tests -->
   <target name="build" depends="init">
-    <echo message="${ant.project.name}: ${ant.file}" />
-    <javac debug="true" debuglevel="${debuglevel}" destdir="${dir-bin}" includeantruntime="false">
-      <src path="${dir-src}" />
+    <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src}" destdir="${dir-bin}" includeantruntime="false">
+      <exclude name="**/test/**" />
       <classpath refid="classpath-build" />
     </javac>
   </target>
 
-  <!-- Jar -->
+  <!-- Build the tests -->
+  <target name="build-tests" depends="init">
+    <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src}" destdir="${dir-bin}" includeantruntime="false">
+      <include name="**/test/*.java" />
+      <classpath refid="classpath-build" />
+    </javac>
+  </target>
+
+  <!-- Create jar file, exclude tests  -->
   <target name="dist" depends="build">
     <mkdir dir="${dir-dist}" />
-    <jar destfile="${dir-dist}/${ant.project.name}-${version}.jar" basedir="${dir-bin}" />
+    <jar destfile="${dir-dist}/${ant.project.name}-${version}.jar" basedir="${dir-bin}">
+      <exclude name="**/test/**" />
+    </jar>
   </target>
 
   <!-- Create a tar.bz2 archive containing the sources -->
