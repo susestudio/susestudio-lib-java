@@ -1,0 +1,13 @@
+<status>
+  <state>error</state>
+  <issues>
+    <issue>
+      <type>error</type>
+      <text>You must include a kernel package in your appliance.</text>
+      <solution>
+        <type>install</type>
+        <package>kernel-default</package>
+      </solution>
+    </issue>
+  </issues>
+</status>
