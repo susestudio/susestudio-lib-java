@@ -4,7 +4,8 @@
   <property name="debuglevel" value="source,lines,vars" />
 
   <!-- Directories -->
-  <property name="dir-src" value="src" />
+  <property name="dir-src-main" value="src/main" />
+  <property name="dir-src-test" value="src/test" />
   <property name="dir-lib" value="lib" />
   <property name="dir-bin" value="bin" />
   <property name="dir-dist" value="dist" />
@@ -29,23 +30,28 @@
   <target name="init">
     <mkdir dir="${dir-bin}" />
     <copy includeemptydirs="false" todir="${dir-bin}">
-      <fileset dir="${dir-src}">
+      <fileset dir="${dir-src-main}">
         <exclude name="**/*.java" />
       </fileset>
     </copy>
   </target>
 
-  <!-- Build without tests -->
+  <!-- Build the code -->
   <target name="build" depends="init">
-    <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src}" destdir="${dir-bin}" includeantruntime="false">
+    <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src-main}" destdir="${dir-bin}" includeantruntime="false">
       <exclude name="**/test/**" />
       <classpath refid="classpath-build" />
     </javac>
   </target>
 
   <!-- Build the tests -->
-  <target name="build-tests" depends="init">
-    <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src}" destdir="${dir-bin}" includeantruntime="false">
+  <target name="build-tests" depends="build">
+    <copy includeemptydirs="false" todir="${dir-bin}">
+      <fileset dir="${dir-src-test}">
+        <exclude name="**/*.java" />
+      </fileset>
+    </copy>
+    <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src-test}" destdir="${dir-bin}" includeantruntime="false">
       <include name="**/test/*.java" />
       <classpath refid="classpath-build" />
     </javac>
