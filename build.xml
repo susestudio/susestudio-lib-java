@@ -4,8 +4,8 @@
   <property name="debuglevel" value="source,lines,vars" />
 
   <!-- Directories -->
-  <property name="dir-src-main" value="src/main" />
-  <property name="dir-src-test" value="src/test" />
+  <property name="dir-src-main" value="src/main/java" />
+  <property name="dir-src-test" value="src/test/java" />
   <property name="dir-lib" value="lib" />
   <property name="dir-bin" value="bin" />
   <property name="dir-dist" value="dist" />
