@@ -55,6 +55,9 @@ public class Appliance {
     @Element(name = "edit_url")
     private String editUrl;
 
+    @Element(name = "icon_url")
+    private String iconUrl;
+
     @Element(required = false)
     private String basesystem;
 
@@ -97,6 +100,10 @@ public class Appliance {
 
     public String getEditUrl() {
         return editUrl;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
     }
 
     public String getBasesystem() {
