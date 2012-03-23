@@ -55,7 +55,7 @@ public class Appliance {
     @Element(name = "edit_url")
     private String editUrl;
 
-    @Element(name = "icon_url")
+    @Element(name = "icon_url", required = false)
     private String iconUrl;
 
     @Element(required = false)
