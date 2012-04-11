@@ -25,12 +25,14 @@ package com.suse.studio.client;
 import java.io.IOException;
 import java.util.List;
 
-import com.suse.studio.client.model.Status;
-import com.suse.studio.client.model.Version;
 import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Appliances;
+import com.suse.studio.client.model.Configuration;
 import com.suse.studio.client.model.Gallery;
+import com.suse.studio.client.model.Status;
+import com.suse.studio.client.model.TemplateSets;
 import com.suse.studio.client.model.User;
+import com.suse.studio.client.model.Version;
 import com.suse.studio.client.net.StudioConnection;
 import com.suse.studio.client.util.Base64;
 import com.suse.studio.client.util.StudioConfig;
@@ -199,4 +201,21 @@ public class SUSEStudio {
         Gallery gallery = sc.get(Gallery.class);
         return gallery;
     }
+    
+    public Configuration getConfiguration(long id) throws IOException {
+    	StringBuilder uri = new StringBuilder("/user/appliances/");
+        uri.append(id);
+        uri.append("/configuration");
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        Configuration configuration = sc.get(Configuration.class);
+        return configuration;
+    }
+    
+    public TemplateSets getTemplateSets() throws IOException {
+    	StringBuilder uri = new StringBuilder("/user/template_sets");
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        TemplateSets templateSets = sc.get(TemplateSets.class);
+        return templateSets;
+    }
+
 }

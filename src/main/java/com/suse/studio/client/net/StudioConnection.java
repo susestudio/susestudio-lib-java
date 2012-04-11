@@ -45,6 +45,10 @@ public class StudioConnection {
                 encodedCredentials);
         connection.connect();
         InputStream responseBodyStream = connection.getInputStream();
+//        byte[] bt=new byte[1];
+//        while(responseBodyStream.read(bt)>0){
+//        	System.out.write(bt);
+//        }
         T result = ParserUtils.parseBodyStream(class1, responseBodyStream);
         connection.disconnect();
         getCache().put(new Element(uri, result));
