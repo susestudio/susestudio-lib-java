@@ -14,9 +14,11 @@ import com.suse.studio.client.model.Issue;
 import com.suse.studio.client.model.Parent;
 import com.suse.studio.client.model.Solution;
 import com.suse.studio.client.model.Status;
+import com.suse.studio.client.model.Template;
+import com.suse.studio.client.model.TemplateSet;
+import com.suse.studio.client.model.TemplateSets;
 import com.suse.studio.client.model.User;
 import com.suse.studio.client.test.util.TestUtils;
-import com.suse.studio.client.util.ParserUtils;
 
 /**
  * Test the data model by parsing the example files.
@@ -25,8 +27,7 @@ public class ExamplesTest {
 
     @Test
     public void testAccount() {
-        User user = ParserUtils.parseBodyStream(User.class,
-                TestUtils.getInputStream("account.xml"));
+        User user = TestUtils.parseExampleFile(User.class, "account.xml");
         assertNotNull(user);
         assertEquals("uexample", user.getUsername());
         assertEquals("User Example", user.getDisplayName());
@@ -43,8 +44,8 @@ public class ExamplesTest {
 
     @Test
     public void testAppliances() {
-        Appliances appliances = ParserUtils.parseBodyStream(Appliances.class,
-                TestUtils.getInputStream("appliances.xml"));
+        Appliances appliances = TestUtils.parseExampleFile(Appliances.class,
+                "appliances.xml");
         assertNotNull(appliances);
         List<Appliance> list = appliances.getAppliances();
         assertEquals(2, list.size());
@@ -52,8 +53,8 @@ public class ExamplesTest {
 
     @Test
     public void testAppliance() {
-        Appliance appliance = ParserUtils.parseBodyStream(Appliance.class,
-                TestUtils.getInputStream("appliance.xml"));
+        Appliance appliance = TestUtils.parseExampleFile(Appliance.class,
+                "appliance.xml");
         assertNotNull(appliance);
         assertEquals(24, appliance.getId());
         assertEquals("Cornelius' JeOS", appliance.getName());
@@ -69,8 +70,8 @@ public class ExamplesTest {
 
     @Test
     public void testApplianceStatus() {
-        Status status = ParserUtils.parseBodyStream(Status.class,
-                TestUtils.getInputStream("appliance_status.xml"));
+        Status status = TestUtils.parseExampleFile(Status.class,
+                "appliance_status.xml");
         assertNotNull(status);
         assertEquals("error", status.getState());
         List<Issue> issues = status.getIssues();
@@ -81,5 +82,34 @@ public class ExamplesTest {
         Solution solution = issue.getSolution();
         assertEquals("install", solution.getType());
         assertEquals("kernel-default", solution.getPkg());
+    }
+
+    @Test
+    public void testTemplateSets() {
+        String[] names = { "openSUSE 11.1, Just enough OS (JeOS)",
+                "openSUSE 11.1, Server", "openSUSE 11.1, Minimal X",
+                "openSUSE 11.1, KDE 3 desktop", "openSUSE 11.1, KDE 4 desktop",
+                "openSUSE 11.1, GNOME desktop" };
+        String[] descriptions = { "Tiny, minimalistic appliances",
+                "A text-only base", "Graphical system + IceWM",
+                "Base system + KDE 3", "Base system + KDE 4",
+                "Base system + GNOME" };
+        String basesystem = "11.1";
+        TemplateSets templateSets = TestUtils.parseExampleFile(
+                TemplateSets.class, "template_sets.xml");
+        assertNotNull(templateSets);
+        List<TemplateSet> templateSetsList = templateSets.getTemplateSets();
+        assertEquals(1, templateSetsList.size());
+        TemplateSet templateSet = templateSetsList.get(0);
+        assertEquals("default", templateSet.getName());
+        assertEquals("SUSE default templates", templateSet.getDescription());
+        assertEquals(6, templateSet.getTemplates().size());
+        for (int idx = 0; idx < templateSet.getTemplates().size(); idx++) {
+            Template template = templateSet.getTemplates().get(idx);
+            assertEquals(idx + 1, template.getApplianceId());
+            assertEquals(names[idx], template.getName());
+            assertEquals(descriptions[idx], template.getDescription());
+            assertEquals(basesystem, template.getBasesystem());
+        }
     }
 }
