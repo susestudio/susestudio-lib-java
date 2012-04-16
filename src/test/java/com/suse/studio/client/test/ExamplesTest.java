@@ -3,7 +3,9 @@ package com.suse.studio.client.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.junit.Test;
 
@@ -32,10 +34,11 @@ public class ExamplesTest {
         assertEquals("uexample", user.getUsername());
         assertEquals("User Example", user.getDisplayName());
         assertEquals("user@example.com", user.getEmail());
-        // TODO: Find a way to conveniently compare dates
-        // Calendar cal = Calendar.getInstance();
-        // cal.set(2009, 4, 14, 16, 51, 7);
-        // assertEquals(0, cal.getTime().compareTo(user.getCreatedAt()));
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+        cal.set(2009, 4, 14, 14, 51, 7);
+        cal.set(Calendar.MILLISECOND, 0);
+        assertEquals(0, cal.getTime().compareTo(user.getCreatedAt()));
         assertNotNull(user.getDiskQuota());
         DiskQuota diskQuota = user.getDiskQuota();
         assertEquals("15GB", diskQuota.getAvailable());
