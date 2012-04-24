@@ -173,10 +173,10 @@ public class SUSEStudio {
      * @return list of running testdrives. 
      * @throws IOException
      */
-    public String getTestDrives() throws IOException {
+   public List<Testdrive> getTestdrive() throws IOException {
         StudioConnection sc = new StudioConnection("/user/testdrives", config);
-			TestDrives testDrives = sc.get(TestDrives.class);
-			return testDrives;
+			Testdrives testdrives = sc.get(Testdrives.class);
+			return testdrives;
 
     }
 

@@ -12,8 +12,8 @@ import com.suse.studio.client.model.Appliances;
 import com.suse.studio.client.model.DiskQuota;
 import com.suse.studio.client.model.Issue;
 import com.suse.studio.client.model.Parent;
-import com.suse.studio.client.model.TestDrives;
-import com.suse.studio.client.model.TestDrive;
+import com.suse.studio.client.model.Testdrives;
+import com.suse.studio.client.model.Testdrive;
 import com.suse.studio.client.model.Solution;
 import com.suse.studio.client.model.Status;
 import com.suse.studio.client.model.User;
@@ -45,14 +45,14 @@ public class ExamplesTest {
     
 //!----start
 
-	@Test
-    public void testTestDrives() {
-        TestDrives testDrives = ParserUtils.parseBodyStream(TestDrives.class,
+@Test
+    public void testTestdrives() {
+        Testdrives testdrives = ParserUtils.parseBodyStream(Testdrives.class,
                 TestUtils.getInputStream("testdrives.xml"));
-        TestDrive testDrive =testDrives.getTestDrive();
-        assertEquals("running", testDrive.getState());
-        assertEquals("4", testDrive.getId());
-        assertEquals("22", testDrive.getBuildId());
+        Testdrive testdrive =testdrives.getTestdrive();
+        assertEquals("running", testdrive.getState());
+        assertEquals("4", testdrive.getId());
+        assertEquals("22", testdrive.getBuildId());
         
     }
     
