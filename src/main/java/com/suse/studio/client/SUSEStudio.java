@@ -166,6 +166,27 @@ public class SUSEStudio {
         Status status = sc.get(Status.class);
         return status;
     }
+//!-------start
+	
+/**
+     * Returns a list of running testdrives. 
+     *
+     * GET /api/v2/user/testdrives
+     *
+     * @return list of running testdrives. 
+     * @throws IOException
+     */
+   public List<Testdrive> getTestdrive() throws IOException {
+        StudioConnection sc = new StudioConnection("/user/testdrives", config);
+			Testdrives testdrives = sc.get(Testdrives.class);
+			return testdrives;
+
+    }
+
+
+
+
+//!-------------end
 
     /**
      * Query appliances from SUSE Gallery (latest|popular|username).
