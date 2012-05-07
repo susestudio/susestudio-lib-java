@@ -30,6 +30,7 @@ import java.util.Properties;
 public class StudioConfig {
 
     // Keys to be used
+																//check data
     public static String KEY_BASE_URL = "baseURL";
     public static String KEY_ENCODED_CREDS = "encodedCreds";
 
