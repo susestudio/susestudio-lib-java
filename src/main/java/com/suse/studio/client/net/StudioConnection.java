@@ -20,7 +20,7 @@ public class StudioConnection {
      */
     public StudioConnection(String uri, StudioConfig config) {
         this.uri = config.getBaseURL() + uri;
-        this.encodedCredentials = config.getEncodedCredentials();	
+        this.encodedCredentials = config.getEncodedCredentials();
     }
 
     /**
