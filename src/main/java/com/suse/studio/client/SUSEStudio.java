@@ -208,6 +208,8 @@ public class SUSEStudio {
     /**
      * Return the configuration of appliance with given id.
      *
+     * GET /api/v2/user/appliances/<id>/configuration
+     *
      * @param id
      * @return configuration
      * @throws IOException
@@ -224,14 +226,16 @@ public class SUSEStudio {
     /**
      * List all template sets.
      *
+     * GET /api/v2/user/template_sets
+     *
      * @return list of template sets
      * @throws IOException
      */
     public List<TemplateSet> getTemplateSets() throws IOException {
         StringBuilder uri = new StringBuilder("/user/template_sets");
         StudioConnection sc = new StudioConnection(uri.toString(), config);
-        TemplateSets result = sc.get(TemplateSets.class);
-        return result.getTemplateSets();
+        TemplateSets templateSets = sc.get(TemplateSets.class);
+        return templateSets.getTemplateSets();
     }
 
     /**
