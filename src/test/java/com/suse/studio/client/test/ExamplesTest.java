@@ -13,13 +13,13 @@ import com.suse.studio.client.model.Appliances;
 import com.suse.studio.client.model.DiskQuota;
 import com.suse.studio.client.model.Issue;
 import com.suse.studio.client.model.Parent;
-import com.suse.studio.client.model.Testdrives;
-import com.suse.studio.client.model.Testdrive;
 import com.suse.studio.client.model.Solution;
 import com.suse.studio.client.model.Status;
 import com.suse.studio.client.model.Template;
 import com.suse.studio.client.model.TemplateSet;
 import com.suse.studio.client.model.TemplateSets;
+import com.suse.studio.client.model.Testdrive;
+import com.suse.studio.client.model.Testdrives;
 import com.suse.studio.client.model.User;
 import com.suse.studio.client.test.util.TestUtils;
 
@@ -42,21 +42,6 @@ public class ExamplesTest {
         assertEquals("15GB", diskQuota.getAvailable());
         assertEquals("4%", diskQuota.getUsed());
     }
-    
-//!----start
-
-@Test
-    public void testTestdrives() {
-        Testdrives testdrives = ParserUtils.parseBodyStream(Testdrives.class,
-                TestUtils.getInputStream("testdrives.xml"));
-        Testdrive testdrive =testdrives.getTestdrive();
-        assertEquals("running", testdrive.getState());
-        assertEquals("4", testdrive.getId());
-        assertEquals("22", testdrive.getBuildId());
-        
-    }
-    
-//!------ends
 
     @Test
     public void testAppliances() {
@@ -127,5 +112,17 @@ public class ExamplesTest {
             assertEquals(descriptions[idx], template.getDescription());
             assertEquals(basesystem, template.getBasesystem());
         }
+    }
+
+    @Test
+    public void testTestdrives() {
+        Testdrives testdrives = TestUtils.parseExampleFile(Testdrives.class,
+                "testdrives.xml");
+        assertNotNull(testdrives);
+        List<Testdrive> tdList = testdrives.getTestdrives();
+        Testdrive testdrive = tdList.get(0);
+        assertEquals("4", testdrive.getId());
+        assertEquals("running", testdrive.getState());
+        assertEquals("22", testdrive.getBuildId());
     }
 }

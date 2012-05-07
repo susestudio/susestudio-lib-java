@@ -32,6 +32,8 @@ import com.suse.studio.client.model.Gallery;
 import com.suse.studio.client.model.Status;
 import com.suse.studio.client.model.TemplateSet;
 import com.suse.studio.client.model.TemplateSets;
+import com.suse.studio.client.model.Testdrive;
+import com.suse.studio.client.model.Testdrives;
 import com.suse.studio.client.model.User;
 import com.suse.studio.client.model.Version;
 import com.suse.studio.client.net.StudioConnection;
@@ -166,27 +168,6 @@ public class SUSEStudio {
         Status status = sc.get(Status.class);
         return status;
     }
-//!-------start
-	
-/**
-     * Returns a list of running testdrives. 
-     *
-     * GET /api/v2/user/testdrives
-     *
-     * @return list of running testdrives. 
-     * @throws IOException
-     */
-   public List<Testdrive> getTestdrive() throws IOException {
-        StudioConnection sc = new StudioConnection("/user/testdrives", config);
-			Testdrives testdrives = sc.get(Testdrives.class);
-			return testdrives;
-
-    }
-
-
-
-
-//!-------------end
 
     /**
      * Query appliances from SUSE Gallery (latest|popular|username).
@@ -251,5 +232,19 @@ public class SUSEStudio {
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         TemplateSets result = sc.get(TemplateSets.class);
         return result.getTemplateSets();
+    }
+
+    /**
+     * Return a list of running testdrives.
+     *
+     * GET /api/v2/user/testdrives
+     *
+     * @return list of running testdrives
+     * @throws IOException
+     */
+    public List<Testdrive> getTestdrives() throws IOException {
+        StudioConnection sc = new StudioConnection("/user/testdrives", config);
+        Testdrives testdrives = sc.get(Testdrives.class);
+        return testdrives.getTestdrives();
     }
 }
