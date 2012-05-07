@@ -60,7 +60,7 @@ public class RequestFactory {
             connection.setRequestMethod(method);
             if (encodedCredentials != null) {
                 connection.setRequestProperty("Authorization", "BASIC "
-                        + encodedCredentials);
+                        + encodedCredentials);	//encode url ?
             }
             return connection;
         } catch (MalformedURLException e) {

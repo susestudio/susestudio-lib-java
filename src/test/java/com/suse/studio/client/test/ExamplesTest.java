@@ -14,6 +14,8 @@ import com.suse.studio.client.model.Appliances;
 import com.suse.studio.client.model.DiskQuota;
 import com.suse.studio.client.model.Issue;
 import com.suse.studio.client.model.Parent;
+import com.suse.studio.client.model.Testdrives;
+import com.suse.studio.client.model.Testdrive;
 import com.suse.studio.client.model.Solution;
 import com.suse.studio.client.model.Status;
 import com.suse.studio.client.model.Template;
@@ -44,6 +46,21 @@ public class ExamplesTest {
         assertEquals("15GB", diskQuota.getAvailable());
         assertEquals("4%", diskQuota.getUsed());
     }
+    
+//!----start
+
+@Test
+    public void testTestdrives() {
+        Testdrives testdrives = ParserUtils.parseBodyStream(Testdrives.class,
+                TestUtils.getInputStream("testdrives.xml"));
+        Testdrive testdrive =testdrives.getTestdrive();
+        assertEquals("running", testdrive.getState());
+        assertEquals("4", testdrive.getId());
+        assertEquals("22", testdrive.getBuildId());
+        
+    }
+    
+//!------ends
 
     @Test
     public void testAppliances() {
