@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
+import com.suse.studio.client.cache.CacheManager;
 import com.suse.studio.client.util.ParserUtils;
 import com.suse.studio.client.util.StudioConfig;
 
@@ -31,12 +32,21 @@ public class StudioConnection {
      * @throws IOException
      */
     public <T> T get(Class<T> class1) throws IOException {
-        HttpURLConnection connection = RequestFactory.getInstance().get(uri,
-                encodedCredentials);
-        connection.connect();
-        InputStream responseBodyStream = connection.getInputStream();
-        T result = ParserUtils.parseBodyStream(class1, responseBodyStream);
-        connection.disconnect();
+        @SuppressWarnings("unchecked")
+        T result = (T) CacheManager.getCache().get(uri);
+        if (result == null) {
+            HttpURLConnection connection = RequestFactory.getInstance().get(
+                    uri, encodedCredentials);
+            connection.connect();
+            InputStream responseBodyStream = connection.getInputStream();
+            result = ParserUtils.parseBodyStream(class1, responseBodyStream);
+            CacheManager.getCache().put(uri, result);
+            System.out.println("Put in cache: " + result.toString());
+            connection.disconnect();
+        } else {
+            System.out.println("Found in cache: " + result.toString());
+        }
+
         return result;
     }
 
