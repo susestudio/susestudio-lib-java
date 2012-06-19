@@ -68,7 +68,7 @@ public class SUSEStudio {
             throw new RuntimeException("We need the user and API key!");
         }
         // Create the configuration
-        this.config = new StudioConfig();
+        this.config = StudioConfig.getInstance();
         // Encode the credentials
         String credentials = Base64.encodeBytes((user + ":" + apiKey).getBytes());
         this.config.put(StudioConfig.KEY_ENCODED_CREDS, credentials);

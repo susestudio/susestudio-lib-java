@@ -22,6 +22,8 @@
 
 package com.suse.studio.client.util;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -32,6 +34,7 @@ public class StudioConfig {
     // Keys to be used
     public static String KEY_BASE_URL = "baseURL";
     public static String KEY_ENCODED_CREDS = "encodedCreds";
+    public static String KEY_PRINT_STREAM_CONTENTS = "print-stream-contents";
 
     // Default values
     private static final String DEFAULT_URL = "http://susestudio.com/api/v2";
@@ -39,11 +42,35 @@ public class StudioConfig {
     // The properties object
     private Properties properties;
 
+    // Singleton instance
+    private static StudioConfig instance;
+
     /**
      * Constructor.
      */
-    public StudioConfig() {
+    private StudioConfig() {
         this.properties = new Properties();
+        try {
+            // Load default values
+            properties.load(ClassLoader.getSystemClassLoader().
+                    getResourceAsStream("defaults.properties"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Return the singleton instance.
+     *
+     * @return instance
+     */
+    public static StudioConfig getInstance() {
+        if (instance == null) {
+            instance = new StudioConfig();
+        }
+        return instance;
     }
 
     /**
@@ -73,5 +100,15 @@ public class StudioConfig {
      */
     public String getEncodedCredentials() {
         return properties.getProperty(KEY_ENCODED_CREDS, null);
+    }
+
+    /**
+     * Log stream contents for debugging.
+     *
+     * @return
+     */
+    public boolean printStreamContents() {
+        return Boolean.parseBoolean(properties.getProperty(
+                KEY_PRINT_STREAM_CONTENTS, null));
     }
 }

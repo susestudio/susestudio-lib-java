@@ -21,6 +21,13 @@ public class ParserUtils {
      * @return
      */
     public static <T> T parseBodyStream(Class<T> clazz, InputStream stream) {
+        // Print stream contents for debugging
+        if (StudioConfig.getInstance().printStreamContents()) {
+            String s = streamToString(stream);
+            System.out.println(s);
+            stream = stringToStream(s);
+        }
+
         T result = null;
         Serializer serializer = new Persister();
         try {
@@ -32,22 +39,22 @@ public class ParserUtils {
     }
 
     /**
+     * Convert a given {@link String} to an {@link InputStream}.
+     *
+     * @param s
+     * @return
+     */
+    public static InputStream stringToStream(String s) {
+        return new ByteArrayInputStream(s.getBytes());
+    }
+
+    /**
      * Convert a given {@link InputStream} to a {@link String}.
      *
      * @param is
      * @return
      */
-    public static String convertStreamToString(InputStream is) {
+    public static String streamToString(InputStream is) {
         return new Scanner(is).useDelimiter("\\A").next();
-    }
-
-    /**
-     * Convert a given {@link String} to an {@link InputStream}.
-     *
-     * @param is
-     * @return
-     */
-    public static InputStream convertStringToStream(String s) {
-        return new ByteArrayInputStream(s.getBytes());
     }
 }

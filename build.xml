@@ -1,82 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="dist" name="susestudio-java-client">
-  <!-- Properties -->
-  <property name="debuglevel" value="source,lines,vars" />
+    <!-- Properties -->
+    <property name="debuglevel" value="source,lines,vars" />
 
-  <!-- Directories -->
-  <property name="dir-src-main" value="src/main/java" />
-  <property name="dir-src-test" value="src/test/java" />
-  <property name="dir-lib" value="lib" />
-  <property name="dir-bin" value="bin" />
-  <property name="dir-dist" value="dist" />
+    <!-- Directories -->
+    <property name="dir-src-main" value="src/main/java" />
+    <property name="dir-src-main-resources" value="src/main/resources" />
+    <property name="dir-src-test" value="src/test/java" />
+    <property name="dir-lib" value="lib" />
+    <property name="dir-bin" value="bin" />
+    <property name="dir-dist" value="dist" />
 
-  <!-- Load properties from file -->
-  <property file="${basedir}/buildconf/build.properties" />
+    <!-- Load properties from file -->
+    <property file="${basedir}/buildconf/build.properties" />
 
-  <!-- Classpath -->
-  <path id="classpath-build">
-    <fileset dir="${dir-lib}">
-      <include name="**/*.jar"/>
-    </fileset>
-  </path>
+    <!-- Classpath -->
+    <path id="classpath-build">
+        <fileset dir="${dir-lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
 
-  <!-- Clean -->
-  <target name="clean">
-    <delete dir="${dir-bin}" />
-    <delete dir="${dir-dist}" />
-  </target>
+    <!-- Clean -->
+    <target name="clean">
+        <delete dir="${dir-bin}" />
+        <delete dir="${dir-dist}" />
+    </target>
 
-  <!-- Init -->
-  <target name="init">
-    <mkdir dir="${dir-bin}" />
-    <copy includeemptydirs="false" todir="${dir-bin}">
-      <fileset dir="${dir-src-main}">
-        <exclude name="**/*.java" />
-      </fileset>
-    </copy>
-  </target>
+    <!-- Init -->
+    <target name="init">
+        <mkdir dir="${dir-bin}" />
+        <copy includeemptydirs="false" todir="${dir-bin}">
+            <fileset dir="${dir-src-main}">
+                <exclude name="**/*.java" />
+            </fileset>
+            <fileset dir="${dir-src-main-resources}" />
+        </copy>
+    </target>
 
-  <!-- Build the code -->
-  <target name="build" depends="init">
-    <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src-main}" destdir="${dir-bin}" includeantruntime="false">
-      <exclude name="**/test/**" />
-      <classpath refid="classpath-build" />
-    </javac>
-  </target>
+    <!-- Build the code -->
+    <target name="build" depends="init">
+        <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src-main}" destdir="${dir-bin}" includeantruntime="false">
+            <exclude name="**/test/**" />
+            <classpath refid="classpath-build" />
+        </javac>
+    </target>
 
-  <!-- Build the tests -->
-  <target name="build-tests" depends="build">
-    <copy includeemptydirs="false" todir="${dir-bin}">
-      <fileset dir="${dir-src-test}">
-        <exclude name="**/*.java" />
-      </fileset>
-    </copy>
-    <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src-test}" destdir="${dir-bin}" includeantruntime="false">
-      <include name="**/test/*.java" />
-      <classpath refid="classpath-build" />
-    </javac>
-  </target>
+    <!-- Build the tests -->
+    <target name="build-tests" depends="build">
+        <copy includeemptydirs="false" todir="${dir-bin}">
+            <fileset dir="${dir-src-test}">
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+        <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src-test}" destdir="${dir-bin}" includeantruntime="false">
+            <include name="**/test/*.java" />
+            <classpath refid="classpath-build" />
+        </javac>
+    </target>
 
-  <!-- Create jar file, exclude tests  -->
-  <target name="dist" depends="build">
-    <mkdir dir="${dir-dist}" />
-    <jar destfile="${dir-dist}/${ant.project.name}-${version}.jar" basedir="${dir-bin}">
-      <exclude name="**/test/**" />
-    </jar>
-  </target>
+    <!-- Create jar file, exclude tests  -->
+    <target name="dist" depends="build">
+        <mkdir dir="${dir-dist}" />
+        <jar destfile="${dir-dist}/${ant.project.name}-${version}.jar" basedir="${dir-bin}">
+            <exclude name="**/test/**" />
+        </jar>
+    </target>
 
-  <!-- Create a tar.bz2 archive containing the sources -->
-  <target name="src">
-    <mkdir dir="${dir-dist}" />
-    <tar destfile="${dir-dist}/${ant.project.name}-${version}.tar.bz2" compression="bzip2">
-      <tarfileset dir="${basedir}" prefix="${ant.project.name}-${version}">
-        <include name="src/**" />
-        <include name="lib/**" />
-        <include name="buildconf/**" />
-        <include name="build.xml" />
-        <include name="LICENSE" />
-        <include name="README" />
-      </tarfileset>
-    </tar>
-  </target>
+    <!-- Create a tar.bz2 archive containing the sources -->
+    <target name="src">
+        <mkdir dir="${dir-dist}" />
+        <tar destfile="${dir-dist}/${ant.project.name}-${version}.tar.bz2" compression="bzip2">
+            <tarfileset dir="${basedir}" prefix="${ant.project.name}-${version}">
+                <include name="src/**" />
+                <include name="lib/**" />
+                <include name="buildconf/**" />
+                <include name="build.xml" />
+                <include name="LICENSE" />
+                <include name="README" />
+            </tarfileset>
+        </tar>
+    </target>
 </project>
