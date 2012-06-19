@@ -32,8 +32,8 @@ import java.util.Properties;
 public class StudioConfig {
 
     // Keys to be used
-    public static String KEY_BASE_URL = "baseURL";
-    public static String KEY_ENCODED_CREDS = "encodedCreds";
+    public static String KEY_BASE_URL = "base-url";
+    public static String KEY_ENCODED_CREDS = "encoded-creds";
     public static String KEY_PRINT_STREAM_CONTENTS = "print-stream-contents";
 
     // Default values
