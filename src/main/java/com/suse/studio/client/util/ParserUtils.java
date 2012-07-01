@@ -55,6 +55,9 @@ public class ParserUtils {
      * @return
      */
     public static String streamToString(InputStream is) {
-        return new Scanner(is).useDelimiter("\\A").next();
+        Scanner scanner = new Scanner(is);
+        String ret = scanner.useDelimiter("\\A").next();
+        scanner.close();
+        return ret;
     }
 }
