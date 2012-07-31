@@ -6,5 +6,8 @@
 bin
 dist
 
+# maven output
+target
+
 # vim swap files
 *.swp
