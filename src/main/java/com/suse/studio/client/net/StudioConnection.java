@@ -26,33 +26,33 @@ public class StudioConnection {
     /**
      * Perform a GET request and parse the result into given {@link Class}.
      *
-     * @param class1
-     * @return instance of class1
+     * @param clazz
+     * @return instance of clazz
      * @throws IOException
      */
-    public <T> T get(Class<T> class1) throws IOException {
+    public <T> T get(Class<T> clazz) throws IOException {
         HttpURLConnection connection = RequestFactory.getInstance().get(uri,
                 encodedCredentials);
         connection.connect();
         InputStream responseBodyStream = connection.getInputStream();
-        T result = ParserUtils.parseBodyStream(class1, responseBodyStream);
+        T result = ParserUtils.parseBodyStream(clazz, responseBodyStream);
         connection.disconnect();
         return result;
     }
 
     /**
-     * FIXME as soon as it's needed.
+     * Perform a POST request and parse the result into given {@link Class}.
      *
-     * @param class1
-     * @return instance of class1
+     * @param clazz
+     * @return instance of clazz
      * @throws IOException
      */
-    public <T> T post(Class<T> class1) throws IOException {
+    public <T> T post(Class<T> clazz) throws IOException {
         HttpURLConnection connection = RequestFactory.getInstance().post(uri,
                 encodedCredentials);
         connection.connect();
         InputStream responseBodyStream = connection.getInputStream();
-        T result = ParserUtils.parseBodyStream(class1, responseBodyStream);
+        T result = ParserUtils.parseBodyStream(clazz, responseBodyStream);
         connection.disconnect();
         return result;
     }

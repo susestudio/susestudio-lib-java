@@ -29,6 +29,7 @@ import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Appliances;
 import com.suse.studio.client.model.Configuration;
 import com.suse.studio.client.model.Gallery;
+import com.suse.studio.client.model.ScheduleBuildResult;
 import com.suse.studio.client.model.Status;
 import com.suse.studio.client.model.TemplateSet;
 import com.suse.studio.client.model.TemplateSets;
@@ -52,6 +53,11 @@ public class SUSEStudio {
     public static final String GALLERY_LATEST = "latest";
     public static final String GALLERY_POPULAR = "popular";
     public static final String GALLERY_USERNAME = "username";
+
+    // Supported image types
+    public static enum ImageType {
+        ec2, iso, net, oem, oemiso, vmx, xen
+    }
 
     // Every instance needs a config object
     private StudioConfig config;
@@ -250,5 +256,26 @@ public class SUSEStudio {
         StudioConnection sc = new StudioConnection("/user/testdrives", config);
         Testdrives testdrives = sc.get(Testdrives.class);
         return testdrives.getTestdrives();
+    }
+
+    /**
+     * Schedule a new build for appliance with a given ID and image type.
+     *
+     * POST user/running_builds?appliance_id=<applianceID>&force=<force>&image_type=<imgType>
+     * @param applianceID
+     * @param imgType
+     * @return result object
+     * @throws IOException
+     */
+    public ScheduleBuildResult scheduleBuild(long applianceID, ImageType imgType)
+            throws IOException {
+        StringBuilder uri = new StringBuilder("/user/running_builds?appliance_id=");
+        uri.append(applianceID);
+        uri.append("&force=");
+        uri.append("true");
+        uri.append("&image_type=");
+        uri.append(imgType);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        return sc.post(ScheduleBuildResult.class);
     }
 }
