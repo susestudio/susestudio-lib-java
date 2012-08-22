@@ -1,6 +1,6 @@
 h1. SUSE Studio Java Client SDK
 
-This is a Java based library for interacting with the "SUSE Studio":http://susestudio.com image store and appliances toolkit. The library is supposed to enable developers to easily implement client applications for SUSE Studio in Java,  even for mobile platforms like Android. All of the functionality offered by the Studio "REST API":http://susestudio.com/help/api/v2 should be covered eventually, but the implementation is at the moment still a work in progress. Feel free to send pull requests.
+This is a Java based library for interacting with the "SUSE Studio":http://susestudio.com image store and appliances toolkit. The library is supposed to enable developers to easily implement client applications for SUSE Studio in Java,  even for mobile platforms like Android. All functionality that is offered by the Studio "REST API":http://susestudio.com/help/api/v2 should be covered eventually, but the implementation is at the moment still a work in progress. Feel free to send pull requests!
 
 h2. Example Usage
 
@@ -38,6 +38,26 @@ for (Appliance a : appliances) {
         System.out.println("Build ID: " + b.getId());
         System.out.println("Download URL: " + b.getDownloadUrl());
     }
+}
+</pre>
+
+h3. Running Builds
+
+<pre>
+// Schedule a build
+ScheduleBuildResult result = studio.scheduleBuild(654321, SUSEStudio.ImageType.iso);
+System.out.println("Build ID: " + result.getId());
+</pre>
+
+h3. Testdrives
+
+<pre>
+// Get testdrives
+List<Testdrive> testdrives = studio.getTestdrives();
+for (Testdrive testdrive : testdrives) {
+    System.out.println("Testdrive ID: " + testdrive.getId());
+    System.out.println("Build ID: " + testdrive.getBuildId());
+    System.out.println("State: " + testdrive.getState());
 }
 </pre>
 
