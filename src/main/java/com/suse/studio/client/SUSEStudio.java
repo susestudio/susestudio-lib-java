@@ -259,6 +259,22 @@ public class SUSEStudio {
     }
 
     /**
+     * Start a new testdrive session of the given build. Note that testdrive sessions will be
+     * aborted if no client has connected after 60 seconds.
+     *
+     * POST /api/v2/user/testdrives?build_id=<build_id>
+     *
+     * @param buildId
+     * @return result object
+     */
+    public Testdrive startTestdrive(long buildId) throws IOException {
+        StringBuilder uri = new StringBuilder("/user/testdrives?build_id=");
+        uri.append(buildId);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        return sc.post(Testdrive.class);
+    }
+
+    /**
      * Schedule a new build for appliance with a given ID and image type.
      *
      * POST user/running_builds?appliance_id=<applianceID>&force=<force>&image_type=<imgType>

@@ -15,6 +15,12 @@ public class Testdrive {
     @Element(name = "build_id")
     private String buildId;
 
+    @Element(required = false)
+    private String url;
+
+    @Element(required = false)
+    private Server server;
+
     public String getId() {
         return id;
     }
@@ -25,5 +31,17 @@ public class Testdrive {
 
     public String getBuildId() {
         return buildId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    private Server getServer() {
+        return server;
+    }
+
+    public VNCServer getVNCServer() {
+        return getServer().getVNC();
     }
 }
