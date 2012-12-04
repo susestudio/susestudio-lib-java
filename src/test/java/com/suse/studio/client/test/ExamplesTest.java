@@ -21,6 +21,7 @@ import com.suse.studio.client.model.TemplateSets;
 import com.suse.studio.client.model.Testdrive;
 import com.suse.studio.client.model.Testdrives;
 import com.suse.studio.client.model.User;
+import com.suse.studio.client.model.VNCServer;
 import com.suse.studio.client.test.util.TestUtils;
 
 /**
@@ -124,5 +125,22 @@ public class ExamplesTest {
         assertEquals("4", testdrive.getId());
         assertEquals("running", testdrive.getState());
         assertEquals("22", testdrive.getBuildId());
+    }
+
+    @Test
+    public void testTestdrive() {
+        Testdrive testdrive = TestUtils.parseExampleFile(Testdrive.class,
+                "testdrive.xml");
+        assertNotNull(testdrive);
+        assertEquals("1234", testdrive.getId());
+        assertEquals("new", testdrive.getState());
+        assertEquals("12345", testdrive.getBuildId());
+        assertEquals("http://node52.susestudio.com/testdrive/testdrive/start/11/22/abcdefgh1234567890",
+                testdrive.getUrl());
+
+        VNCServer vncServer = testdrive.getVNCServer();
+        assertEquals("node52.susestudio.com", vncServer.getHost());
+        assertEquals("5902", vncServer.getPort());
+        assertEquals("1234567890", vncServer.getPassword());
     }
 }
