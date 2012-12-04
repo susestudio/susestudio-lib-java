@@ -52,7 +52,15 @@ System.out.println("Build ID: " + result.getId());
 h3. Testdrives
 
 <pre>
-// Get testdrives
+// Start a testdrive for a given build
+Testdrive testdrive = studio.startTestdrive(1234567);
+
+// Get information about how to access it
+VNCServer vncServer = testdrive.getVNCServer();
+System.out.println("VNC Server Hostname: " + vncServer.getHost());
+System.out.println("VNC Server Port: " + vncServer.getPort());
+
+// Get all currently running testdrives
 List<Testdrive> testdrives = studio.getTestdrives();
 for (Testdrive testdrive : testdrives) {
     System.out.println("Testdrive ID: " + testdrive.getId());
