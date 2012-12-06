@@ -1,3 +1,5 @@
+"!https://travis-ci.org/susestudio/susestudio-lib-java.png!":https://travis-ci.org/susestudio/susestudio-lib-java
+
 h1. SUSE Studio Java Client SDK
 
 This is a Java based library for interacting with the "SUSE Studio":http://susestudio.com image store and appliances toolkit. The library is supposed to enable developers to easily implement client applications for SUSE Studio in Java,  even for mobile platforms like Android. All functionality that is offered by the Studio "REST API":http://susestudio.com/help/api/v2 should be covered eventually, but the implementation is at the moment still a work in progress. Feel free to send pull requests!
