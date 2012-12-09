@@ -13,7 +13,7 @@ import com.suse.studio.client.util.ParserUtils;
 public class TestUtils {
 
     // Path to example files
-    private static final String PATH_EXAMPLES = "/examples/";
+    private static final String PATH_EXAMPLES = "/com/suse/studio/client/test/examples/";
 
     /**
      * Return object which is the result of parsing the given resource file.

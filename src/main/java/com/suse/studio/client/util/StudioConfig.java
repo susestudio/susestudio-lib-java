@@ -52,8 +52,8 @@ public class StudioConfig {
         this.properties = new Properties();
         try {
             // Load default values
-            properties.load(ClassLoader.getSystemClassLoader().
-                    getResourceAsStream("defaults.properties"));
+            properties.load(StudioConfig.class.getResourceAsStream(
+                    "defaults.properties"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
