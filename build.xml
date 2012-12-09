@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="dist" name="susestudio-java-client">
+<project basedir="." default="test" name="susestudio-java-client">
   <!-- Properties -->
   <property name="debuglevel" value="source,lines,vars" />
 
@@ -7,6 +7,7 @@
   <property name="dir-src-main" value="src/main/java" />
   <property name="dir-src-main-resources" value="src/main/resources" />
   <property name="dir-src-test" value="src/test/java" />
+  <property name="dir-src-test-resources" value="src/test/resources" />
   <property name="dir-lib" value="lib" />
   <property name="dir-bin" value="bin" />
   <property name="dir-dist" value="dist" />
@@ -14,14 +15,22 @@
   <!-- Load properties from file -->
   <property file="${basedir}/buildconf/build.properties" />
 
-  <!-- Classpath -->
+  <!-- Classpath for building the code -->
   <path id="classpath-build">
     <fileset dir="${dir-lib}">
-      <include name="**/*.jar"/>
+      <include name="**/*.jar" />
     </fileset>
   </path>
 
-  <!-- Clean -->
+  <!-- Classpath for building and running tests -->
+  <path id="classpath-tests">
+    <path refid="classpath-build" />
+    <fileset dir="${dir-dist}">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+
+  <!-- Clean binaries and jars -->
   <target name="clean">
     <delete dir="${dir-bin}" />
     <delete dir="${dir-dist}" />
@@ -46,16 +55,23 @@
     </javac>
   </target>
 
-  <!-- Build the tests -->
-  <target name="build-tests" depends="build">
+  <!-- Init tests -->
+  <target name="init-tests">
+    <delete dir="${dir-bin}" />
+    <mkdir dir="${dir-bin}" />
     <copy includeemptydirs="false" todir="${dir-bin}">
       <fileset dir="${dir-src-test}">
         <exclude name="**/*.java" />
       </fileset>
+      <fileset dir="${dir-src-test-resources}" />
     </copy>
+  </target>
+
+  <!-- Build tests -->
+  <target name="build-tests" depends="dist, init-tests">
     <javac debug="true" debuglevel="${debuglevel}" srcdir="${dir-src-test}" destdir="${dir-bin}" includeantruntime="false">
       <include name="**/test/*.java" />
-      <classpath refid="classpath-build" />
+      <classpath refid="classpath-tests" />
     </javac>
   </target>
 
@@ -65,6 +81,24 @@
     <jar destfile="${dir-dist}/${ant.project.name}-${version}.jar" basedir="${dir-bin}">
       <exclude name="**/test/**" />
     </jar>
+  </target>
+
+  <!-- Create jar file, include the tests ONLY  -->
+  <target name="dist-tests" depends="build-tests">
+    <mkdir dir="${dir-dist}" />
+    <jar destfile="${dir-dist}/${ant.project.name}-${version}-tests.jar" basedir="${dir-bin}">
+      <include name="**/test/**" />
+    </jar>
+  </target>
+
+  <!-- Run the tests -->
+  <target name="test" depends="clean, dist, dist-tests">
+    <junit printsummary="yes" haltonfailure="yes">
+      <classpath refid="classpath-tests" />
+      <test name="com.suse.studio.client.test.ExamplesTest" outfile="result">
+        <formatter type="plain" />
+      </test>
+    </junit>
   </target>
 
   <!-- Create a tar.bz2 archive containing the sources -->
