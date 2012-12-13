@@ -1,4 +1,4 @@
-"!https://travis-ci.org/susestudio/susestudio-lib-java.png!":https://travis-ci.org/susestudio/susestudio-lib-java
+!https://secure.travis-ci.org/susestudio/susestudio-lib-java.png?branch=master!:https://travis-ci.org/susestudio/susestudio-lib-java
 
 h1. SUSE Studio Java Client SDK
 
