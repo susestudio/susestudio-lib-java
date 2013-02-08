@@ -30,7 +30,7 @@ import com.suse.studio.client.test.util.TestUtils;
 public class ExamplesTest {
 
     @Test
-    public void testAccount() {
+	public void testAccount() {
         User user = TestUtils.parseExampleFile(User.class, "account.xml");
         assertNotNull(user);
         assertEquals("uexample", user.getUsername());
@@ -41,7 +41,12 @@ public class ExamplesTest {
         assertNotNull(user.getDiskQuota());
         DiskQuota diskQuota = user.getDiskQuota();
         assertEquals("15GB", diskQuota.getAvailable());
-        assertEquals("4%", diskQuota.getUsed());
+        assertEquals("4%", diskQuota.getUsed());        
+        List<String> openIdUrls = user.getOpenIdUrls();
+        assertNotNull(openIdUrls);
+        assertEquals(1, openIdUrls.size());
+        String openIdUrl = openIdUrls.get(0);
+        assertEquals("http://user.example.com/", openIdUrl);
     }
 
     @Test
