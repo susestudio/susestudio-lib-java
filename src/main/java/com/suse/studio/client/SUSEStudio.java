@@ -230,6 +230,23 @@ public class SUSEStudio {
     }
 
     /**
+     * Return the template set with given id.
+     *
+     * GET /api/v2/user/template_sets/<name>
+     *
+     * @param name
+     * @return list of template sets
+     * @throws IOException
+     */
+    public TemplateSet getTemplateSet(String name) throws IOException {
+        StringBuilder uri = new StringBuilder("/user/template_sets/");
+        uri.append(name);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        TemplateSet templateSet = sc.get(TemplateSet.class);
+        return templateSet;
+    }
+    
+    /**
      * List all template sets.
      *
      * GET /api/v2/user/template_sets
