@@ -17,32 +17,6 @@ public class RequestFactory {
     }
 
     /**
-     * Create a {@link HttpURLConnection} for performing a GET request.
-     *
-     * @param uri
-     * @param encodedCredentials
-     * @return
-     * @throws IOException
-     */
-    public HttpURLConnection get(String uri, String encodedCredentials)
-            throws IOException {
-        return initConnection("GET", uri, encodedCredentials);
-    }
-
-    /**
-     * Create a {@link HttpURLConnection} for performing a POST request.
-     *
-     * @param uri
-     * @param encodedCredentials
-     * @return
-     * @throws IOException
-     */
-    public HttpURLConnection post(String uri, String encodedCredentials)
-            throws IOException {
-        return initConnection("POST", uri, encodedCredentials);
-    }
-
-    /**
      * Init a {@link HttpURLConnection} object from a given uri.
      *
      * @param method
@@ -51,7 +25,7 @@ public class RequestFactory {
      * @return
      * @throws IOException
      */
-    private HttpURLConnection initConnection(String method, String uri,
+    public HttpURLConnection initConnection(String method, String uri,
             String encodedCredentials) throws IOException {
         try {
             URL url = new URL(uri);
