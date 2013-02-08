@@ -13,6 +13,9 @@ import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Appliances;
 import com.suse.studio.client.model.Build;
 import com.suse.studio.client.model.DiskQuota;
+import com.suse.studio.client.model.Gallery;
+import com.suse.studio.client.model.GalleryAppliance;
+import com.suse.studio.client.model.GalleryAppliances;
 import com.suse.studio.client.model.Issue;
 import com.suse.studio.client.model.Parent;
 import com.suse.studio.client.model.Solution;
@@ -168,5 +171,31 @@ public class ExamplesTest {
         assertEquals("node52.susestudio.com", vncServer.getHost());
         assertEquals("5902", vncServer.getPort());
         assertEquals("1234567890", vncServer.getPassword());
+    }
+    
+    @Test
+    public void testGallery() {
+    	Gallery gallery = TestUtils.parseExampleFile(Gallery.class, "gallery.xml");
+        GalleryAppliances galleryAppliances = gallery.getAppliances();        
+        assertNotNull(galleryAppliances);
+        assertEquals(7999, galleryAppliances.getCount());
+        assertEquals(800, galleryAppliances.getPages());
+        assertEquals(1, galleryAppliances.getCurrentPage());
+        List<GalleryAppliance> list = galleryAppliances.getAppliances();        
+        assertNotNull(list);        
+        assertEquals(10, list.size());
+        GalleryAppliance galleryAppliance = list.get(0);
+        assertEquals(217901, galleryAppliance.getId());
+        assertEquals("ownCloud in a box", galleryAppliance.getName());
+        assertEquals("Cornelius Schumacher", galleryAppliance.getPublisher());
+        assertEquals("cschumacher", galleryAppliance.getUsername());
+        assertEquals("http://owncloud.org", galleryAppliance.getHomepage());
+        assertEquals("OwnCloud Description", galleryAppliance.getDescription());
+        assertEquals(53, galleryAppliance.getRatings());
+        assertEquals(4.13207547169811, galleryAppliance.getAverageRating(), 0.001);
+        assertEquals(183, galleryAppliance.getComments());
+        assertEquals("12.2", galleryAppliance.getBasedOn());
+        Date date = TestUtils.getDate(2013, 0, 28, 14, 35, 58);
+        assertEquals(date, galleryAppliance.getDate());
     }
 }
