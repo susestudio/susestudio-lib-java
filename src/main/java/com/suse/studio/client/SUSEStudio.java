@@ -31,6 +31,7 @@ import com.suse.studio.client.model.Configuration;
 import com.suse.studio.client.model.Gallery;
 import com.suse.studio.client.model.ScheduleBuildResult;
 import com.suse.studio.client.model.Status;
+import com.suse.studio.client.model.SuccessResult;
 import com.suse.studio.client.model.TemplateSet;
 import com.suse.studio.client.model.TemplateSets;
 import com.suse.studio.client.model.Testdrive;
@@ -200,6 +201,22 @@ public class SUSEStudio {
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         Appliance appliance = sc.post(Appliance.class);
         return appliance;
+    }
+    
+    /**
+     * Deletes an appliance.
+     *
+     * DELETE /api/v2/user/appliances/<id>
+     *
+     * @param id
+     * @throws IOException
+     * @throws StudioException if Suse Studio returns an error response
+     */
+    public void deleteAppliance(long id) throws IOException, StudioException {
+        StringBuilder uri = new StringBuilder("/user/appliances/");
+        uri.append(id);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        sc.delete(SuccessResult.class);
     }
 
     /**
