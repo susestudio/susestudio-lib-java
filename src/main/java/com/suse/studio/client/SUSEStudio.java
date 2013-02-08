@@ -174,6 +174,33 @@ public class SUSEStudio {
         Status status = sc.get(Status.class);
         return status;
     }
+    
+    /**
+     * Clones an existing appliance in a new appliance
+     *
+     * POST /api/v2/user/appliances?clone_from=<appliance_id>&name=<name>&arch=<arch>
+     *
+     * @param id original appliance identifier
+     * @param name new appliance name or null for automatic generation
+     * @param arch new appliance architecture ("i686" or "x86_64") or null for "i686"
+     * @return status of appliance with given id
+     * @throws IOException
+     */
+    public Appliance cloneApplianceFrom(long id, String name, String arch) throws IOException {
+        StringBuilder uri = new StringBuilder("/user/appliances?clone_from=");
+        uri.append(id);
+        if (name != null) {
+            uri.append("&name=");
+            uri.append(name);
+        }
+        if (arch != null) {
+            uri.append("&arch=");
+            uri.append(arch);
+        }
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        Appliance appliance = sc.post(Appliance.class);
+        return appliance;
+    }
 
     /**
      * Query appliances from SUSE Gallery (latest|popular|username).
