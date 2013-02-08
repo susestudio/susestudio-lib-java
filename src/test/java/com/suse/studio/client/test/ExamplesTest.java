@@ -2,6 +2,7 @@ package com.suse.studio.client.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.junit.Test;
 
 import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Appliances;
+import com.suse.studio.client.model.Build;
 import com.suse.studio.client.model.DiskQuota;
 import com.suse.studio.client.model.Issue;
 import com.suse.studio.client.model.Parent;
@@ -65,14 +67,33 @@ public class ExamplesTest {
         assertNotNull(appliance);
         assertEquals(24, appliance.getId());
         assertEquals("Cornelius' JeOS", appliance.getName());
+        assertNull(appliance.getArch());
+        assertNull(appliance.getType());
+        Date lastEdited = TestUtils.getDate(2009, 3, 24, 12, 9, 42);
+        assertEquals(lastEdited, appliance.getLastEdited());
+        assertNull(appliance.getEstimatedRawSize());
+        assertNull(appliance.getEstimatedCompressedSize());
         assertEquals("http://susestudio.com/appliance/edit/24",
                 appliance.getEditUrl());
         assertEquals("http://susestudio.com/api/v1/user/appliance_icon/1234",
                 appliance.getIconUrl());
         assertEquals("11.1", appliance.getBasesystem());
+        assertNull(appliance.getUuid());
         Parent parent = appliance.getParent();
         assertEquals(1, parent.getId());
         assertEquals("openSUSE 11.1, Just enough OS (JeOS)", parent.getName());
+        List<Build> builds = appliance.getBuilds();
+        assertNotNull(builds);
+        assertEquals(1, builds.size());
+        Build build = builds.get(0);
+        assertEquals(28, build.getId());
+        assertEquals("0.0.1", build.getVersion());
+        assertEquals("oem", build.getImageType());
+        assertEquals("238", build.getImageSize());
+        assertEquals("87", build.getCompressedImageSize());
+        assertEquals(
+        		"http://susestudio.com/download/bf1a0f08884ebac13f30b0fc62dfc44a/Cornelius_JeOS.x86_64-0.0.1.oem.tar.gz",
+        		build.getDownloadUrl());
     }
 
     @Test
