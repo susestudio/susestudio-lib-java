@@ -15,7 +15,7 @@ public class TemplateSet {
     @Element(required = false)
     private String description;
 
-    @ElementList(required = false, inline = true, name = "template")
+    @ElementList(required = false, inline = true, name = "template", empty = false)
     private List<Template> templates;
 
     public String getName() {

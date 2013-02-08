@@ -22,7 +22,6 @@
 
 package com.suse.studio.client.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.simpleframework.xml.Attribute;
@@ -39,13 +38,10 @@ public class Builds {
 		return type;
 	}
 	
-	@ElementList(inline=true, required=false)
+	@ElementList(inline = true, required = false, empty = false)
 	private List<Build> build;
 	
     public List<Build> getBuilds() {
-        if (build == null) {
-        	build = new ArrayList<Build>();
-        }
         return this.build;
     }
 }
