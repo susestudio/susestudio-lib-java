@@ -1,0 +1,128 @@
+<configuration>
+  <id>24</id>
+  <name>LAMP Server</name>
+  <description>This is a LAMP server.</description>
+  <version>0.0.1</version>
+  <type>oem</type>
+  <website>http://susestudio.com</website>
+  <tags count="2">
+    <tag>lamp</tag>
+    <tag>server</tag>
+  </tags>
+  <locale>
+    <keyboard_layout>english-uk</keyboard_layout>
+    <language>en_GB.UTF-8</language>
+    <timezone>
+      <location>Europe/Berlin</location>
+    </timezone>
+  </locale>
+  <network>
+    <type>manual</type>
+    <hostname>lampserver</hostname>
+    <ip>192.168.1.100</ip>
+    <netmask>255.255.255.0</netmask>
+    <route>192.168.1.1</route>
+    <nameservers>192.168.1.1, 192.168.1.2</nameservers>
+  </network>
+  <firewall>
+    <enabled>true</enabled>
+    <open_port>ssh</open_port>
+    <open_port>http</open_port>
+  </firewall>
+  <users count="3">
+    <user>
+      <uid>0</uid>
+      <name>root</name>
+      <password>linux</password>
+      <group>root</group>
+      <shell>/bin/bash</shell>
+      <homedir>/root</homedir>
+    </user>
+    <user>
+      <uid>1000</uid>
+      <name>tux</name>
+      <password>linux</password>
+      <group>users</group>
+      <shell>/bin/bash</shell>
+      <homedir>/home/tux</homedir>
+    </user>
+    <user>
+      <uid>1001</uid>
+      <name>webdev</name>
+      <password>linux1234</password>
+      <group>users</group>
+      <shell>/bin/bash</shell>
+      <homedir>/home/webdev</homedir>
+    </user>
+  </users>
+  <eulas count="1">
+    <eula>This is an End User License Agreement.</eula>
+  </eulas>
+  <databases count="1">
+    <database>
+      <type>pgsql</type>
+        <users count="1">
+          <user>
+            <username>db_user</username>
+            <password>linux</password>
+            <database_list>project_db</database_list>
+          </user>
+        </users>
+    </database>
+  </databases>
+  <autostarts count="1">
+    <autostart>
+      <command>/usr/bin/someprogram</command>
+      <description>Launch "someprogram"</description>
+      <enabled>true</enabled>
+      <user>tux</user>
+    </autostart>
+  </autostarts>
+  <settings>
+    <memory_size>512</memory_size>
+    <disk_size>16</disk_size>
+    <swap_size>512</swap_size>
+	<pae_enabled>true</pae_enabled>
+    <xen_host_mode_enabled>true</xen_host_mode_enabled>
+    <cdrom_enabled>true</cdrom_enabled>
+    <webyast_enabled>false</webyast_enabled>
+    <live_installer_enabled>false</live_installer_enabled>
+    <public_clonable>true</public_clonable>
+    <runlevel>3</runlevel>
+    <automatic_login>tux</automatic_login>
+  </settings>
+  <lvm>
+    <enabled>true</enabled>
+    <volume_group>systemVG</volume_group>
+    <volumes count="2">
+      <volume>
+        <size>1000</size>
+        <path>/</path>
+      </volume>
+      <volume>
+        <size>100000</size>
+        <path>/home</path>
+      </volume>
+    </volumes>
+  </lvm>
+  <scripts>
+    <build>
+      <enabled>true</enabled>
+      <script>#!/bin/script1</script>
+    </build>
+    <boot>
+      <enabled>true</enabled>
+      <script>#!/bin/script2</script>
+    </boot>
+    <autoyast>
+      <enabled>false</enabled>
+    </autoyast>
+  </scripts>
+  <!-- SUSE Studio Onsite only -->
+  <slms>
+    <enabled>true</enabled>
+    <vendor>MegaCorp, Inc.</vendor>
+    <server_host>slms.megacorp.com</server_host>
+    <gpg_key_name>C847016A</gpg_key_name>
+  </slms>
+</configuration>

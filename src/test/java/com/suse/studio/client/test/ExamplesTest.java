@@ -10,14 +10,26 @@ import java.util.List;
 import org.junit.Test;
 
 import com.suse.studio.client.model.Appliance;
+import com.suse.studio.client.model.ApplianceUser;
 import com.suse.studio.client.model.Appliances;
+import com.suse.studio.client.model.Autostart;
 import com.suse.studio.client.model.Build;
+import com.suse.studio.client.model.Configuration;
+import com.suse.studio.client.model.Database;
+import com.suse.studio.client.model.DatabaseUser;
 import com.suse.studio.client.model.DiskQuota;
+import com.suse.studio.client.model.Firewall;
 import com.suse.studio.client.model.Gallery;
 import com.suse.studio.client.model.GalleryAppliance;
 import com.suse.studio.client.model.GalleryAppliances;
 import com.suse.studio.client.model.Issue;
+import com.suse.studio.client.model.LVM;
+import com.suse.studio.client.model.Locale;
+import com.suse.studio.client.model.Network;
 import com.suse.studio.client.model.Parent;
+import com.suse.studio.client.model.Script;
+import com.suse.studio.client.model.Scripts;
+import com.suse.studio.client.model.Settings;
 import com.suse.studio.client.model.Solution;
 import com.suse.studio.client.model.Status;
 import com.suse.studio.client.model.Template;
@@ -27,6 +39,7 @@ import com.suse.studio.client.model.Testdrive;
 import com.suse.studio.client.model.Testdrives;
 import com.suse.studio.client.model.User;
 import com.suse.studio.client.model.VNCServer;
+import com.suse.studio.client.model.Volume;
 import com.suse.studio.client.test.util.TestUtils;
 
 /**
@@ -253,4 +266,162 @@ public class ExamplesTest {
         assertNotNull(list);        
         assertEquals(0, list.size());
     }
+    
+    @Test
+	public void testConfiguration() {
+		Configuration configuration = TestUtils.parseExampleFile(
+				Configuration.class, "configuration.xml");
+
+		assertEquals(24, configuration.getId());
+		assertEquals("LAMP Server", configuration.getName());
+		assertEquals("This is a LAMP server.", configuration.getDescription());
+		assertEquals("0.0.1", configuration.getVersion());
+		assertEquals("oem", configuration.getType());
+		assertEquals("http://susestudio.com", configuration.getWebsite());
+
+		List<String> tags = configuration.getTags();
+		assertNotNull(tags);
+		assertEquals(2, tags.size());
+		String[] expectedTags = { "lamp", "server" };
+		for (int i = 0; i < expectedTags.length; i++) {
+			assertEquals(expectedTags[i], tags.get(i));
+		}
+
+		Locale locale = configuration.getLocale();
+		assertNotNull(locale);
+		assertEquals("english-uk", locale.getKeyboardLayout());
+		assertEquals("en_GB.UTF-8", locale.getLanguage());
+		assertEquals("Europe/Berlin", locale.getLocation());
+
+		Network network = configuration.getNetwork();
+		assertNotNull(network);
+		assertEquals("manual", network.getType());
+		assertEquals("lampserver", network.getHostname());
+		assertEquals("192.168.1.100", network.getIp());
+		assertEquals("255.255.255.0", network.getNetmask());
+		assertEquals("192.168.1.1", network.getRoute());
+		List<String> nameServers = network.getNameServers();
+		assertNotNull(nameServers);
+		assertEquals(2, nameServers.size());
+		String[] expectedNameServers = { "192.168.1.1", "192.168.1.2" };
+		for (int i = 0; i < expectedNameServers.length; i++) {
+			assertEquals(expectedNameServers[i], nameServers.get(i));
+		}
+
+		Firewall firewall = configuration.getFirewall();
+		assertNotNull(firewall);
+		assertEquals(true, firewall.isEnabled());
+		List<String> openPorts = firewall.getOpenPorts();
+		assertNotNull(openPorts);
+		assertEquals(2, openPorts.size());
+		String[] expectedOpenPorts = { "ssh", "http" };
+		for (int i = 0; i < expectedOpenPorts.length; i++) {
+			assertEquals(expectedOpenPorts[i], openPorts.get(i));
+		}
+
+		List<ApplianceUser> applianceUsers = configuration.getApplianceUsers();
+		assertNotNull(applianceUsers);
+		assertEquals(3, applianceUsers.size());
+		// root
+		ApplianceUser user = applianceUsers.get(0);
+		assertEquals(0, user.getUid());
+		assertEquals("root", user.getName());
+		assertEquals("linux", user.getPassword());
+		assertEquals("root", user.getGroup());
+		assertEquals("/bin/bash", user.getShell());
+		assertEquals("/root", user.getHomeDirectory());
+		// tux
+		user = applianceUsers.get(1);
+		assertEquals(1000, user.getUid());
+		assertEquals("tux", user.getName());
+		assertEquals("linux", user.getPassword());
+		assertEquals("users", user.getGroup());
+		assertEquals("/bin/bash", user.getShell());
+		assertEquals("/home/tux", user.getHomeDirectory());
+		// webdev
+		user = applianceUsers.get(2);
+		assertEquals(1001, user.getUid());
+		assertEquals("webdev", user.getName());
+		assertEquals("linux1234", user.getPassword());
+		assertEquals("users", user.getGroup());
+		assertEquals("/bin/bash", user.getShell());
+		assertEquals("/home/webdev", user.getHomeDirectory());
+
+		List<String> eulas = configuration.getEulas();
+		assertNotNull(eulas);
+		assertEquals(1, eulas.size());
+		assertEquals("This is an End User License Agreement.", eulas.get(0));
+
+		List<Database> databases = configuration.getDatabases();
+		assertNotNull(databases);
+		assertEquals(1, databases.size());
+		Database database = databases.get(0);
+		assertEquals("pgsql", database.getType());
+		List<DatabaseUser> databaseUsers = database.getDatabaseUsers();
+		assertNotNull(databaseUsers);
+		assertEquals(1, databaseUsers.size());
+		DatabaseUser databaseUser = databaseUsers.get(0);
+		assertNotNull(databaseUser);
+		assertEquals("db_user", databaseUser.getUsername());
+		assertEquals("linux", databaseUser.getPassword());
+		List<String> userDatabases = databaseUser.getDatabases();
+		assertNotNull(userDatabases);
+		assertEquals(1, userDatabases.size());
+		assertEquals("project_db", userDatabases.get(0));
+
+		List<Autostart> autostarts = configuration.getAutostarts();
+		assertNotNull(autostarts);
+		assertEquals(1, autostarts.size());
+		Autostart autostart = autostarts.get(0);
+		assertNotNull(autostart);
+		assertEquals("/usr/bin/someprogram", autostart.getCommand());
+		assertEquals("Launch \"someprogram\"", autostart.getDescription());
+		assertEquals(true, autostart.isEnabled());
+		assertEquals("tux", autostart.getUser());
+
+		Settings settings = configuration.getSettings();
+		assertNotNull(settings);
+		assertEquals(512, settings.getMemorySize());
+		assertEquals(16, settings.getDiskSize());
+		assertEquals(512, settings.getSwapSize());
+		assertEquals(true, settings.isPaeEnabled());
+		assertEquals(true, settings.isXenHostModeEnabled());
+		assertEquals(true, settings.isCdromEnabled());
+		assertEquals(false, settings.isWebYaSTEnabled());
+		assertEquals(false, settings.isLiveInstallerEnabled());
+		assertEquals(true, settings.isPublicClonable());
+		assertEquals(3, settings.getRunlevel());
+		assertEquals("tux", settings.getAutomaticLogin());
+
+		LVM lvm = configuration.getLvm();
+		assertNotNull(lvm);
+		assertEquals(true, lvm.isEnabled());
+		assertEquals("systemVG", lvm.getVolumeGroup());
+		List<Volume> volumes = lvm.getVolumes();
+		assertNotNull(volumes);
+		assertEquals(2, volumes.size());
+		// volume 1
+		Volume volume = volumes.get(0);
+		assertEquals(1000, volume.getSize());
+		assertEquals("/", volume.getPath());
+		// volume 2
+		volume = volumes.get(1);
+		assertEquals(100000, volume.getSize());
+		assertEquals("/home", volume.getPath());
+
+		Scripts scripts = configuration.getScripts();
+		assertNotNull(scripts);
+		Script bootScript = scripts.getBootScript();
+		Script buildScript = scripts.getBuildScript();
+		assertNotNull(buildScript);
+		assertEquals(true, buildScript.isEnabled());
+		assertEquals("#!/bin/script1", buildScript.getScript());
+		assertNotNull(bootScript);
+		assertEquals(true, bootScript.isEnabled());
+		assertEquals("#!/bin/script2", bootScript.getScript());
+		Script autoYaSTScript = scripts.getAutoYaSTScript();
+		assertNotNull(autoYaSTScript);
+		assertEquals(false, autoYaSTScript.isEnabled());
+		assertNull(autoYaSTScript.getScript());
+	}
 }
