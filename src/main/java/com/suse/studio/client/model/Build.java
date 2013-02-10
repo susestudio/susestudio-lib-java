@@ -38,10 +38,10 @@ public class Build {
     private String imageType;
 
     @Element(name = "image_size")
-    private String imageSize;
+    private int imageSize;
 
     @Element(name = "compressed_image_size")
-    private String compressedImageSize;
+    private int compressedImageSize;
 
     @Element(name = "download_url")
     private String downloadUrl;
@@ -58,11 +58,11 @@ public class Build {
         return imageType;
     }
 
-    public String getImageSize() {
+    public int getImageSize() {
         return imageSize;
     }
 
-    public String getCompressedImageSize() {
+    public int getCompressedImageSize() {
         return compressedImageSize;
     }
 
