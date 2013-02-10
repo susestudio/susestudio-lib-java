@@ -1,7 +1,9 @@
 package com.suse.studio.client.util;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Scanner;
 
 import org.simpleframework.xml.Serializer;
@@ -36,6 +38,34 @@ public class ParserUtils {
             e.printStackTrace();
         }
         return result;
+    }
+    
+    /**
+     * Persists a given SimpleXML-annotated object into a {@link OutputStream}.
+     *
+     * @param clazz
+     * @param stream
+     * @return
+     */
+    public static void persistInStream(Object object, OutputStream stream) {
+    	
+        Serializer serializer = new Persister();
+        try {
+            serializer.write(object, stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        // Print stream contents for debugging
+        if (StudioConfig.getInstance().printStreamContents()) {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            try {
+				serializer.write(object, outputStream);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}            
+            System.out.println(outputStream.toString());
+        }
     }
 
     /**

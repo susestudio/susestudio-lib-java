@@ -49,6 +49,20 @@ public class StudioConnection {
     }
     
     /**
+     * Perform a PUT request persisting an object as XML in the request body,
+     * and parse the result into given {@link Class}.
+     *
+     * @param clazz
+     * @param object
+     * @return instance of clazz
+     * @throws IOException
+     * @throws StudioException if Suse Studio returns an error response
+     */
+    public <T> T put(Class<T> clazz, Object object) throws IOException, StudioException {
+        return request(clazz, "PUT", object);
+	}
+    
+    /**
      * Perform a DELETE request and parse the result into given {@link Class}.
      *
      * @param clazz
@@ -59,20 +73,41 @@ public class StudioConnection {
     public <T> T delete(Class<T> clazz) throws IOException, StudioException {
         return request(clazz, "DELETE");
     }
-    
+        
     /**
      * Perform an HTTP request and parse the result into given {@link Class}.
      *
-     * @param clazz
+     * @param clazz result's expected class
      * @param method the HTTP method to use
      * @return instance of clazz
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
      */
     private <T> T request(Class<T> clazz, String method) throws IOException, StudioException {
+    	return request(clazz, method, null);
+	}
+    
+    /**
+     * Perform an HTTP request and parse the result into given {@link Class}.
+     * Optionally, persist a given {@link Object} in the request body.
+     *
+     * @param clazz result's expected class
+     * @param method the HTTP method to use
+     * @param object object to persist in request body or null
+     * @return instance of clazz
+     * @throws IOException
+     * @throws StudioException if Suse Studio returns an error response
+     */
+    private <T> T request(Class<T> clazz, String method, Object object) throws IOException, StudioException {
         HttpURLConnection connection = RequestFactory.getInstance().initConnection(method,
         		uri, encodedCredentials);
-        connection.connect();
+        
+        if (object != null) {
+        	connection.setDoOutput(true);
+        	ParserUtils.persistInStream(object, connection.getOutputStream());
+        }
+
+        connection.connect();        
         int responseCode = connection.getResponseCode();
         
         if (responseCode >= HttpURLConnection.HTTP_OK && responseCode < HttpURLConnection.HTTP_MULT_CHOICE) {
