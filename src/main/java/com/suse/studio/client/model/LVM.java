@@ -9,36 +9,36 @@ import org.simpleframework.xml.Root;
 @Root
 public class LVM {
 
-	@Element
-	private boolean enabled;
+    @Element
+    private boolean enabled;
 
-	@Element(name = "volume_group", required = false)
-	private String volumeGroup;
+    @Element(name = "volume_group", required = false)
+    private String volumeGroup;
 
-	@ElementList(required = false, empty = false)
-	private List<Volume> volumes;
+    @ElementList(required = false, empty = false)
+    private List<Volume> volumes;
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public String getVolumeGroup() {
-		return volumeGroup;
-	}
+    public String getVolumeGroup() {
+        return volumeGroup;
+    }
 
-	public List<Volume> getVolumes() {
-		return volumes;
-	}
+    public List<Volume> getVolumes() {
+        return volumes;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public void setVolumeGroup(String volumeGroup) {
-		this.volumeGroup = volumeGroup;
-	}
+    public void setVolumeGroup(String volumeGroup) {
+        this.volumeGroup = volumeGroup;
+    }
 
-	public void setVolumes(List<Volume> volumes) {
-		this.volumes = volumes;
-	}
+    public void setVolumes(List<Volume> volumes) {
+        this.volumes = volumes;
+    }
 }

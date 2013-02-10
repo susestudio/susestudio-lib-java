@@ -18,23 +18,20 @@ public class RequestFactory {
 
     /**
      * Init a {@link HttpURLConnection} object from a given uri.
-     *
+     * 
      * @param method
      * @param uri
      * @param encodedCredentials
      * @return
      * @throws IOException
      */
-    public HttpURLConnection initConnection(String method, String uri,
-            String encodedCredentials) throws IOException {
+    public HttpURLConnection initConnection(String method, String uri, String encodedCredentials) throws IOException {
         try {
             URL url = new URL(uri);
-            HttpURLConnection connection = (HttpURLConnection) url
-                    .openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(method);
             if (encodedCredentials != null) {
-                connection.setRequestProperty("Authorization", "BASIC "
-                        + encodedCredentials);
+                connection.setRequestProperty("Authorization", "BASIC " + encodedCredentials);
             }
             return connection;
         } catch (MalformedURLException e) {

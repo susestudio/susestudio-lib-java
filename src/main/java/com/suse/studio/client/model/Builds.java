@@ -28,19 +28,19 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-@Root(strict=false)
+@Root(strict = false)
 public class Builds {
-	
-	@Attribute
-	private String type;
-	
-	public String getType() {
-		return type;
-	}
-	
-	@ElementList(inline = true, required = false, empty = false)
-	private List<Build> build;
-	
+
+    @Attribute
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    @ElementList(inline = true, required = false, empty = false)
+    private List<Build> build;
+
     public List<Build> getBuilds() {
         return this.build;
     }

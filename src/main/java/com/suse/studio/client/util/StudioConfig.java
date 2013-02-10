@@ -52,8 +52,7 @@ public class StudioConfig {
         this.properties = new Properties();
         try {
             // Load default values
-            properties.load(StudioConfig.class.getResourceAsStream(
-                    "defaults.properties"));
+            properties.load(StudioConfig.class.getResourceAsStream("defaults.properties"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -63,7 +62,7 @@ public class StudioConfig {
 
     /**
      * Return the singleton instance.
-     *
+     * 
      * @return instance
      */
     public static StudioConfig getInstance() {
@@ -74,9 +73,8 @@ public class StudioConfig {
     }
 
     /**
-     * Set a preference given by key and value. Use one of the public key
-     * strings above.
-     *
+     * Set a preference given by key and value. Use one of the public key strings above.
+     * 
      * @param key
      * @param value
      */
@@ -86,7 +84,7 @@ public class StudioConfig {
 
     /**
      * Return the base URL or the default.
-     *
+     * 
      * @return base URL
      */
     public String getBaseURL() {
@@ -95,7 +93,7 @@ public class StudioConfig {
 
     /**
      * Return the encoded credentials or null.
-     *
+     * 
      * @return credentials
      */
     public String getEncodedCredentials() {
@@ -104,11 +102,10 @@ public class StudioConfig {
 
     /**
      * Log stream contents for debugging.
-     *
+     * 
      * @return
      */
     public boolean printStreamContents() {
-        return Boolean.parseBoolean(properties.getProperty(
-                KEY_PRINT_STREAM_CONTENTS, null));
+        return Boolean.parseBoolean(properties.getProperty(KEY_PRINT_STREAM_CONTENTS, null));
     }
 }

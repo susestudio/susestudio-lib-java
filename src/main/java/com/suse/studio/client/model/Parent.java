@@ -25,20 +25,20 @@ package com.suse.studio.client.model;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(strict=false)
+@Root(strict = false)
 public class Parent {
 
-	@Element
-	private int id;
+    @Element
+    private int id;
 
-	@Element
-	private String name;
+    @Element
+    private String name;
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 }

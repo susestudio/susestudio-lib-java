@@ -25,7 +25,7 @@ package com.suse.studio.client.model;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(strict = false, name="build")
+@Root(strict = false, name = "build")
 public class ScheduleBuildResult {
 
     @Element

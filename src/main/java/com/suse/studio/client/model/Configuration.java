@@ -9,190 +9,190 @@ import org.simpleframework.xml.Root;
 @Root(strict = false)
 public class Configuration {
 
-	@Element
-	private int id;
+    @Element
+    private int id;
 
-	@Element
-	private String name;
+    @Element
+    private String name;
 
-	@Element(required = false)
-	private String description;
+    @Element(required = false)
+    private String description;
 
-	@Element
-	private String version;
+    @Element
+    private String version;
 
-	@Element(required = false)
-	private String type;
+    @Element(required = false)
+    private String type;
 
-	@Element(required = false)
-	private String website;
+    @Element(required = false)
+    private String website;
 
-	@ElementList(entry="tag", empty = false, required = false)
-	private List<String> tags;
+    @ElementList(entry = "tag", empty = false, required = false)
+    private List<String> tags;
 
-	@Element
-	private Locale locale;
+    @Element
+    private Locale locale;
 
-	@Element
-	private Network network;
+    @Element
+    private Network network;
 
-	@Element
-	private Firewall firewall;
+    @Element
+    private Firewall firewall;
 
-	@ElementList(name = "users", entry = "user")
-	private List<ApplianceUser> applianceUsers;
+    @ElementList(name = "users", entry = "user")
+    private List<ApplianceUser> applianceUsers;
 
-	@ElementList(entry = "eula", empty = false, required = false)
-	private List<String> eulas;
+    @ElementList(entry = "eula", empty = false, required = false)
+    private List<String> eulas;
 
-	@ElementList(empty = false, required = false)
-	private List<Database> databases;
+    @ElementList(empty = false, required = false)
+    private List<Database> databases;
 
-	@ElementList(empty = false, required = false)
-	private List<Autostart> autostarts;
+    @ElementList(empty = false, required = false)
+    private List<Autostart> autostarts;
 
-	@Element
-	private Settings settings;
+    @Element
+    private Settings settings;
 
-	@Element
-	private LVM lvm;
+    @Element
+    private LVM lvm;
 
-	@Element
-	private Scripts scripts;
-	
-	public int getId() {
-		return id;
-	}
+    @Element
+    private Scripts scripts;
 
-	public String getName() {
-		return name;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	public String getWebsite() {
-		return website;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public List<String> getTags() {
-		return tags;
-	}
+    public String getWebsite() {
+        return website;
+    }
 
-	public Locale getLocale() {
-		return locale;
-	}
+    public List<String> getTags() {
+        return tags;
+    }
 
-	public Network getNetwork() {
-		return network;
-	}
+    public Locale getLocale() {
+        return locale;
+    }
 
-	public Firewall getFirewall() {
-		return firewall;
-	}
+    public Network getNetwork() {
+        return network;
+    }
 
-	public List<ApplianceUser> getApplianceUsers() {
-		return applianceUsers;
-	}
+    public Firewall getFirewall() {
+        return firewall;
+    }
 
-	public List<String> getEulas() {
-		return eulas;
-	}
+    public List<ApplianceUser> getApplianceUsers() {
+        return applianceUsers;
+    }
 
-	public List<Database> getDatabases() {
-		return databases;
-	}
+    public List<String> getEulas() {
+        return eulas;
+    }
 
-	public List<Autostart> getAutostarts() {
-		return autostarts;
-	}
+    public List<Database> getDatabases() {
+        return databases;
+    }
 
-	public Settings getSettings() {
-		return settings;
-	}
+    public List<Autostart> getAutostarts() {
+        return autostarts;
+    }
 
-	public LVM getLvm() {
-		return lvm;
-	}
+    public Settings getSettings() {
+        return settings;
+    }
 
-	public Scripts getScripts() {
-		return scripts;
-	}
+    public LVM getLvm() {
+        return lvm;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Scripts getScripts() {
+        return scripts;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public void setWebsite(String website) {
-		this.website = website;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setTags(List<String> tags) {
-		this.tags = tags;
-	}
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-	}
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
 
-	public void setNetwork(Network network) {
-		this.network = network;
-	}
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 
-	public void setFirewall(Firewall firewall) {
-		this.firewall = firewall;
-	}
+    public void setNetwork(Network network) {
+        this.network = network;
+    }
 
-	public void setApplianceUsers(List<ApplianceUser> applianceUsers) {
-		this.applianceUsers = applianceUsers;
-	}
+    public void setFirewall(Firewall firewall) {
+        this.firewall = firewall;
+    }
 
-	public void setEulas(List<String> eulas) {
-		this.eulas = eulas;
-	}
+    public void setApplianceUsers(List<ApplianceUser> applianceUsers) {
+        this.applianceUsers = applianceUsers;
+    }
 
-	public void setDatabases(List<Database> databases) {
-		this.databases = databases;
-	}
+    public void setEulas(List<String> eulas) {
+        this.eulas = eulas;
+    }
 
-	public void setAutostarts(List<Autostart> autostarts) {
-		this.autostarts = autostarts;
-	}
+    public void setDatabases(List<Database> databases) {
+        this.databases = databases;
+    }
 
-	public void setSettings(Settings settings) {
-		this.settings = settings;
-	}
+    public void setAutostarts(List<Autostart> autostarts) {
+        this.autostarts = autostarts;
+    }
 
-	public void setLvm(LVM lvm) {
-		this.lvm = lvm;
-	}
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
 
-	public void setScripts(Scripts scripts) {
-		this.scripts = scripts;
-	}
+    public void setLvm(LVM lvm) {
+        this.lvm = lvm;
+    }
+
+    public void setScripts(Scripts scripts) {
+        this.scripts = scripts;
+    }
 }

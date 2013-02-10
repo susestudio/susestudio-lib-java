@@ -48,7 +48,7 @@ import com.suse.studio.client.test.util.TestUtils;
 public class ExamplesTest {
 
     @Test
-	public void testAccount() {
+    public void testAccount() {
         User user = TestUtils.parseExampleFile(User.class, "account.xml");
         assertNotNull(user);
         assertEquals("uexample", user.getUsername());
@@ -59,7 +59,7 @@ public class ExamplesTest {
         assertNotNull(user.getDiskQuota());
         DiskQuota diskQuota = user.getDiskQuota();
         assertEquals("15GB", diskQuota.getAvailable());
-        assertEquals("4%", diskQuota.getUsed());        
+        assertEquals("4%", diskQuota.getUsed());
         List<String> openIdUrls = user.getOpenIdUrls();
         assertNotNull(openIdUrls);
         assertEquals(1, openIdUrls.size());
@@ -69,8 +69,7 @@ public class ExamplesTest {
 
     @Test
     public void testAppliances() {
-        Appliances appliances = TestUtils.parseExampleFile(Appliances.class,
-                "appliances.xml");
+        Appliances appliances = TestUtils.parseExampleFile(Appliances.class, "appliances.xml");
         assertNotNull(appliances);
         List<Appliance> list = appliances.getAppliances();
         assertEquals(2, list.size());
@@ -78,17 +77,15 @@ public class ExamplesTest {
 
     @Test
     public void testEmptyAppliances() {
-        Appliances appliances = TestUtils.parseExampleFile(Appliances.class,
-                "empty_appliances.xml");
+        Appliances appliances = TestUtils.parseExampleFile(Appliances.class, "empty_appliances.xml");
         assertNotNull(appliances);
         List<Appliance> list = appliances.getAppliances();
         assertEquals(0, list.size());
     }
-    
+
     @Test
     public void testAppliance() {
-        Appliance appliance = TestUtils.parseExampleFile(Appliance.class,
-                "appliance.xml");
+        Appliance appliance = TestUtils.parseExampleFile(Appliance.class, "appliance.xml");
         assertNotNull(appliance);
         assertEquals(24, appliance.getId());
         assertEquals("Cornelius' JeOS", appliance.getName());
@@ -96,12 +93,10 @@ public class ExamplesTest {
         assertNull(appliance.getType());
         Date lastEdited = TestUtils.getDate(2009, 3, 24, 12, 9, 42);
         assertEquals(lastEdited, appliance.getLastEdited());
-        assertNull(appliance.getEstimatedRawSize());
-        assertNull(appliance.getEstimatedCompressedSize());
-        assertEquals("http://susestudio.com/appliance/edit/24",
-                appliance.getEditUrl());
-        assertEquals("http://susestudio.com/api/v1/user/appliance_icon/1234",
-                appliance.getIconUrl());
+        assertEquals(0, appliance.getEstimatedRawSize());
+        assertEquals(0, appliance.getEstimatedCompressedSize());
+        assertEquals("http://susestudio.com/appliance/edit/24", appliance.getEditUrl());
+        assertEquals("http://susestudio.com/api/v1/user/appliance_icon/1234", appliance.getIconUrl());
         assertEquals("11.1", appliance.getBasesystem());
         assertNull(appliance.getUuid());
         Parent parent = appliance.getParent();
@@ -114,17 +109,15 @@ public class ExamplesTest {
         assertEquals(28, build.getId());
         assertEquals("0.0.1", build.getVersion());
         assertEquals("oem", build.getImageType());
-        assertEquals("238", build.getImageSize());
-        assertEquals("87", build.getCompressedImageSize());
-        assertEquals(
-        		"http://susestudio.com/download/bf1a0f08884ebac13f30b0fc62dfc44a/Cornelius_JeOS.x86_64-0.0.1.oem.tar.gz",
-        		build.getDownloadUrl());
+        assertEquals(238, build.getImageSize());
+        assertEquals(87, build.getCompressedImageSize());
+        assertEquals("http://susestudio.com/download/bf1a0f08884ebac13f30b0fc62dfc44a/Cornelius_JeOS.x86_64-0.0.1.oem.tar.gz",
+                build.getDownloadUrl());
     }
-    
+
     @Test
     public void testEmptyBuildAppliance() {
-        Appliance appliance = TestUtils.parseExampleFile(Appliance.class,
-                "empty_build_appliance.xml");
+        Appliance appliance = TestUtils.parseExampleFile(Appliance.class, "empty_build_appliance.xml");
         List<Build> builds = appliance.getBuilds();
         assertNotNull(builds);
         assertEquals(0, builds.size());
@@ -132,15 +125,13 @@ public class ExamplesTest {
 
     @Test
     public void testApplianceStatus() {
-        Status status = TestUtils.parseExampleFile(Status.class,
-                "appliance_status.xml");
+        Status status = TestUtils.parseExampleFile(Status.class, "appliance_status.xml");
         assertNotNull(status);
         assertEquals("error", status.getState());
         List<Issue> issues = status.getIssues();
         Issue issue = issues.get(0);
         assertEquals("error", issue.getType());
-        assertEquals("You must include a kernel package in your appliance.",
-                issue.getText());
+        assertEquals("You must include a kernel package in your appliance.", issue.getText());
         Solution solution = issue.getSolution();
         assertEquals("install", solution.getType());
         assertEquals("kernel-default", solution.getPkg());
@@ -149,16 +140,19 @@ public class ExamplesTest {
     @Test
     public void testTemplateSets() {
         String[] names = { "openSUSE 11.1, Just enough OS (JeOS)",
-                "openSUSE 11.1, Server", "openSUSE 11.1, Minimal X",
-                "openSUSE 11.1, KDE 3 desktop", "openSUSE 11.1, KDE 4 desktop",
+                "openSUSE 11.1, Server",
+                "openSUSE 11.1, Minimal X",
+                "openSUSE 11.1, KDE 3 desktop",
+                "openSUSE 11.1, KDE 4 desktop",
                 "openSUSE 11.1, GNOME desktop" };
         String[] descriptions = { "Tiny, minimalistic appliances",
-                "A text-only base", "Graphical system + IceWM",
-                "Base system + KDE 3", "Base system + KDE 4",
+                "A text-only base",
+                "Graphical system + IceWM",
+                "Base system + KDE 3",
+                "Base system + KDE 4",
                 "Base system + GNOME" };
         String basesystem = "11.1";
-        TemplateSets templateSets = TestUtils.parseExampleFile(
-                TemplateSets.class, "template_sets.xml");
+        TemplateSets templateSets = TestUtils.parseExampleFile(TemplateSets.class, "template_sets.xml");
         assertNotNull(templateSets);
         List<TemplateSet> templateSetsList = templateSets.getTemplateSets();
         assertEquals(1, templateSetsList.size());
@@ -174,11 +168,10 @@ public class ExamplesTest {
             assertEquals(basesystem, template.getBasesystem());
         }
     }
-    
+
     @Test
     public void testEmptyTemplateSets() {
-        TemplateSets templateSets = TestUtils.parseExampleFile(
-                TemplateSets.class, "empty_template_sets.xml");
+        TemplateSets templateSets = TestUtils.parseExampleFile(TemplateSets.class, "empty_template_sets.xml");
         assertNotNull(templateSets);
         List<TemplateSet> templateSetsList = templateSets.getTemplateSets();
         assertEquals(0, templateSetsList.size());
@@ -186,8 +179,7 @@ public class ExamplesTest {
 
     @Test
     public void testEmptyTemplateSet() {
-        TemplateSet templateSet = TestUtils.parseExampleFile(
-                TemplateSet.class, "empty_template_set.xml");
+        TemplateSet templateSet = TestUtils.parseExampleFile(TemplateSet.class, "empty_template_set.xml");
         assertNotNull(templateSet);
         List<Template> templateSetsList = templateSet.getTemplates();
         assertEquals(0, templateSetsList.size());
@@ -195,8 +187,7 @@ public class ExamplesTest {
 
     @Test
     public void testTestdrives() {
-        Testdrives testdrives = TestUtils.parseExampleFile(Testdrives.class,
-                "testdrives.xml");
+        Testdrives testdrives = TestUtils.parseExampleFile(Testdrives.class, "testdrives.xml");
         assertNotNull(testdrives);
         List<Testdrive> tdList = testdrives.getTestdrives();
         Testdrive testdrive = tdList.get(0);
@@ -207,8 +198,7 @@ public class ExamplesTest {
 
     @Test
     public void testEmptyTestdrives() {
-        Testdrives testdrives = TestUtils.parseExampleFile(Testdrives.class,
-                "empty_testdrives.xml");
+        Testdrives testdrives = TestUtils.parseExampleFile(Testdrives.class, "empty_testdrives.xml");
         assertNotNull(testdrives);
         List<Testdrive> list = testdrives.getTestdrives();
         assertEquals(0, list.size());
@@ -216,8 +206,7 @@ public class ExamplesTest {
 
     @Test
     public void testTestdrive() {
-        Testdrive testdrive = TestUtils.parseExampleFile(Testdrive.class,
-                "testdrive.xml");
+        Testdrive testdrive = TestUtils.parseExampleFile(Testdrive.class, "testdrive.xml");
         assertNotNull(testdrive);
         assertEquals("1234", testdrive.getId());
         assertEquals("new", testdrive.getState());
@@ -230,17 +219,17 @@ public class ExamplesTest {
         assertEquals("5902", vncServer.getPort());
         assertEquals("1234567890", vncServer.getPassword());
     }
-    
+
     @Test
     public void testGallery() {
-    	Gallery gallery = TestUtils.parseExampleFile(Gallery.class, "gallery.xml");
-        GalleryAppliances galleryAppliances = gallery.getAppliances();        
+        Gallery gallery = TestUtils.parseExampleFile(Gallery.class, "gallery.xml");
+        GalleryAppliances galleryAppliances = gallery.getAppliances();
         assertNotNull(galleryAppliances);
         assertEquals(7999, galleryAppliances.getCount());
         assertEquals(800, galleryAppliances.getPages());
         assertEquals(1, galleryAppliances.getCurrentPage());
-        List<GalleryAppliance> list = galleryAppliances.getAppliances();        
-        assertNotNull(list);        
+        List<GalleryAppliance> list = galleryAppliances.getAppliances();
+        assertNotNull(list);
         assertEquals(10, list.size());
         GalleryAppliance galleryAppliance = list.get(0);
         assertEquals(217901, galleryAppliance.getId());
@@ -256,172 +245,171 @@ public class ExamplesTest {
         Date date = TestUtils.getDate(2013, 0, 28, 14, 35, 58);
         assertEquals(date, galleryAppliance.getDate());
     }
-    
+
     @Test
     public void testEmptyGallery() {
-    	Gallery gallery = TestUtils.parseExampleFile(Gallery.class, "empty_gallery.xml");
-        GalleryAppliances galleryAppliances = gallery.getAppliances();        
+        Gallery gallery = TestUtils.parseExampleFile(Gallery.class, "empty_gallery.xml");
+        GalleryAppliances galleryAppliances = gallery.getAppliances();
         assertNotNull(galleryAppliances);
-        List<GalleryAppliance> list = galleryAppliances.getAppliances();        
-        assertNotNull(list);        
+        List<GalleryAppliance> list = galleryAppliances.getAppliances();
+        assertNotNull(list);
         assertEquals(0, list.size());
     }
-    
+
     @Test
-	public void testConfiguration() {
-		Configuration configuration = TestUtils.parseExampleFile(
-				Configuration.class, "configuration.xml");
+    public void testConfiguration() {
+        Configuration configuration = TestUtils.parseExampleFile(Configuration.class, "configuration.xml");
 
-		assertEquals(24, configuration.getId());
-		assertEquals("LAMP Server", configuration.getName());
-		assertEquals("This is a LAMP server.", configuration.getDescription());
-		assertEquals("0.0.1", configuration.getVersion());
-		assertEquals("oem", configuration.getType());
-		assertEquals("http://susestudio.com", configuration.getWebsite());
+        assertEquals(24, configuration.getId());
+        assertEquals("LAMP Server", configuration.getName());
+        assertEquals("This is a LAMP server.", configuration.getDescription());
+        assertEquals("0.0.1", configuration.getVersion());
+        assertEquals("oem", configuration.getType());
+        assertEquals("http://susestudio.com", configuration.getWebsite());
 
-		List<String> tags = configuration.getTags();
-		assertNotNull(tags);
-		assertEquals(2, tags.size());
-		String[] expectedTags = { "lamp", "server" };
-		for (int i = 0; i < expectedTags.length; i++) {
-			assertEquals(expectedTags[i], tags.get(i));
-		}
+        List<String> tags = configuration.getTags();
+        assertNotNull(tags);
+        assertEquals(2, tags.size());
+        String[] expectedTags = { "lamp", "server" };
+        for (int i = 0; i < expectedTags.length; i++) {
+            assertEquals(expectedTags[i], tags.get(i));
+        }
 
-		Locale locale = configuration.getLocale();
-		assertNotNull(locale);
-		assertEquals("english-uk", locale.getKeyboardLayout());
-		assertEquals("en_GB.UTF-8", locale.getLanguage());
-		assertEquals("Europe/Berlin", locale.getLocation());
+        Locale locale = configuration.getLocale();
+        assertNotNull(locale);
+        assertEquals("english-uk", locale.getKeyboardLayout());
+        assertEquals("en_GB.UTF-8", locale.getLanguage());
+        assertEquals("Europe/Berlin", locale.getLocation());
 
-		Network network = configuration.getNetwork();
-		assertNotNull(network);
-		assertEquals("manual", network.getType());
-		assertEquals("lampserver", network.getHostname());
-		assertEquals("192.168.1.100", network.getIp());
-		assertEquals("255.255.255.0", network.getNetmask());
-		assertEquals("192.168.1.1", network.getRoute());
-		List<String> nameServers = network.getNameServers();
-		assertNotNull(nameServers);
-		assertEquals(2, nameServers.size());
-		String[] expectedNameServers = { "192.168.1.1", "192.168.1.2" };
-		for (int i = 0; i < expectedNameServers.length; i++) {
-			assertEquals(expectedNameServers[i], nameServers.get(i));
-		}
+        Network network = configuration.getNetwork();
+        assertNotNull(network);
+        assertEquals("manual", network.getType());
+        assertEquals("lampserver", network.getHostname());
+        assertEquals("192.168.1.100", network.getIp());
+        assertEquals("255.255.255.0", network.getNetmask());
+        assertEquals("192.168.1.1", network.getRoute());
+        List<String> nameServers = network.getNameServers();
+        assertNotNull(nameServers);
+        assertEquals(2, nameServers.size());
+        String[] expectedNameServers = { "192.168.1.1", "192.168.1.2" };
+        for (int i = 0; i < expectedNameServers.length; i++) {
+            assertEquals(expectedNameServers[i], nameServers.get(i));
+        }
 
-		Firewall firewall = configuration.getFirewall();
-		assertNotNull(firewall);
-		assertEquals(true, firewall.isEnabled());
-		List<String> openPorts = firewall.getOpenPorts();
-		assertNotNull(openPorts);
-		assertEquals(2, openPorts.size());
-		String[] expectedOpenPorts = { "ssh", "http" };
-		for (int i = 0; i < expectedOpenPorts.length; i++) {
-			assertEquals(expectedOpenPorts[i], openPorts.get(i));
-		}
+        Firewall firewall = configuration.getFirewall();
+        assertNotNull(firewall);
+        assertEquals(true, firewall.isEnabled());
+        List<String> openPorts = firewall.getOpenPorts();
+        assertNotNull(openPorts);
+        assertEquals(2, openPorts.size());
+        String[] expectedOpenPorts = { "ssh", "http" };
+        for (int i = 0; i < expectedOpenPorts.length; i++) {
+            assertEquals(expectedOpenPorts[i], openPorts.get(i));
+        }
 
-		List<ApplianceUser> applianceUsers = configuration.getApplianceUsers();
-		assertNotNull(applianceUsers);
-		assertEquals(3, applianceUsers.size());
-		// root
-		ApplianceUser user = applianceUsers.get(0);
-		assertEquals(0, user.getUid());
-		assertEquals("root", user.getName());
-		assertEquals("linux", user.getPassword());
-		assertEquals("root", user.getGroup());
-		assertEquals("/bin/bash", user.getShell());
-		assertEquals("/root", user.getHomeDirectory());
-		// tux
-		user = applianceUsers.get(1);
-		assertEquals(1000, user.getUid());
-		assertEquals("tux", user.getName());
-		assertEquals("linux", user.getPassword());
-		assertEquals("users", user.getGroup());
-		assertEquals("/bin/bash", user.getShell());
-		assertEquals("/home/tux", user.getHomeDirectory());
-		// webdev
-		user = applianceUsers.get(2);
-		assertEquals(1001, user.getUid());
-		assertEquals("webdev", user.getName());
-		assertEquals("linux1234", user.getPassword());
-		assertEquals("users", user.getGroup());
-		assertEquals("/bin/bash", user.getShell());
-		assertEquals("/home/webdev", user.getHomeDirectory());
+        List<ApplianceUser> applianceUsers = configuration.getApplianceUsers();
+        assertNotNull(applianceUsers);
+        assertEquals(3, applianceUsers.size());
+        // root
+        ApplianceUser user = applianceUsers.get(0);
+        assertEquals(0, user.getUid());
+        assertEquals("root", user.getName());
+        assertEquals("linux", user.getPassword());
+        assertEquals("root", user.getGroup());
+        assertEquals("/bin/bash", user.getShell());
+        assertEquals("/root", user.getHomeDirectory());
+        // tux
+        user = applianceUsers.get(1);
+        assertEquals(1000, user.getUid());
+        assertEquals("tux", user.getName());
+        assertEquals("linux", user.getPassword());
+        assertEquals("users", user.getGroup());
+        assertEquals("/bin/bash", user.getShell());
+        assertEquals("/home/tux", user.getHomeDirectory());
+        // webdev
+        user = applianceUsers.get(2);
+        assertEquals(1001, user.getUid());
+        assertEquals("webdev", user.getName());
+        assertEquals("linux1234", user.getPassword());
+        assertEquals("users", user.getGroup());
+        assertEquals("/bin/bash", user.getShell());
+        assertEquals("/home/webdev", user.getHomeDirectory());
 
-		List<String> eulas = configuration.getEulas();
-		assertNotNull(eulas);
-		assertEquals(1, eulas.size());
-		assertEquals("This is an End User License Agreement.", eulas.get(0));
+        List<String> eulas = configuration.getEulas();
+        assertNotNull(eulas);
+        assertEquals(1, eulas.size());
+        assertEquals("This is an End User License Agreement.", eulas.get(0));
 
-		List<Database> databases = configuration.getDatabases();
-		assertNotNull(databases);
-		assertEquals(1, databases.size());
-		Database database = databases.get(0);
-		assertEquals("pgsql", database.getType());
-		List<DatabaseUser> databaseUsers = database.getDatabaseUsers();
-		assertNotNull(databaseUsers);
-		assertEquals(1, databaseUsers.size());
-		DatabaseUser databaseUser = databaseUsers.get(0);
-		assertNotNull(databaseUser);
-		assertEquals("db_user", databaseUser.getUsername());
-		assertEquals("linux", databaseUser.getPassword());
-		List<String> userDatabases = databaseUser.getDatabases();
-		assertNotNull(userDatabases);
-		assertEquals(1, userDatabases.size());
-		assertEquals("project_db", userDatabases.get(0));
+        List<Database> databases = configuration.getDatabases();
+        assertNotNull(databases);
+        assertEquals(1, databases.size());
+        Database database = databases.get(0);
+        assertEquals("pgsql", database.getType());
+        List<DatabaseUser> databaseUsers = database.getDatabaseUsers();
+        assertNotNull(databaseUsers);
+        assertEquals(1, databaseUsers.size());
+        DatabaseUser databaseUser = databaseUsers.get(0);
+        assertNotNull(databaseUser);
+        assertEquals("db_user", databaseUser.getUsername());
+        assertEquals("linux", databaseUser.getPassword());
+        List<String> userDatabases = databaseUser.getDatabases();
+        assertNotNull(userDatabases);
+        assertEquals(1, userDatabases.size());
+        assertEquals("project_db", userDatabases.get(0));
 
-		List<Autostart> autostarts = configuration.getAutostarts();
-		assertNotNull(autostarts);
-		assertEquals(1, autostarts.size());
-		Autostart autostart = autostarts.get(0);
-		assertNotNull(autostart);
-		assertEquals("/usr/bin/someprogram", autostart.getCommand());
-		assertEquals("Launch \"someprogram\"", autostart.getDescription());
-		assertEquals(true, autostart.isEnabled());
-		assertEquals("tux", autostart.getUser());
+        List<Autostart> autostarts = configuration.getAutostarts();
+        assertNotNull(autostarts);
+        assertEquals(1, autostarts.size());
+        Autostart autostart = autostarts.get(0);
+        assertNotNull(autostart);
+        assertEquals("/usr/bin/someprogram", autostart.getCommand());
+        assertEquals("Launch \"someprogram\"", autostart.getDescription());
+        assertEquals(true, autostart.isEnabled());
+        assertEquals("tux", autostart.getUser());
 
-		Settings settings = configuration.getSettings();
-		assertNotNull(settings);
-		assertEquals(512, settings.getMemorySize());
-		assertEquals(16, settings.getDiskSize());
-		assertEquals(512, settings.getSwapSize());
-		assertEquals(true, settings.isPaeEnabled());
-		assertEquals(true, settings.isXenHostModeEnabled());
-		assertEquals(true, settings.isCdromEnabled());
-		assertEquals(false, settings.isWebYaSTEnabled());
-		assertEquals(false, settings.isLiveInstallerEnabled());
-		assertEquals(true, settings.isPublicClonable());
-		assertEquals(3, settings.getRunlevel());
-		assertEquals("tux", settings.getAutomaticLogin());
+        Settings settings = configuration.getSettings();
+        assertNotNull(settings);
+        assertEquals(512, settings.getMemorySize());
+        assertEquals(16, settings.getDiskSize());
+        assertEquals(512, settings.getSwapSize());
+        assertEquals(true, settings.isPaeEnabled());
+        assertEquals(true, settings.isXenHostModeEnabled());
+        assertEquals(true, settings.isCdromEnabled());
+        assertEquals(false, settings.isWebYaSTEnabled());
+        assertEquals(false, settings.isLiveInstallerEnabled());
+        assertEquals(true, settings.isPublicClonable());
+        assertEquals(3, settings.getRunlevel());
+        assertEquals("tux", settings.getAutomaticLogin());
 
-		LVM lvm = configuration.getLvm();
-		assertNotNull(lvm);
-		assertEquals(true, lvm.isEnabled());
-		assertEquals("systemVG", lvm.getVolumeGroup());
-		List<Volume> volumes = lvm.getVolumes();
-		assertNotNull(volumes);
-		assertEquals(2, volumes.size());
-		// volume 1
-		Volume volume = volumes.get(0);
-		assertEquals(1000, volume.getSize());
-		assertEquals("/", volume.getPath());
-		// volume 2
-		volume = volumes.get(1);
-		assertEquals(100000, volume.getSize());
-		assertEquals("/home", volume.getPath());
+        LVM lvm = configuration.getLvm();
+        assertNotNull(lvm);
+        assertEquals(true, lvm.isEnabled());
+        assertEquals("systemVG", lvm.getVolumeGroup());
+        List<Volume> volumes = lvm.getVolumes();
+        assertNotNull(volumes);
+        assertEquals(2, volumes.size());
+        // volume 1
+        Volume volume = volumes.get(0);
+        assertEquals(1000, volume.getSize());
+        assertEquals("/", volume.getPath());
+        // volume 2
+        volume = volumes.get(1);
+        assertEquals(100000, volume.getSize());
+        assertEquals("/home", volume.getPath());
 
-		Scripts scripts = configuration.getScripts();
-		assertNotNull(scripts);
-		Script bootScript = scripts.getBootScript();
-		Script buildScript = scripts.getBuildScript();
-		assertNotNull(buildScript);
-		assertEquals(true, buildScript.isEnabled());
-		assertEquals("#!/bin/script1", buildScript.getScript());
-		assertNotNull(bootScript);
-		assertEquals(true, bootScript.isEnabled());
-		assertEquals("#!/bin/script2", bootScript.getScript());
-		Script autoYaSTScript = scripts.getAutoYaSTScript();
-		assertNotNull(autoYaSTScript);
-		assertEquals(false, autoYaSTScript.isEnabled());
-		assertNull(autoYaSTScript.getScript());
-	}
+        Scripts scripts = configuration.getScripts();
+        assertNotNull(scripts);
+        Script bootScript = scripts.getBootScript();
+        Script buildScript = scripts.getBuildScript();
+        assertNotNull(buildScript);
+        assertEquals(true, buildScript.isEnabled());
+        assertEquals("#!/bin/script1", buildScript.getScript());
+        assertNotNull(bootScript);
+        assertEquals(true, bootScript.isEnabled());
+        assertEquals("#!/bin/script2", bootScript.getScript());
+        Script autoYaSTScript = scripts.getAutoYaSTScript();
+        assertNotNull(autoYaSTScript);
+        assertEquals(false, autoYaSTScript.isEnabled());
+        assertNull(autoYaSTScript.getScript());
+    }
 }

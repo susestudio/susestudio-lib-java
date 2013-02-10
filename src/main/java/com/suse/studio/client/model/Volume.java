@@ -5,26 +5,26 @@ import org.simpleframework.xml.Root;
 
 @Root
 public class Volume {
-	
-	@Element(required=false)
-	private int size;
-	
-	@Element
-	private String path;
 
-	public int getSize() {
-		return size;
-	}
+    @Element(required = false)
+    private int size;
 
-	public String getPath() {
-		return path;
-	}
+    @Element
+    private String path;
 
-	public void setSize(int size) {
-		this.size = size;
-	}
+    public int getSize() {
+        return size;
+    }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+    public String getPath() {
+        return path;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }

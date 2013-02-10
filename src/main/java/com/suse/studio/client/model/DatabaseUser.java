@@ -10,36 +10,36 @@ import com.suse.studio.client.util.ParserUtils;
 @Root(name = "user")
 public class DatabaseUser {
 
-	@Element
-	private String username;
+    @Element
+    private String username;
 
-	@Element
-	private String password;
+    @Element
+    private String password;
 
-	@Element(name = "database_list", required = false)
-	private String databasesString;
+    @Element(name = "database_list", required = false)
+    private String databasesString;
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public List<String> getDatabases() {
-		return ParserUtils.commaSeparatedStringToList(databasesString);
-	}
+    public List<String> getDatabases() {
+        return ParserUtils.commaSeparatedStringToList(databasesString);
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setDatabases(List<String> databases) {
-		this.databasesString = ParserUtils.listToCommaSeparatedString(databases);
-	}	
+    public void setDatabases(List<String> databases) {
+        this.databasesString = ParserUtils.listToCommaSeparatedString(databases);
+    }
 }

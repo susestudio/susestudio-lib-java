@@ -5,125 +5,125 @@ import org.simpleframework.xml.Root;
 
 @Root
 public class Settings {
-	
-	@Element(name = "memory_size")
-	private int memorySize;
 
-	@Element(name = "disk_size")
-	private int diskSize;
+    @Element(name = "memory_size")
+    private int memorySize;
 
-	@Element(name = "swap_size")
-	private int swapSize;
+    @Element(name = "disk_size")
+    private int diskSize;
 
-	@Element(name = "pae_enabled")
-	private boolean paeEnabled;
+    @Element(name = "swap_size")
+    private int swapSize;
 
-	@Element(name = "xen_host_mode_enabled", required = false)
-	private boolean xenHostModeEnabled;
+    @Element(name = "pae_enabled")
+    private boolean paeEnabled;
 
-	@Element(name = "cdrom_enabled")
-	private boolean cdromEnabled;
+    @Element(name = "xen_host_mode_enabled", required = false)
+    private boolean xenHostModeEnabled;
 
-	@Element(name = "webyast_enabled")
-	private boolean webYaSTEnabled;
+    @Element(name = "cdrom_enabled")
+    private boolean cdromEnabled;
 
-	@Element(name = "live_installer_enabled")
-	private boolean liveInstallerEnabled;
+    @Element(name = "webyast_enabled")
+    private boolean webYaSTEnabled;
 
-	@Element(name = "public_clonable", required = false)
-	private boolean publicClonable;
+    @Element(name = "live_installer_enabled")
+    private boolean liveInstallerEnabled;
 
-	@Element
-	private int runlevel;
+    @Element(name = "public_clonable", required = false)
+    private boolean publicClonable;
 
-	@Element(name = "automatic_login", required = false)
-	private String automaticLogin;
+    @Element
+    private int runlevel;
 
-	public int getMemorySize() {
-		return memorySize;
-	}
+    @Element(name = "automatic_login", required = false)
+    private String automaticLogin;
 
-	public int getDiskSize() {
-		return diskSize;
-	}
+    public int getMemorySize() {
+        return memorySize;
+    }
 
-	public int getSwapSize() {
-		return swapSize;
-	}
+    public int getDiskSize() {
+        return diskSize;
+    }
 
-	public boolean isPaeEnabled() {
-		return paeEnabled;
-	}
+    public int getSwapSize() {
+        return swapSize;
+    }
 
-	public boolean isXenHostModeEnabled() {
-		return xenHostModeEnabled;
-	}
+    public boolean isPaeEnabled() {
+        return paeEnabled;
+    }
 
-	public boolean isCdromEnabled() {
-		return cdromEnabled;
-	}
+    public boolean isXenHostModeEnabled() {
+        return xenHostModeEnabled;
+    }
 
-	public boolean isWebYaSTEnabled() {
-		return webYaSTEnabled;
-	}
+    public boolean isCdromEnabled() {
+        return cdromEnabled;
+    }
 
-	public boolean isLiveInstallerEnabled() {
-		return liveInstallerEnabled;
-	}
+    public boolean isWebYaSTEnabled() {
+        return webYaSTEnabled;
+    }
 
-	public boolean isPublicClonable() {
-		return publicClonable;
-	}
+    public boolean isLiveInstallerEnabled() {
+        return liveInstallerEnabled;
+    }
 
-	public int getRunlevel() {
-		return runlevel;
-	}
+    public boolean isPublicClonable() {
+        return publicClonable;
+    }
 
-	public String getAutomaticLogin() {
-		return automaticLogin;
-	}
+    public int getRunlevel() {
+        return runlevel;
+    }
 
-	public void setMemorySize(int memorySize) {
-		this.memorySize = memorySize;
-	}
+    public String getAutomaticLogin() {
+        return automaticLogin;
+    }
 
-	public void setDiskSize(int diskSize) {
-		this.diskSize = diskSize;
-	}
+    public void setMemorySize(int memorySize) {
+        this.memorySize = memorySize;
+    }
 
-	public void setSwapSize(int swapSize) {
-		this.swapSize = swapSize;
-	}
+    public void setDiskSize(int diskSize) {
+        this.diskSize = diskSize;
+    }
 
-	public void setPaeEnabled(boolean paeEnabled) {
-		this.paeEnabled = paeEnabled;
-	}
+    public void setSwapSize(int swapSize) {
+        this.swapSize = swapSize;
+    }
 
-	public void setXenHostModeEnabled(boolean xenHostModeEnabled) {
-		this.xenHostModeEnabled = xenHostModeEnabled;
-	}
+    public void setPaeEnabled(boolean paeEnabled) {
+        this.paeEnabled = paeEnabled;
+    }
 
-	public void setCdromEnabled(boolean cdromEnabled) {
-		this.cdromEnabled = cdromEnabled;
-	}
+    public void setXenHostModeEnabled(boolean xenHostModeEnabled) {
+        this.xenHostModeEnabled = xenHostModeEnabled;
+    }
 
-	public void setWebYaSTEnabled(boolean webYaSTEnabled) {
-		this.webYaSTEnabled = webYaSTEnabled;
-	}
+    public void setCdromEnabled(boolean cdromEnabled) {
+        this.cdromEnabled = cdromEnabled;
+    }
 
-	public void setLiveInstallerEnabled(boolean liveInstallerEnabled) {
-		this.liveInstallerEnabled = liveInstallerEnabled;
-	}
+    public void setWebYaSTEnabled(boolean webYaSTEnabled) {
+        this.webYaSTEnabled = webYaSTEnabled;
+    }
 
-	public void setPublicClonable(boolean publicClonable) {
-		this.publicClonable = publicClonable;
-	}
+    public void setLiveInstallerEnabled(boolean liveInstallerEnabled) {
+        this.liveInstallerEnabled = liveInstallerEnabled;
+    }
 
-	public void setRunlevel(int runlevel) {
-		this.runlevel = runlevel;
-	}
+    public void setPublicClonable(boolean publicClonable) {
+        this.publicClonable = publicClonable;
+    }
 
-	public void setAutomaticLogin(String automaticLogin) {
-		this.automaticLogin = automaticLogin;
-	}	
+    public void setRunlevel(int runlevel) {
+        this.runlevel = runlevel;
+    }
+
+    public void setAutomaticLogin(String automaticLogin) {
+        this.automaticLogin = automaticLogin;
+    }
 }

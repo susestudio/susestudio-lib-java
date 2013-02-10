@@ -65,9 +65,9 @@ public class SUSEStudio {
     private StudioConfig config;
 
     /**
-     * Create a client object by providing user and API key. This client will
-     * talk to the public SUSE Studio default URL (http://susestudio.com).
-     *
+     * Create a client object by providing user and API key. This client will talk to the public SUSE Studio default URL
+     * (http://susestudio.com).
+     * 
      * @param user
      * @param apiKey
      */
@@ -83,10 +83,9 @@ public class SUSEStudio {
     }
 
     /**
-     * Create a client by providing user, API key and SUSE Studio base URL.
-     * Passing <code>null</code> as the url is supported, we will fall back to
-     * the public SUSE Studio default URL (http://susestudio.com) in this case.
-     *
+     * Create a client by providing user, API key and SUSE Studio base URL. Passing <code>null</code> as the url is
+     * supported, we will fall back to the public SUSE Studio default URL (http://susestudio.com) in this case.
+     * 
      * @param user
      * @param apiKey
      * @param url
@@ -104,9 +103,9 @@ public class SUSEStudio {
 
     /**
      * Get information about the user associated with this client.
-     *
+     * 
      * GET /api/v2/user/account
-     *
+     * 
      * @return current user
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
@@ -119,9 +118,9 @@ public class SUSEStudio {
 
     /**
      * Return the running API version including the minor version.
-     *
+     * 
      * GET /api/v2/user/api_version
-     *
+     * 
      * @return API version including minor version
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
@@ -134,9 +133,9 @@ public class SUSEStudio {
 
     /**
      * Get all appliances of the current user.
-     *
+     * 
      * GET /api/v2/user/appliances
-     *
+     * 
      * @return list of the current user's appliances
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
@@ -149,9 +148,9 @@ public class SUSEStudio {
 
     /**
      * Get the details of an appliance given by id.
-     *
+     * 
      * GET /api/v2/user/appliances/<id>
-     *
+     * 
      * @return details of appliance with given id
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
@@ -166,9 +165,9 @@ public class SUSEStudio {
 
     /**
      * Get information about the status of an appliance given by id.
-     *
+     * 
      * GET /api/v2/user/appliances/<id>/status
-     *
+     * 
      * @return status of appliance with given id
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
@@ -181,12 +180,12 @@ public class SUSEStudio {
         Status status = sc.get(Status.class);
         return status;
     }
-    
+
     /**
      * Clones an existing appliance in a new appliance
-     *
+     * 
      * POST /api/v2/user/appliances?clone_from=<appliance_id>&name=<name>&arch=<arch>
-     *
+     * 
      * @param id original appliance identifier
      * @param name new appliance name or null for automatic generation
      * @param arch new appliance architecture ("i686" or "x86_64") or null for "i686"
@@ -209,12 +208,12 @@ public class SUSEStudio {
         Appliance appliance = sc.post(Appliance.class);
         return appliance;
     }
-    
+
     /**
      * Deletes an appliance.
-     *
+     * 
      * DELETE /api/v2/user/appliances/<id>
-     *
+     * 
      * @param id
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
@@ -228,11 +227,10 @@ public class SUSEStudio {
 
     /**
      * Query appliances from SUSE Gallery (latest|popular|username).
-     *
+     * 
      * GET /api/v2/user/gallery/appliances
-     *
-     * @param queryType
-     *            the type of the query, choose from constants
+     * 
+     * @param queryType the type of the query, choose from constants
      * @return list of appliances queried from gallery
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
@@ -247,11 +245,10 @@ public class SUSEStudio {
 
     /**
      * Search for appliances within SUSE Gallery.
-     *
+     * 
      * GET /api/v2/user/gallery/appliances
-     *
-     * @param searchquery
-     *            query string
+     * 
+     * @param searchquery query string
      * @return list of appliances queried from gallery
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
@@ -266,9 +263,9 @@ public class SUSEStudio {
 
     /**
      * Return the configuration of appliance with given id.
-     *
+     * 
      * GET /api/v2/user/appliances/<id>/configuration
-     *
+     * 
      * @param id
      * @return configuration
      * @throws IOException
@@ -282,12 +279,12 @@ public class SUSEStudio {
         Configuration configuration = sc.get(Configuration.class);
         return configuration;
     }
-    
+
     /**
      * Changes an appliance configuration.
-     *
+     * 
      * PUT /api/v2/user/appliances/<id>/configuration
-     *
+     * 
      * @param id
      * @param configuration
      * @return configuration the new configuration
@@ -304,9 +301,9 @@ public class SUSEStudio {
 
     /**
      * Return the template set with given id.
-     *
+     * 
      * GET /api/v2/user/template_sets/<name>
-     *
+     * 
      * @param name
      * @return list of template sets
      * @throws IOException
@@ -319,12 +316,12 @@ public class SUSEStudio {
         TemplateSet templateSet = sc.get(TemplateSet.class);
         return templateSet;
     }
-    
+
     /**
      * List all template sets.
-     *
+     * 
      * GET /api/v2/user/template_sets
-     *
+     * 
      * @return list of template sets
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
@@ -338,9 +335,9 @@ public class SUSEStudio {
 
     /**
      * Return a list of running testdrives.
-     *
+     * 
      * GET /api/v2/user/testdrives
-     *
+     * 
      * @return list of running testdrives
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
@@ -352,11 +349,11 @@ public class SUSEStudio {
     }
 
     /**
-     * Start a new testdrive session of the given build. Note that testdrive sessions will be
-     * aborted if no client has connected after 60 seconds.
-     *
+     * Start a new testdrive session of the given build. Note that testdrive sessions will be aborted if no client has
+     * connected after 60 seconds.
+     * 
      * POST /api/v2/user/testdrives?build_id=<build_id>
-     *
+     * 
      * @param buildId
      * @return result object
      * @throws IOException
@@ -371,16 +368,16 @@ public class SUSEStudio {
 
     /**
      * Schedule a new build for appliance with a given ID and image type.
-     *
+     * 
      * POST user/running_builds?appliance_id=<applianceID>&force=<force>&image_type=<imgType>
+     * 
      * @param applianceID
      * @param imgType
      * @return result object
      * @throws IOException
      * @throws StudioException if Suse Studio returns an error response
      */
-    public ScheduleBuildResult scheduleBuild(long applianceID, ImageType imgType)
-            throws IOException, StudioException {
+    public ScheduleBuildResult scheduleBuild(long applianceID, ImageType imgType) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/running_builds?appliance_id=");
         uri.append(applianceID);
         uri.append("&force=");

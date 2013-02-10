@@ -8,25 +8,25 @@ import org.simpleframework.xml.Root;
 
 @Root
 public class Database {
-	@Element
-	private String type;
+    @Element
+    private String type;
 
-	@ElementList(name = "users", entry = "user", empty = false, required = false)
-	private List<DatabaseUser> databaseUsers;
+    @ElementList(name = "users", entry = "user", empty = false, required = false)
+    private List<DatabaseUser> databaseUsers;
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public List<DatabaseUser> getDatabaseUsers() {
-		return databaseUsers;
-	}
+    public List<DatabaseUser> getDatabaseUsers() {
+        return databaseUsers;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setDatabaseUsers(List<DatabaseUser> databaseUsers) {
-		this.databaseUsers = databaseUsers;
-	}	
+    public void setDatabaseUsers(List<DatabaseUser> databaseUsers) {
+        this.databaseUsers = databaseUsers;
+    }
 }

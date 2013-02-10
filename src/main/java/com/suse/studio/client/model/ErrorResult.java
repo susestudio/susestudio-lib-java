@@ -3,7 +3,7 @@ package com.suse.studio.client.model;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name="error")
+@Root(name = "error")
 public class ErrorResult {
 
     @Element(required = false)
@@ -12,11 +12,11 @@ public class ErrorResult {
     @Element(required = false)
     private String message;
 
-	public String getCode() {
-		return code;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 }
