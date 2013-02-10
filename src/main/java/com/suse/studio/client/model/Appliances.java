@@ -22,7 +22,6 @@
 
 package com.suse.studio.client.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.simpleframework.xml.Attribute;
@@ -35,7 +34,7 @@ public class Appliances {
     @Attribute
     private String type;
 
-    @ElementList(inline = true, required = false)
+    @ElementList(inline = true, required = false, empty = false)
     private List<Appliance> appliance;
 
     public String getType() {
@@ -43,9 +42,6 @@ public class Appliances {
     }
 
     public List<Appliance> getAppliances() {
-        if (appliance == null) {
-            appliance = new ArrayList<Appliance>();
-        }
-        return this.appliance;
+        return appliance;
     }
 }

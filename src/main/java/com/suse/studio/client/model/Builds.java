@@ -22,30 +22,26 @@
 
 package com.suse.studio.client.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-@Root(strict=false)
+@Root(strict = false)
 public class Builds {
-	
-	@Attribute
-	private String type;
-	
-	public String getType() {
-		return type;
-	}
-	
-	@ElementList(inline=true, required=false)
-	private List<Build> build;
-	
+
+    @Attribute
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    @ElementList(inline = true, required = false, empty = false)
+    private List<Build> build;
+
     public List<Build> getBuilds() {
-        if (build == null) {
-        	build = new ArrayList<Build>();
-        }
         return this.build;
     }
 }

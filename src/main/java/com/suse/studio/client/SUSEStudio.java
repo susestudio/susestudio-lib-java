@@ -22,21 +22,22 @@
 
 package com.suse.studio.client;
 
-import java.io.IOException;
 import java.util.List;
 
+import com.suse.studio.client.exception.SUSEStudioException;
 import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Appliances;
-import com.suse.studio.client.model.Configuration;
 import com.suse.studio.client.model.Gallery;
 import com.suse.studio.client.model.ScheduleBuildResult;
 import com.suse.studio.client.model.Status;
+import com.suse.studio.client.model.SuccessResult;
 import com.suse.studio.client.model.TemplateSet;
 import com.suse.studio.client.model.TemplateSets;
 import com.suse.studio.client.model.Testdrive;
 import com.suse.studio.client.model.Testdrives;
 import com.suse.studio.client.model.User;
 import com.suse.studio.client.model.Version;
+import com.suse.studio.client.model.configuration.Configuration;
 import com.suse.studio.client.net.StudioConnection;
 import com.suse.studio.client.util.Base64;
 import com.suse.studio.client.util.StudioConfig;
@@ -63,9 +64,9 @@ public class SUSEStudio {
     private StudioConfig config;
 
     /**
-     * Create a client object by providing user and API key. This client will
-     * talk to the public SUSE Studio default URL (http://susestudio.com).
-     *
+     * Create a client object by providing user and API key. This client will talk to the public SUSE Studio default URL
+     * (http://susestudio.com).
+     * 
      * @param user
      * @param apiKey
      */
@@ -81,10 +82,9 @@ public class SUSEStudio {
     }
 
     /**
-     * Create a client by providing user, API key and SUSE Studio base URL.
-     * Passing <code>null</code> as the url is supported, we will fall back to
-     * the public SUSE Studio default URL (http://susestudio.com) in this case.
-     *
+     * Create a client by providing user, API key and SUSE Studio base URL. Passing <code>null</code> as the url is
+     * supported, we will fall back to the public SUSE Studio default URL (http://susestudio.com) in this case.
+     * 
      * @param user
      * @param apiKey
      * @param url
@@ -102,13 +102,13 @@ public class SUSEStudio {
 
     /**
      * Get information about the user associated with this client.
-     *
+     * 
      * GET /api/v2/user/account
-     *
+     * 
      * @return current user
-     * @throws IOException
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public User getUser() throws IOException {
+    public User getUser() throws SUSEStudioException {
         StudioConnection sc = new StudioConnection("/user/account", config);
         User result = sc.get(User.class);
         return result;
@@ -116,13 +116,13 @@ public class SUSEStudio {
 
     /**
      * Return the running API version including the minor version.
-     *
+     * 
      * GET /api/v2/user/api_version
-     *
+     * 
      * @return API version including minor version
-     * @throws IOException
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public String getApiVersion() throws IOException {
+    public String getApiVersion() throws SUSEStudioException {
         StudioConnection sc = new StudioConnection("/user/api_version", config);
         Version version = sc.get(Version.class);
         return version.getValue();
@@ -130,13 +130,13 @@ public class SUSEStudio {
 
     /**
      * Get all appliances of the current user.
-     *
+     * 
      * GET /api/v2/user/appliances
-     *
+     * 
      * @return list of the current user's appliances
-     * @throws IOException
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public List<Appliance> getAppliances() throws IOException {
+    public List<Appliance> getAppliances() throws SUSEStudioException {
         StudioConnection sc = new StudioConnection("/user/appliances", config);
         Appliances result = sc.get(Appliances.class);
         return result.getAppliances();
@@ -144,13 +144,13 @@ public class SUSEStudio {
 
     /**
      * Get the details of an appliance given by id.
-     *
+     * 
      * GET /api/v2/user/appliances/<id>
-     *
+     * 
      * @return details of appliance with given id
-     * @throws IOException
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public Appliance getAppliance(long id) throws IOException {
+    public Appliance getAppliance(long id) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/appliances/");
         uri.append(id);
         StudioConnection sc = new StudioConnection(uri.toString(), config);
@@ -160,13 +160,13 @@ public class SUSEStudio {
 
     /**
      * Get information about the status of an appliance given by id.
-     *
+     * 
      * GET /api/v2/user/appliances/<id>/status
-     *
+     * 
      * @return status of appliance with given id
-     * @throws IOException
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public Status getApplianceStatus(long id) throws IOException {
+    public Status getApplianceStatus(long id) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/appliances/");
         uri.append(id);
         uri.append("/status");
@@ -176,16 +176,57 @@ public class SUSEStudio {
     }
 
     /**
-     * Query appliances from SUSE Gallery (latest|popular|username).
-     *
-     * GET /api/v2/user/gallery/appliances
-     *
-     * @param queryType
-     *            the type of the query, choose from constants
-     * @return list of appliances queried from gallery
-     * @throws IOException
+     * Clones an existing appliance in a new appliance
+     * 
+     * POST /api/v2/user/appliances?clone_from=<appliance_id>&name=<name>&arch=<arch>
+     * 
+     * @param id original appliance identifier
+     * @param name new appliance name or null for automatic generation
+     * @param arch new appliance architecture ("i686" or "x86_64") or null for "i686"
+     * @return status of appliance with given id
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public Gallery getGallery(String queryType) throws IOException {
+    public Appliance cloneApplianceFrom(long id, String name, String arch) throws SUSEStudioException {
+        StringBuilder uri = new StringBuilder("/user/appliances?clone_from=");
+        uri.append(id);
+        if (name != null) {
+            uri.append("&name=");
+            uri.append(name);
+        }
+        if (arch != null) {
+            uri.append("&arch=");
+            uri.append(arch);
+        }
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        Appliance appliance = sc.post(Appliance.class);
+        return appliance;
+    }
+
+    /**
+     * Deletes an appliance.
+     * 
+     * DELETE /api/v2/user/appliances/<id>
+     * 
+     * @param id
+     * @throws SUSEStudioException if SUSE Studio returns an error response
+     */
+    public void deleteAppliance(long id) throws SUSEStudioException {
+        StringBuilder uri = new StringBuilder("/user/appliances/");
+        uri.append(id);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        sc.delete(SuccessResult.class);
+    }
+
+    /**
+     * Query appliances from SUSE Gallery (latest|popular|username).
+     * 
+     * GET /api/v2/user/gallery/appliances
+     * 
+     * @param queryType the type of the query, choose from constants
+     * @return list of appliances queried from gallery
+     * @throws SUSEStudioException if SUSE Studio returns an error response
+     */
+    public Gallery getGallery(String queryType) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/gallery/appliances?");
         uri.append(queryType);
         StudioConnection sc = new StudioConnection(uri.toString(), config);
@@ -195,15 +236,14 @@ public class SUSEStudio {
 
     /**
      * Search for appliances within SUSE Gallery.
-     *
+     * 
      * GET /api/v2/user/gallery/appliances
-     *
-     * @param searchquery
-     *            query string
+     * 
+     * @param searchquery query string
      * @return list of appliances queried from gallery
-     * @throws IOException
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public Gallery searchGallery(String searchquery) throws IOException {
+    public Gallery searchGallery(String searchquery) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/gallery/appliances?search=");
         uri.append(searchquery);
         StudioConnection sc = new StudioConnection(uri.toString(), config);
@@ -213,14 +253,14 @@ public class SUSEStudio {
 
     /**
      * Return the configuration of appliance with given id.
-     *
+     * 
      * GET /api/v2/user/appliances/<id>/configuration
-     *
+     * 
      * @param id
      * @return configuration
-     * @throws IOException
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public Configuration getConfiguration(long id) throws IOException {
+    public Configuration getConfiguration(long id) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/appliances/");
         uri.append(id);
         uri.append("/configuration");
@@ -230,14 +270,49 @@ public class SUSEStudio {
     }
 
     /**
-     * List all template sets.
-     *
-     * GET /api/v2/user/template_sets
-     *
-     * @return list of template sets
-     * @throws IOException
+     * Changes an appliance configuration.
+     * 
+     * PUT /api/v2/user/appliances/<id>/configuration
+     * 
+     * @param id
+     * @param configuration
+     * @return configuration the new configuration
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public List<TemplateSet> getTemplateSets() throws IOException {
+    public void setConfiguration(long id, Configuration newConfiguration) throws SUSEStudioException {
+        StringBuilder uri = new StringBuilder("/user/appliances/");
+        uri.append(id);
+        uri.append("/configuration");
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        sc.put(SuccessResult.class, newConfiguration);
+    }
+
+    /**
+     * Return the template set with given id.
+     * 
+     * GET /api/v2/user/template_sets/<name>
+     * 
+     * @param name
+     * @return list of template sets
+     * @throws SUSEStudioException if SUSE Studio returns an error response
+     */
+    public TemplateSet getTemplateSet(String name) throws SUSEStudioException {
+        StringBuilder uri = new StringBuilder("/user/template_sets/");
+        uri.append(name);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        TemplateSet templateSet = sc.get(TemplateSet.class);
+        return templateSet;
+    }
+
+    /**
+     * List all template sets.
+     * 
+     * GET /api/v2/user/template_sets
+     * 
+     * @return list of template sets
+     * @throws SUSEStudioException if SUSE Studio returns an error response
+     */
+    public List<TemplateSet> getTemplateSets() throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/template_sets");
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         TemplateSets templateSets = sc.get(TemplateSets.class);
@@ -246,28 +321,29 @@ public class SUSEStudio {
 
     /**
      * Return a list of running testdrives.
-     *
+     * 
      * GET /api/v2/user/testdrives
-     *
+     * 
      * @return list of running testdrives
-     * @throws IOException
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public List<Testdrive> getTestdrives() throws IOException {
+    public List<Testdrive> getTestdrives() throws SUSEStudioException {
         StudioConnection sc = new StudioConnection("/user/testdrives", config);
         Testdrives testdrives = sc.get(Testdrives.class);
         return testdrives.getTestdrives();
     }
 
     /**
-     * Start a new testdrive session of the given build. Note that testdrive sessions will be
-     * aborted if no client has connected after 60 seconds.
-     *
+     * Start a new testdrive session of the given build. Note that testdrive sessions will be aborted if no client has
+     * connected after 60 seconds.
+     * 
      * POST /api/v2/user/testdrives?build_id=<build_id>
-     *
+     * 
      * @param buildId
      * @return result object
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public Testdrive startTestdrive(long buildId) throws IOException {
+    public Testdrive startTestdrive(long buildId) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/testdrives?build_id=");
         uri.append(buildId);
         StudioConnection sc = new StudioConnection(uri.toString(), config);
@@ -276,15 +352,15 @@ public class SUSEStudio {
 
     /**
      * Schedule a new build for appliance with a given ID and image type.
-     *
+     * 
      * POST user/running_builds?appliance_id=<applianceID>&force=<force>&image_type=<imgType>
+     * 
      * @param applianceID
      * @param imgType
      * @return result object
-     * @throws IOException
+     * @throws SUSEStudioException if SUSE Studio returns an error response
      */
-    public ScheduleBuildResult scheduleBuild(long applianceID, ImageType imgType)
-            throws IOException {
+    public ScheduleBuildResult scheduleBuild(long applianceID, ImageType imgType) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/running_builds?appliance_id=");
         uri.append(applianceID);
         uri.append("&force=");

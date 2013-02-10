@@ -22,7 +22,6 @@
 
 package com.suse.studio.client.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.simpleframework.xml.Attribute;
@@ -42,7 +41,7 @@ public class GalleryAppliances {
     @Element
     private int current_page;
 
-    @ElementList(name = "appliance", inline = true, required = false)
+    @ElementList(name = "appliance", inline = true, required = false, empty = false)
     private List<GalleryAppliance> appliance;
 
     public int getCount() {
@@ -58,9 +57,6 @@ public class GalleryAppliances {
     }
 
     public List<GalleryAppliance> getAppliances() {
-        if (appliance == null) {
-            appliance = new ArrayList<GalleryAppliance>();
-        }
         return this.appliance;
     }
 }

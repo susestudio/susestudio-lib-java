@@ -1,0 +1,248 @@
+<gallery>
+  <appliances count="7999">
+    <pages>800</pages>
+    <current_page>1</current_page>
+    <appliance>
+      <id>217901</id>
+      <name>ownCloud in a box</name>
+      <publisher>Cornelius Schumacher</publisher>
+      <username>cschumacher</username>
+      <homepage>http://owncloud.org</homepage>
+      <description>OwnCloud Description</description>
+      <ratings>53</ratings>
+      <average_rating>4.13207547169811</average_rating>
+      <comments>183</comments>
+      <based_on>12.2</based_on>
+      <date>2013-01-28 14:35:58 UTC</date>
+    </appliance>
+    <appliance>
+      <id>130166</id>
+      <name>KDE 4 Reloaded</name>
+      <publisher>André Duffeck</publisher>
+      <username>aduffeck</username>
+      <homepage></homepage>
+      <description>Desktop template with updated KDE packages.</description>
+      <ratings>80</ratings>
+      <average_rating>3.775</average_rating>
+      <comments>123</comments>
+      <based_on>12.2</based_on>
+      <date>2012-10-09 08:48:04 UTC</date>
+    </appliance>
+    <appliance>
+      <id>130185</id>
+      <name>LAMP Server (32bit)</name>
+      <publisher>James Tan</publisher>
+      <username>jtan</username>
+      <homepage></homepage>
+      <description>LAMP - Linux, Apache, MySQL, and PHP (plus Perl &amp; Python).
+
+There's also a "64 bit version":http://susestudio.com/a/n0rKOx/lamp-server-64bit--2.</description>
+      <ratings>39</ratings>
+      <average_rating>3.66666666666667</average_rating>
+      <comments>64</comments>
+      <based_on>12.2</based_on>
+      <date>2011-06-14 19:32:09 UTC</date>
+    </appliance>
+    <appliance>
+      <id>223380</id>
+      <name>miniSUSE</name>
+      <publisher>hgj</publisher>
+      <username>hgj</username>
+      <homepage>http://minisuse.hgj.hu</homepage>
+      <description>MiniSUSE comes with all the great packages you might need. It offers you a +Swiss army knife for all your Linux needs+ - still it is +small+ enough to fit a CD/DVD or USB drive. You can use it to rescue systems, format drives, check sensors or hack whatever you want. If you are looking for a small, but extremely useful Linux distribution you can +get up and running in seconds+ from the media of your choice, look no further :)
+
+Now with *IceWM* and *YaST2*!
+
+NOTE: 12.2 version does not boot properly. Working on it.</description>
+      <ratings>49</ratings>
+      <average_rating>3.16326530612245</average_rating>
+      <comments>100</comments>
+      <based_on>12.2</based_on>
+      <date>2012-04-15 20:23:16 UTC</date>
+    </appliance>
+    <appliance>
+      <id>130175</id>
+      <name>GNOME Reloaded</name>
+      <publisher>André Duffeck</publisher>
+      <username>aduffeck</username>
+      <homepage></homepage>
+      <description>Desktop with updated GNOME packages.</description>
+      <ratings>41</ratings>
+      <average_rating>3.60975609756098</average_rating>
+      <comments>37</comments>
+      <based_on>12.2</based_on>
+      <date>2012-01-31 10:21:40 UTC</date>
+    </appliance>
+    <appliance>
+      <id>217555</id>
+      <name>Android Developer's Desktop Remix</name>
+      <publisher>prizm</publisher>
+      <username>prizm</username>
+      <homepage></homepage>
+      <description>NOTE: a new version written from scratch will be out soon, including a modern SDK and less errors in building!
+
+bgta's Android developer desktop is a great idea, but there is a problem: it's filled with tons of cruft not needed for a developer's desktop like Tomboy, GIMP and Empathy, and added some useful things like a git GUI. I've drastically decreased the size of the appliance with these changes.
+
+I try and improve on their appliance with this. Also, I've switched out the PAE kernel with the standard one, to help it run on more devices.</description>
+      <ratings>66</ratings>
+      <average_rating>4.0</average_rating>
+      <comments>91</comments>
+      <based_on>12.2</based_on>
+      <date>2010-11-23 11:40:34 UTC</date>
+    </appliance>
+    <appliance>
+      <id>70727</id>
+      <name>Cr OS Linux</name>
+      <publisher>Chrome Linux</publisher>
+      <username>chromeos</username>
+      <homepage>http://getchrome.eu</homepage>
+      <description>Cr OS Linux (formerly Chrome OS Linux) is a free operating system built around the revolutionary Google Chromium browser.
+
+*How to install:* Download the iso file and burn it into DVD-R. Boot the computer from it and when Chrome OS Linux is loaded, click Live Installer on the desktop. Follow the instructions.
+
+*User password:* user
+*Root password:* root
+
+Chrome Linux is not related to Google.</description>
+      <ratings>40</ratings>
+      <average_rating>4.05</average_rating>
+      <comments>87</comments>
+      <based_on>12.2</based_on>
+      <date>2012-11-14 03:23:53 UTC</date>
+    </appliance>
+    <appliance>
+      <id>265217</id>
+      <name>Smeegol</name>
+      <publisher>Andrew Wafaa</publisher>
+      <username>awafaa</username>
+      <homepage>http://en.opensuse.org/openSUSE:Goblin</homepage>
+      <description>Smeegol is based on the netbook user interface that came from the MeeGo(TM)* project. Smeegol offers the latest Banshee's powerful music player, a newer Evolution Express as mail and agenda client and several additional social networks.</description>
+      <ratings>25</ratings>
+      <average_rating>3.4</average_rating>
+      <comments>47</comments>
+      <based_on>11.3</based_on>
+      <date>2010-10-06 10:27:35 UTC</date>
+    </appliance>
+    <appliance>
+      <id>736181</id>
+      <name>LM-OS</name>
+      <publisher>Lokesh Reddy M</publisher>
+      <username>lokeshmure</username>
+      <homepage>http://lokeshmure.blogspot.com</homepage>
+      <description>This LM-OS includes Extended KDE graphic environment with Office productivity and development tools like Python,Mysql,php and Apache services.
+
+username- user
+password- user
+
+-*Lokesh Mure*
+ http://lokeshmure.blogspot.com</description>
+      <ratings>12</ratings>
+      <average_rating>3.0</average_rating>
+      <comments>14</comments>
+      <based_on>12.1</based_on>
+      <date>2012-08-18 10:32:39 UTC</date>
+    </appliance>
+    <appliance>
+      <id>238737</id>
+      <name>Upstream OS 8</name>
+      <publisher>Nick</publisher>
+      <username>nick17</username>
+      <homepage>http://upstreamos.info/</homepage>
+      <description>*NOTICE: Our site is under construction. Please keep up with the lastest releases here on SUSE Studio, til the Upstream OS site is updated. Version 8 can be found here on SUSE Studio, not on our site.*
+
+*THERE ARE TWO VERSION OF VERSION 8 – PLEASE READ*
+Version 8.0.0 is available in multiple formats.
+Version 8.0.1 is the same OS, just in Preloaded ISO format. *WARNING:* This is not a LiveCD. This will erase all data on the hardrive. Be careful of that.
+
+One of SUSE Studios most cloned, highest-rated, and popular operating systems is back up-to-date. Presenting Upstream OS 8.
+
+Upstream OS 8 marks a new path of development. In the past, Upstream releases either favored developers (low file size, less apps) or consumers (larger file size, more apps). Version 8 brings us down the middle. New apps have been added like Firefox, GIMP, Thunderbird, and office software for consumers. While php5-mysql and other features have been added for developers.
+
+Upstream OS 8 also introduces a built-in firewall, and auto-updater with online security and software updates. U OS 8 is the most complete release yet.
+
+For beauty, the new OS features an updated green logo, and beautiful new HD wallpaper. Simple beauty, with plenty of options thanks to Compiz, and other programs.
+
+New logo, new wallpaper. New platform.
+
+Upstream now runs on openSUSE 12.1.
+
+Changes in Version 8:
+-Upgraded to openSUSE 12.1
+-HD wallpaper
+-Games package added
+-GNOME games added
+-Audacity &amp; Amarok added
+-Firefox
+-GIMP
+-Samba
+-gcc-c++
+-wget
+-apache2-mod_php5
+-gstreamer-0_10-plugins-good
+-make
+-tightvnc 
+-Thunderbird
+-php5-mysql
+-pullin-flash-player
+-telnet
+-libreoffice
+-yast2-firewall
+-yast2-online-update
+-Fixed errors
+
+Make your own OS, or use our full-featured OS for normal use. This OS features EVERY Upstream branding package. Even the small packages for applications not installed. That way if the user does install a particular app, the Upstream branding will be ready for it. All OpenSuse branding packages have been removed. So if your looking for a plain OS to start work on, this is the one.
+
+Features:
+
+The latest and most up-to-date KDE 4 repository. 
+No-branding. 
+Upstream-themed apps. 
+Google Chrome. 
+KMail. 
+Flash preinstalled. 
+Java preinstalled. 
+IM: Pidgin. 
+Games: DOSbox, and more. 
+Run Microsoft Windows programs with WINE. 
+Multimedia package. 
+VLC. 
+Compiz 3D effects. 
+DVD tools. 
+Wifi tools. 
+Konqueror. 
+Konsole. 
+Elegant style. 
+ImageMagick. 
+Printer, USB, and other drivers preinstalled. 
+Remote Desktop tools. 
+unrar. 
+Packman. 
+VideoLan. 
+GNOME Apps.
+
+Release History:
+
+8.0.0
+7.0.0
+6.0.0
+5.0.0 
+4.1.0 
+4.0.0 
+3.1.0 
+3.0.0 
+2.1.0 
+2.0.0 
+1.4.0 
+1.3.0 
+1.2.1 
+1.2.0 
+1.1.0 
+1.0.0</description>
+      <ratings>60</ratings>
+      <average_rating>3.88333333333333</average_rating>
+      <comments>244</comments>
+      <based_on>12.2</based_on>
+      <date>2012-05-21 08:33:58 UTC</date>
+    </appliance>
+  </appliances>
+</gallery>

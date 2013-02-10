@@ -5,6 +5,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Builds HttpURLConnection objects.
+ * 
+ * Note: you should not use this class directly as it is for internal use only. Please use the {@link SUSEStudio} class
+ * instead.
+ */
 public class RequestFactory {
 
     private static RequestFactory instance = new RequestFactory();
@@ -17,50 +23,21 @@ public class RequestFactory {
     }
 
     /**
-     * Create a {@link HttpURLConnection} for performing a GET request.
-     *
-     * @param uri
-     * @param encodedCredentials
-     * @return
-     * @throws IOException
-     */
-    public HttpURLConnection get(String uri, String encodedCredentials)
-            throws IOException {
-        return initConnection("GET", uri, encodedCredentials);
-    }
-
-    /**
-     * Create a {@link HttpURLConnection} for performing a POST request.
-     *
-     * @param uri
-     * @param encodedCredentials
-     * @return
-     * @throws IOException
-     */
-    public HttpURLConnection post(String uri, String encodedCredentials)
-            throws IOException {
-        return initConnection("POST", uri, encodedCredentials);
-    }
-
-    /**
      * Init a {@link HttpURLConnection} object from a given uri.
-     *
+     * 
      * @param method
      * @param uri
      * @param encodedCredentials
      * @return
      * @throws IOException
      */
-    private HttpURLConnection initConnection(String method, String uri,
-            String encodedCredentials) throws IOException {
+    public HttpURLConnection initConnection(String method, String uri, String encodedCredentials) throws IOException {
         try {
             URL url = new URL(uri);
-            HttpURLConnection connection = (HttpURLConnection) url
-                    .openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(method);
             if (encodedCredentials != null) {
-                connection.setRequestProperty("Authorization", "BASIC "
-                        + encodedCredentials);
+                connection.setRequestProperty("Authorization", "BASIC " + encodedCredentials);
             }
             return connection;
         } catch (MalformedURLException e) {
