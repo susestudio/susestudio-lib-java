@@ -282,6 +282,25 @@ public class SUSEStudio {
         Configuration configuration = sc.get(Configuration.class);
         return configuration;
     }
+    
+    /**
+     * Changes an appliance configuration.
+     *
+     * PUT /api/v2/user/appliances/<id>/configuration
+     *
+     * @param id
+     * @param configuration
+     * @return configuration the new configuration
+     * @throws IOException
+     * @throws StudioException if Suse Studio returns an error response
+     */
+    public void setConfiguration(long id, Configuration newConfiguration) throws IOException, StudioException {
+        StringBuilder uri = new StringBuilder("/user/appliances/");
+        uri.append(id);
+        uri.append("/configuration");
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        sc.put(SuccessResult.class, newConfiguration);
+    }
 
     /**
      * Return the template set with given id.

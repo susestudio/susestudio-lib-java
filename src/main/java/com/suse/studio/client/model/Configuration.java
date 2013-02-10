@@ -59,7 +59,7 @@ public class Configuration {
 
 	@Element
 	private Scripts scripts;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -126,5 +126,73 @@ public class Configuration {
 
 	public Scripts getScripts() {
 		return scripts;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
+
+	public void setNetwork(Network network) {
+		this.network = network;
+	}
+
+	public void setFirewall(Firewall firewall) {
+		this.firewall = firewall;
+	}
+
+	public void setApplianceUsers(List<ApplianceUser> applianceUsers) {
+		this.applianceUsers = applianceUsers;
+	}
+
+	public void setEulas(List<String> eulas) {
+		this.eulas = eulas;
+	}
+
+	public void setDatabases(List<Database> databases) {
+		this.databases = databases;
+	}
+
+	public void setAutostarts(List<Autostart> autostarts) {
+		this.autostarts = autostarts;
+	}
+
+	public void setSettings(Settings settings) {
+		this.settings = settings;
+	}
+
+	public void setLvm(LVM lvm) {
+		this.lvm = lvm;
+	}
+
+	public void setScripts(Scripts scripts) {
+		this.scripts = scripts;
 	}
 }

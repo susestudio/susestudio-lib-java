@@ -33,4 +33,20 @@ public class Autostart {
 	public String getUser() {
 		return user;
 	}
+
+	public void setCommand(String command) {
+		this.command = command;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
 }

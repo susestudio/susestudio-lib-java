@@ -26,4 +26,16 @@ public class Scripts {
 	public AutoYaSTScript getAutoYaSTScript() {
 		return autoYaSTScript;
 	}
+
+	public void setBootScript(BootScript bootScript) {
+		this.bootScript = bootScript;
+	}
+
+	public void setBuildScript(BuildScript buildScript) {
+		this.buildScript = buildScript;
+	}
+
+	public void setAutoYaSTScript(AutoYaSTScript autoYaSTScript) {
+		this.autoYaSTScript = autoYaSTScript;
+	}	
 }

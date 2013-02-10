@@ -23,7 +23,7 @@ public class ApplianceUser {
 
 	@Element(name = "homedir")
 	private String homeDirectory;
-
+	
 	public int getUid() {
 		return uid;
 	}
@@ -47,4 +47,28 @@ public class ApplianceUser {
 	public String getHomeDirectory() {
 		return homeDirectory;
 	}
+
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	public void setShell(String shell) {
+		this.shell = shell;
+	}
+
+	public void setHomeDirectory(String homeDirectory) {
+		this.homeDirectory = homeDirectory;
+	}	
 }

@@ -22,4 +22,12 @@ public class Firewall {
 	public List<String> getOpenPorts() {
 		return openPorts;
 	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setOpenPorts(List<String> openPorts) {
+		this.openPorts = openPorts;
+	}	
 }

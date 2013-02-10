@@ -4,14 +4,16 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 /**
- * A wrapper around the Simple XML library plus some utility methods for working
- * with Streams.
+ * A wrapper around core Simple XML library functionality plus some utility methods.
  */
 public class ParserUtils {
 
@@ -47,8 +49,7 @@ public class ParserUtils {
      * @param stream
      * @return
      */
-    public static void persistInStream(Object object, OutputStream stream) {
-    	
+    public static void persistInStream(Object object, OutputStream stream) {    	
         Serializer serializer = new Persister();
         try {
             serializer.write(object, stream);
@@ -89,5 +90,35 @@ public class ParserUtils {
         String ret = scanner.useDelimiter("\\A").next();
         scanner.close();
         return ret;
+    }
+    
+    /**
+     * Splits a comma-separated string into a List.
+     * 
+     * @param string the string to split
+     * @return the splitted string
+     */
+    public static List<String> commaSeparatedStringToList(String string){
+		return Arrays.asList(string.split(", ?"));
+    }
+    
+    /**
+     * Generated a comma-separated string from a List.
+     * 
+     * @param list the list to join
+     * @return the joint string
+     */
+    public static String listToCommaSeparatedString(List<String> list){
+		if(list.size() == 0){
+			return null;
+		}
+		else{
+			Iterator<String> i = list.iterator();
+			StringBuilder builder = new StringBuilder(i.next());
+			while (i.hasNext()) {
+				builder.append(i.next());
+			}
+			return builder.toString();
+		}
     }
 }

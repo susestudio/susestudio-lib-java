@@ -1,10 +1,11 @@
 package com.suse.studio.client.model;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
+
+import com.suse.studio.client.util.ParserUtils;
 
 @Root
 public class Network {
@@ -48,6 +49,30 @@ public class Network {
 	}
 
 	public List<String> getNameServers() {
-		return Arrays.asList(nameServerString.split(", ?"));
+		return ParserUtils.commaSeparatedStringToList(nameServerString);
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setHostname(String hostname) {
+		this.hostname = hostname;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public void setNetmask(String netmask) {
+		this.netmask = netmask;
+	}
+
+	public void setRoute(String route) {
+		this.route = route;
+	}
+
+	public void setNameServers(List<String> nameServers) {
+		this.nameServerString = ParserUtils.listToCommaSeparatedString(nameServers);
 	}
 }

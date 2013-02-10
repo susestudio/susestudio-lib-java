@@ -21,4 +21,12 @@ public class Database {
 	public List<DatabaseUser> getDatabaseUsers() {
 		return databaseUsers;
 	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setDatabaseUsers(List<DatabaseUser> databaseUsers) {
+		this.databaseUsers = databaseUsers;
+	}	
 }

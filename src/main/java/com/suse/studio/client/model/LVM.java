@@ -29,4 +29,16 @@ public class LVM {
 	public List<Volume> getVolumes() {
 		return volumes;
 	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setVolumeGroup(String volumeGroup) {
+		this.volumeGroup = volumeGroup;
+	}
+
+	public void setVolumes(List<Volume> volumes) {
+		this.volumes = volumes;
+	}
 }

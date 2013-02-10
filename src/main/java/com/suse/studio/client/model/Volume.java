@@ -19,4 +19,12 @@ public class Volume {
 	public String getPath() {
 		return path;
 	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 }

@@ -28,4 +28,16 @@ public class Locale {
 	public String getLocation() {
 		return location;
 	}
+
+	public void setKeyboardLayout(String keyboardLayout) {
+		this.keyboardLayout = keyboardLayout;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}	
 }

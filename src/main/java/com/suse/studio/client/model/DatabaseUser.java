@@ -1,10 +1,11 @@
 package com.suse.studio.client.model;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
+
+import com.suse.studio.client.util.ParserUtils;
 
 @Root(name = "user")
 public class DatabaseUser {
@@ -27,6 +28,18 @@ public class DatabaseUser {
 	}
 
 	public List<String> getDatabases() {
-		return Arrays.asList(databasesString.split(", ?"));
+		return ParserUtils.commaSeparatedStringToList(databasesString);
 	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setDatabases(List<String> databases) {
+		this.databasesString = ParserUtils.listToCommaSeparatedString(databases);
+	}	
 }

@@ -82,4 +82,48 @@ public class Settings {
 	public String getAutomaticLogin() {
 		return automaticLogin;
 	}
+
+	public void setMemorySize(int memorySize) {
+		this.memorySize = memorySize;
+	}
+
+	public void setDiskSize(int diskSize) {
+		this.diskSize = diskSize;
+	}
+
+	public void setSwapSize(int swapSize) {
+		this.swapSize = swapSize;
+	}
+
+	public void setPaeEnabled(boolean paeEnabled) {
+		this.paeEnabled = paeEnabled;
+	}
+
+	public void setXenHostModeEnabled(boolean xenHostModeEnabled) {
+		this.xenHostModeEnabled = xenHostModeEnabled;
+	}
+
+	public void setCdromEnabled(boolean cdromEnabled) {
+		this.cdromEnabled = cdromEnabled;
+	}
+
+	public void setWebYaSTEnabled(boolean webYaSTEnabled) {
+		this.webYaSTEnabled = webYaSTEnabled;
+	}
+
+	public void setLiveInstallerEnabled(boolean liveInstallerEnabled) {
+		this.liveInstallerEnabled = liveInstallerEnabled;
+	}
+
+	public void setPublicClonable(boolean publicClonable) {
+		this.publicClonable = publicClonable;
+	}
+
+	public void setRunlevel(int runlevel) {
+		this.runlevel = runlevel;
+	}
+
+	public void setAutomaticLogin(String automaticLogin) {
+		this.automaticLogin = automaticLogin;
+	}	
 }

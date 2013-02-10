@@ -16,4 +16,12 @@ public class Script {
 	public String getScript() {
 		return script;
 	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setScript(String script) {
+		this.script = script;
+	}
 }
