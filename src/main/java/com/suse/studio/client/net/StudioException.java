@@ -1,7 +1,7 @@
 package com.suse.studio.client.net;
 
 /**
- * An error that occured after a request to Suse Studio.
+ * An error that occured after a request to SUSE Studio.
  */
 public class StudioException extends Exception {
 
@@ -11,7 +11,7 @@ public class StudioException extends Exception {
     private static final long serialVersionUID = -7929499514444458368L;
 
     /**
-     * A Suse Studio error code.
+     * A SUSE Studio error code.
      * 
      * @see http://susestudio.com/help/api/v2/general.html
      */
@@ -35,7 +35,7 @@ public class StudioException extends Exception {
     }
 
     /**
-     * Returns a Suse Studio error code.
+     * Returns a SUSE Studio error code.
      * 
      * @see http://susestudio.com/help/api/v2/general.html
      */
@@ -52,6 +52,6 @@ public class StudioException extends Exception {
 
     @Override
     public String toString() {
-        return "Suse Studio error \"" + getCode() + "\": " + getMessage();
+        return "SUSE Studio error \"" + getCode() + "\": " + getMessage();
     }
 }

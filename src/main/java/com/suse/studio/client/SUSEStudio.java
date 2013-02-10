@@ -108,7 +108,7 @@ public class SUSEStudio {
      * 
      * @return current user
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public User getUser() throws IOException, StudioException {
         StudioConnection sc = new StudioConnection("/user/account", config);
@@ -123,7 +123,7 @@ public class SUSEStudio {
      * 
      * @return API version including minor version
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public String getApiVersion() throws IOException, StudioException {
         StudioConnection sc = new StudioConnection("/user/api_version", config);
@@ -138,7 +138,7 @@ public class SUSEStudio {
      * 
      * @return list of the current user's appliances
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public List<Appliance> getAppliances() throws IOException, StudioException {
         StudioConnection sc = new StudioConnection("/user/appliances", config);
@@ -153,7 +153,7 @@ public class SUSEStudio {
      * 
      * @return details of appliance with given id
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public Appliance getAppliance(long id) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/appliances/");
@@ -170,7 +170,7 @@ public class SUSEStudio {
      * 
      * @return status of appliance with given id
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public Status getApplianceStatus(long id) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/appliances/");
@@ -191,7 +191,7 @@ public class SUSEStudio {
      * @param arch new appliance architecture ("i686" or "x86_64") or null for "i686"
      * @return status of appliance with given id
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public Appliance cloneApplianceFrom(long id, String name, String arch) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/appliances?clone_from=");
@@ -216,7 +216,7 @@ public class SUSEStudio {
      * 
      * @param id
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public void deleteAppliance(long id) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/appliances/");
@@ -233,7 +233,7 @@ public class SUSEStudio {
      * @param queryType the type of the query, choose from constants
      * @return list of appliances queried from gallery
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public Gallery getGallery(String queryType) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/gallery/appliances?");
@@ -251,7 +251,7 @@ public class SUSEStudio {
      * @param searchquery query string
      * @return list of appliances queried from gallery
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public Gallery searchGallery(String searchquery) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/gallery/appliances?search=");
@@ -269,7 +269,7 @@ public class SUSEStudio {
      * @param id
      * @return configuration
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public Configuration getConfiguration(long id) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/appliances/");
@@ -289,7 +289,7 @@ public class SUSEStudio {
      * @param configuration
      * @return configuration the new configuration
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public void setConfiguration(long id, Configuration newConfiguration) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/appliances/");
@@ -307,7 +307,7 @@ public class SUSEStudio {
      * @param name
      * @return list of template sets
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public TemplateSet getTemplateSet(String name) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/template_sets/");
@@ -324,7 +324,7 @@ public class SUSEStudio {
      * 
      * @return list of template sets
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public List<TemplateSet> getTemplateSets() throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/template_sets");
@@ -340,7 +340,7 @@ public class SUSEStudio {
      * 
      * @return list of running testdrives
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public List<Testdrive> getTestdrives() throws IOException, StudioException {
         StudioConnection sc = new StudioConnection("/user/testdrives", config);
@@ -357,7 +357,7 @@ public class SUSEStudio {
      * @param buildId
      * @return result object
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public Testdrive startTestdrive(long buildId) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/testdrives?build_id=");
@@ -375,7 +375,7 @@ public class SUSEStudio {
      * @param imgType
      * @return result object
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public ScheduleBuildResult scheduleBuild(long applianceID, ImageType imgType) throws IOException, StudioException {
         StringBuilder uri = new StringBuilder("/user/running_builds?appliance_id=");

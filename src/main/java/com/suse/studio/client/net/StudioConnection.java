@@ -30,7 +30,7 @@ public class StudioConnection {
      * @param clazz
      * @return instance of clazz
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public <T> T get(Class<T> clazz) throws IOException, StudioException {
         return request(clazz, "GET");
@@ -42,7 +42,7 @@ public class StudioConnection {
      * @param clazz
      * @return instance of clazz
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public <T> T post(Class<T> clazz) throws IOException, StudioException {
         return request(clazz, "POST");
@@ -56,7 +56,7 @@ public class StudioConnection {
      * @param object
      * @return instance of clazz
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public <T> T put(Class<T> clazz, Object object) throws IOException, StudioException {
         return request(clazz, "PUT", object);
@@ -68,7 +68,7 @@ public class StudioConnection {
      * @param clazz
      * @return instance of clazz
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     public <T> T delete(Class<T> clazz) throws IOException, StudioException {
         return request(clazz, "DELETE");
@@ -81,7 +81,7 @@ public class StudioConnection {
      * @param method the HTTP method to use
      * @return instance of clazz
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     private <T> T request(Class<T> clazz, String method) throws IOException, StudioException {
         return request(clazz, method, null);
@@ -96,7 +96,7 @@ public class StudioConnection {
      * @param object object to persist in request body or null
      * @return instance of clazz
      * @throws IOException
-     * @throws StudioException if Suse Studio returns an error response
+     * @throws StudioException if SUSE Studio returns an error response
      */
     private <T> T request(Class<T> clazz, String method, Object object) throws IOException, StudioException {
         HttpURLConnection connection = RequestFactory.getInstance().initConnection(method, uri, encodedCredentials);
