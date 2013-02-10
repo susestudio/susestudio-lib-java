@@ -76,14 +76,6 @@ public class ExamplesTest {
     }
 
     @Test
-    public void testEmptyAppliances() {
-        Appliances appliances = TestUtils.parseExampleFile(Appliances.class, "empty_appliances.xml");
-        assertNotNull(appliances);
-        List<Appliance> list = appliances.getAppliances();
-        assertEquals(0, list.size());
-    }
-
-    @Test
     public void testAppliance() {
         Appliance appliance = TestUtils.parseExampleFile(Appliance.class, "appliance.xml");
         assertNotNull(appliance);
@@ -113,14 +105,6 @@ public class ExamplesTest {
         assertEquals(87, build.getCompressedImageSize());
         assertEquals("http://susestudio.com/download/bf1a0f08884ebac13f30b0fc62dfc44a/Cornelius_JeOS.x86_64-0.0.1.oem.tar.gz",
                 build.getDownloadUrl());
-    }
-
-    @Test
-    public void testEmptyBuildAppliance() {
-        Appliance appliance = TestUtils.parseExampleFile(Appliance.class, "empty_build_appliance.xml");
-        List<Build> builds = appliance.getBuilds();
-        assertNotNull(builds);
-        assertEquals(0, builds.size());
     }
 
     @Test
@@ -170,22 +154,6 @@ public class ExamplesTest {
     }
 
     @Test
-    public void testEmptyTemplateSets() {
-        TemplateSets templateSets = TestUtils.parseExampleFile(TemplateSets.class, "empty_template_sets.xml");
-        assertNotNull(templateSets);
-        List<TemplateSet> templateSetsList = templateSets.getTemplateSets();
-        assertEquals(0, templateSetsList.size());
-    }
-
-    @Test
-    public void testEmptyTemplateSet() {
-        TemplateSet templateSet = TestUtils.parseExampleFile(TemplateSet.class, "empty_template_set.xml");
-        assertNotNull(templateSet);
-        List<Template> templateSetsList = templateSet.getTemplates();
-        assertEquals(0, templateSetsList.size());
-    }
-
-    @Test
     public void testTestdrives() {
         Testdrives testdrives = TestUtils.parseExampleFile(Testdrives.class, "testdrives.xml");
         assertNotNull(testdrives);
@@ -194,14 +162,6 @@ public class ExamplesTest {
         assertEquals("4", testdrive.getId());
         assertEquals("running", testdrive.getState());
         assertEquals("22", testdrive.getBuildId());
-    }
-
-    @Test
-    public void testEmptyTestdrives() {
-        Testdrives testdrives = TestUtils.parseExampleFile(Testdrives.class, "empty_testdrives.xml");
-        assertNotNull(testdrives);
-        List<Testdrive> list = testdrives.getTestdrives();
-        assertEquals(0, list.size());
     }
 
     @Test
@@ -244,16 +204,6 @@ public class ExamplesTest {
         assertEquals("12.2", galleryAppliance.getBasedOn());
         Date date = TestUtils.getDate(2013, 0, 28, 14, 35, 58);
         assertEquals(date, galleryAppliance.getDate());
-    }
-
-    @Test
-    public void testEmptyGallery() {
-        Gallery gallery = TestUtils.parseExampleFile(Gallery.class, "empty_gallery.xml");
-        GalleryAppliances galleryAppliances = gallery.getAppliances();
-        assertNotNull(galleryAppliances);
-        List<GalleryAppliance> list = galleryAppliances.getAppliances();
-        assertNotNull(list);
-        assertEquals(0, list.size());
     }
 
     @Test
