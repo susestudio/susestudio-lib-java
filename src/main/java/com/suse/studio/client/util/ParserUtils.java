@@ -14,6 +14,8 @@ import org.simpleframework.xml.core.Persister;
 
 /**
  * A wrapper around core Simple XML library functionality plus some utility methods.
+ * 
+ * Note: you should not use this class directly as it is for internal use only.
  */
 public class ParserUtils {
 

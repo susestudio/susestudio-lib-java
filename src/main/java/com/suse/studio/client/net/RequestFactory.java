@@ -5,6 +5,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Builds HttpURLConnection objects.
+ * 
+ * Note: you should not use this class directly as it is for internal use only. Please use the {@link SUSEStudio} class
+ * instead.
+ */
 public class RequestFactory {
 
     private static RequestFactory instance = new RequestFactory();
