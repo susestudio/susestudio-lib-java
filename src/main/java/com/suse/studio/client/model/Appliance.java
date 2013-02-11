@@ -47,10 +47,10 @@ public class Appliance {
     private Date lastEdited;
 
     @Element(name = "estimated_raw_size", required = false)
-    private int estimatedRawSize;
+    private String estimatedRawSize;
 
     @Element(name = "estimated_compressed_size", required = false)
-    private int estimatedCompressedSize;
+    private String estimatedCompressedSize;
 
     @Element(name = "edit_url")
     private String editUrl;
@@ -90,11 +90,11 @@ public class Appliance {
         return lastEdited;
     }
 
-    public int getEstimatedRawSize() {
+    public String getEstimatedRawSize() {
         return estimatedRawSize;
     }
 
-    public int getEstimatedCompressedSize() {
+    public String getEstimatedCompressedSize() {
         return estimatedCompressedSize;
     }
 

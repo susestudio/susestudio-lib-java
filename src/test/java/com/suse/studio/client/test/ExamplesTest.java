@@ -85,8 +85,8 @@ public class ExamplesTest {
         assertNull(appliance.getType());
         Date lastEdited = TestUtils.getDate(2009, 3, 24, 12, 9, 42);
         assertEquals(lastEdited, appliance.getLastEdited());
-        assertEquals(0, appliance.getEstimatedRawSize());
-        assertEquals(0, appliance.getEstimatedCompressedSize());
+        assertNull(appliance.getEstimatedRawSize());
+        assertNull(appliance.getEstimatedCompressedSize());
         assertEquals("http://susestudio.com/appliance/edit/24", appliance.getEditUrl());
         assertEquals("http://susestudio.com/api/v1/user/appliance_icon/1234", appliance.getIconUrl());
         assertEquals("11.1", appliance.getBasesystem());
