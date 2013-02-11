@@ -1,7 +1,5 @@
 package com.suse.studio.client.exception;
 
-import java.io.IOException;
-
 /**
  * An error that occurred during a request to SUSE Studio.
  */
@@ -25,11 +23,6 @@ public class SUSEStudioException extends Exception {
     private String message;
 
     /**
-     * An I/O exception if this exception was caused by an I/O error condition.
-     */
-    private IOException cause;
-
-    /**
      * Standard constructor.
      * 
      * @param code
@@ -42,13 +35,13 @@ public class SUSEStudioException extends Exception {
     }
 
     /**
-     * Alternate constructor for I/O errors.
-     * 
-     * @param cause
+     * Alternative constructor expecting a {@link Throwable}.
+     *
+     * @param cause the exception cause
      */
-    public SUSEStudioException(IOException cause) {
-        this(null, cause.getMessage());
-        this.cause = cause;
+    public SUSEStudioException(Throwable cause) {
+        super(cause);
+        this.message = cause.getMessage();
     }
 
     /**
@@ -65,13 +58,6 @@ public class SUSEStudioException extends Exception {
      */
     public String getMessage() {
         return message;
-    }
-
-    /**
-     * Returns the causing IOException, if this exception was caused by an I/O error condition.
-     */
-    public IOException getCause() {
-        return cause;
     }
 
     @Override
