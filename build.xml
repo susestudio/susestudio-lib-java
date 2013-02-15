@@ -101,6 +101,9 @@
       <test name="com.suse.studio.client.test.EmptyModelTest" outfile="result">
         <formatter type="plain" />
       </test>
+      <test name="com.suse.studio.client.test.SUSEStudioTest" outfile="result">
+        <formatter type="plain" />
+      </test>
     </junit>
   </target>
 

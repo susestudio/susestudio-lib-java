@@ -18,6 +18,12 @@
       <artifactId>simple-xml</artifactId>
       <version>2.6.3</version>
     </dependency>
+    <dependency>
+      <groupId>org.simpleframework</groupId>
+      <artifactId>simple</artifactId>
+      <version>5.0.4</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <scm>
     <url>https://github.com/susestudio/susestudio-lib-java.git</url>
