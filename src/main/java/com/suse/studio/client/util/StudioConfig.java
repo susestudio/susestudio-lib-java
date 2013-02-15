@@ -103,7 +103,7 @@ public class StudioConfig {
     /**
      * Log stream contents for debugging.
      * 
-     * @return
+     * @return true if stream contents should be printed
      */
     public boolean printStreamContents() {
         return Boolean.parseBoolean(properties.getProperty(KEY_PRINT_STREAM_CONTENTS, null));

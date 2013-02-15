@@ -13,7 +13,7 @@ public class SUSEStudioException extends Exception {
     /**
      * A SUSE Studio error code.
      * 
-     * @see http://susestudio.com/help/api/v2/general.html
+     * @see <a href="http://susestudio.com/help/api/v2/general.html">SUSE Studio API guide</a>
      */
     private String code;
 
@@ -47,7 +47,7 @@ public class SUSEStudioException extends Exception {
     /**
      * Returns a SUSE Studio error code.
      * 
-     * @see http://susestudio.com/help/api/v2/general.html
+     * @see <a href="http://susestudio.com/help/api/v2/general.html">SUSE Studio API guide</a>
      */
     public String getCode() {
         return code;
