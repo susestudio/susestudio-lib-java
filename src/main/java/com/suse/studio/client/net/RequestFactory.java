@@ -8,7 +8,7 @@ import java.net.URL;
 /**
  * Builds HttpURLConnection objects.
  * 
- * Note: you should not use this class directly as it is for internal use only. Please use the {@link SUSEStudio} class
+ * Note: you should not use this class directly as it is for internal use only. Please use the {@link com.suse.studio.client.SUSEStudio} class
  * instead.
  */
 public class RequestFactory {
@@ -28,7 +28,7 @@ public class RequestFactory {
      * @param method
      * @param uri
      * @param encodedCredentials
-     * @return
+     * @return a connection
      * @throws IOException
      */
     public HttpURLConnection initConnection(String method, String uri, String encodedCredentials) throws IOException {
