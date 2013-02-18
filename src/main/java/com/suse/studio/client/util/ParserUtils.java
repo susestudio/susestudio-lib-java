@@ -24,7 +24,7 @@ public class ParserUtils {
      * 
      * @param clazz
      * @param stream
-     * @return
+     * @return an object corresponding to the XML in stream
      */
     public static <T> T parseBodyStream(Class<T> clazz, InputStream stream) {
         // Print stream contents for debugging
@@ -47,9 +47,8 @@ public class ParserUtils {
     /**
      * Persists a given SimpleXML-annotated object into a {@link OutputStream}.
      * 
-     * @param clazz
-     * @param stream
-     * @return
+     * @param object a SimpleXML-annotated object
+     * @param stream a stream containing object serialized in XML
      */
     public static void persistInStream(Object object, OutputStream stream) {
         Serializer serializer = new Persister();
@@ -74,8 +73,8 @@ public class ParserUtils {
     /**
      * Convert a given {@link String} to an {@link InputStream}.
      * 
-     * @param s
-     * @return
+     * @param s a string
+     * @return an input stream on the string
      */
     public static InputStream stringToStream(String s) {
         return new ByteArrayInputStream(s.getBytes());
@@ -84,8 +83,8 @@ public class ParserUtils {
     /**
      * Convert a given {@link InputStream} to a {@link String}.
      * 
-     * @param is
-     * @return
+     * @param is an input stream
+     * @return the string in the input stream
      */
     public static String streamToString(InputStream is) {
         Scanner scanner = new Scanner(is);

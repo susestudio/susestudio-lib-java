@@ -12,7 +12,7 @@ import com.suse.studio.client.util.StudioConfig;
 /**
  * Handles requests to SUSE Studio, serializing and deserializing objects as needed.
  * 
- * Note: you should not use this class directly as it is for internal use only. Please use the {@link SUSEStudio} class
+ * Note: you should not use this class directly as it is for internal use only. Please use the {@link com.suse.studio.client.SUSEStudio} class
  * instead.
  */
 public class StudioConnection {

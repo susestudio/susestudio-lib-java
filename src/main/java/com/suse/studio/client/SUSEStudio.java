@@ -275,8 +275,7 @@ public class SUSEStudio {
      * PUT /api/v2/user/appliances/<id>/configuration
      * 
      * @param id
-     * @param configuration
-     * @return configuration the new configuration
+     * @param newConfiguration
      * @throws SUSEStudioException if SUSE Studio returns an error response
      */
     public void setConfiguration(long id, Configuration newConfiguration) throws SUSEStudioException {
