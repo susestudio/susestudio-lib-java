@@ -1,0 +1,59 @@
+<gallery>
+  <appliances count="4">
+    <pages>1</pages>
+    <appliance>
+      <id>22</id>
+      <name>Matt's Amazing JeOS</name>
+      <publisher>Matt Barringer</publisher>
+      <username>mbarringer</username>
+      <homepage>http://susestudio.com</homepage>
+      <description>THIS IS AN AWESOME JEOS APPLIANCE DOWNLOAD</description>
+      <ratings>2</ratings>
+      <average_rating>3.0</average_rating>
+      <comments>2</comments>
+      <based_on>11.3</based_on>
+      <date>2010-11-03 13:57:02 UTC</date>
+    </appliance>
+    <appliance>
+      <id>25</id>
+      <name>The Greatest JeOS EVER</name>
+      <publisher>SUSE Studio Team</publisher>
+      <username>steam</username>
+      <homepage></homepage>
+      <description></description>
+      <ratings>0</ratings>
+      <average_rating>0.0</average_rating>
+      <comments>0</comments>
+      <based_on>11.3</based_on>
+      <date>2010-10-15 11:28:00 UTC</date>
+    </appliance>
+    <appliance>
+      <id>20</id>
+      <name>Matt's KDE 4 desktop</name>
+      <publisher>Matt Barringer</publisher>
+      <username>mbarringer</username>
+      <homepage>http://kde.org</homepage>
+      <description>This is a KDE 4 descktop</description>
+      <ratings>0</ratings>
+      <average_rating>0.0</average_rating>
+      <comments>2</comments>
+      <based_on>11.3</based_on>
+      <date>2010-10-07 14:01:04 UTC</date>
+    </appliance>
+    <appliance>
+      <id>24</id>
+      <name>LAMP Server</name>
+      <publisher>Matt Barringer</publisher>
+      <username>mbarringer</username>
+      <homepage>http://susestudio.com</homepage>
+      <description>This is a LAMP server.
+
+It provides Linux, Apache, MySQL, and Perl.</description>
+      <ratings>0</ratings>
+      <average_rating>0.0</average_rating>
+      <comments>0</comments>
+      <based_on>11.3</based_on>
+      <date>2010-10-14 14:09:05 UTC</date>
+    </appliance>
+  </appliances>
+</gallery>

@@ -1,0 +1,46 @@
+<template_set>                                                                                                                      
+  <name>default</name>                                                                                                              
+  <description>SUSE default templates</description>                                                                                 
+  <template>                                                                                                                        
+    <appliance_id>1</appliance_id>                                                                                                  
+    <name>openSUSE 11.1, Just enough OS (JeOS)</name>                                                                               
+    <description>Tiny, minimalistic appliances</description>                                                                        
+    <basesystem>11.1</basesystem>                                                                                                   
+  </template>                                                                                                                       
+  <template>                                                                                                                        
+    <appliance_id>2</appliance_id>                                                                                                  
+    <name>openSUSE 11.1, Server</name>                                                                                              
+    <description>A text-only base</description>
+    <basesystem>11.1</basesystem>
+  </template>
+  <template>
+    <appliance_id>3</appliance_id>
+    <name>openSUSE 11.1, Minimal X</name>
+    <description>Graphical system + IceWM</description>
+    <basesystem>11.1</basesystem>
+  </template>
+  <template>
+    <appliance_id>4</appliance_id>
+    <name>openSUSE 11.1, KDE 3 desktop</name>
+    <description>Base system + KDE 3</description>
+    <basesystem>11.1</basesystem>
+  </template>
+  <template>
+    <appliance_id>5</appliance_id>
+    <name>openSUSE 11.1, KDE 4 desktop</name>
+    <description>Base system + KDE 4</description>
+    <basesystem>11.1</basesystem>
+  </template>
+  <template>
+    <appliance_id>6</appliance_id>
+    <name>openSUSE 11.1, GNOME desktop</name>
+    <description>Base system + GNOME</description>
+    <basesystem>11.1</basesystem>
+  </template>
+  <template>
+    <appliance_id>7</appliance_id>
+    <name>Andre's openSUSE 11.1, JeOS</name>
+    <description>Just Enough Operating System for the smallest possible appliance</description>
+    <basesystem>11.1</basesystem>
+  </template>
+</template_set>

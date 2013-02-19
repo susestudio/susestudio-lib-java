@@ -1,0 +1,13 @@
+<gallery>
+  <testdrive>
+    <url>http://localhost:3002/testdrive/start/22/54/APASSWORD</url>
+    <server>
+      <vnc>
+        <host>localhost</host>
+        <port>5907</port>
+        <password>APASSWORD</password>
+      </vnc>
+    </server>
+  </testdrive>
+</gallery>
+
