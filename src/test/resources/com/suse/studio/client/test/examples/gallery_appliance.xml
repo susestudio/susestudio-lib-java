@@ -1,0 +1,56 @@
+<gallery>
+  <appliance>
+    <id>22</id>
+    <name>Matt's Amazing JeOS</name>
+    <version>5.0.0</version>
+    <release_notes>Added the AppArmor package for *EXTRA SECURITY*.</release_notes>
+    <homepage>http://susestudio.com</homepage>
+    <description>THIS IS AN AWESOME JEOS APPLIANCE DOWNLOAD</description>
+    <publisher>Matt Barringer</publisher>
+    <username>mbarringer</username>
+    <based_on>11.3</based_on>
+    <formats count="1">
+      <format md5="d12788f96487fce0d41aaafd3e1ab70d">oem</format>
+    </formats>
+    <configuration>
+      <accounts count="3">
+        <account>
+          <user>root</user>
+          <password>linux</password>
+        </account>
+        <account>
+          <user>tux</user>
+          <password>linux</password>
+        </account>
+        <account>
+          <user>version3</user>
+          <password>pass2</password>
+        </account>
+      </accounts>
+    </configuration>
+    <keyboard_layout>english-us</keyboard_layout>
+    <language>en_US.UTF-8</language>
+    <timezone>
+      <location>Europe/Berlin</location>
+    </timezone>
+    <network>
+      <type>ask_on_first_boot</type>
+    </network>
+    <firewall>
+      <enabled>true</enabled>
+      <open_port>ssh</open_port>
+      <open_port>http</open_port>
+    </firewall>
+    <security>
+      <sources>
+        <only_trusted>false</only_trusted>
+        <untrusted_source>mbarringer openSUSE 11.3</untrusted_source>
+      </sources>
+      <custom_packages>
+        <uses_custom_packages>false</uses_custom_packages>
+      </custom_packages>
+      <overlay_files>false</overlay_files>
+      <custom_scripts>false</custom_scripts>
+    </security>
+  </appliance>
+</gallery>

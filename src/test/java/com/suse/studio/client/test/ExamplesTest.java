@@ -46,6 +46,10 @@ import com.suse.studio.client.test.util.TestUtils;
  * Test the data model by parsing the example files.
  */
 public class ExamplesTest {
+    
+    // Scripts included in configuration.xml
+    private static final String EXPECTED_SCRIPT_1 = "#!/bin/bash -e\n      #\n      # This script is executed at the end of appliance creation.  Here you can do\n      # one-time actions to modify your appliance before it is ever used, like\n      # removing files and directories to make it smaller, creating symlinks,\n      # generating indexes, etc.\n      #\n      # The 'kiwi_type' variable will contain the format of the appliance (oem =\n      # disk image, vmx = VMware, iso = CD/DVD, xen = Xen).\n      #\n      \n      # read in some variables\n      . /studio/profile\n      \n      #======================================\n      # Prune extraneous files\n      #--------------------------------------\n      # Remove all documentation\n      docfiles=`find /usr/share/doc/packages -type f |grep -iv \"copying\\|license\\|copyright\"`\n      rm -f $docfiles\n      rm -rf /usr/share/info\n      rm -rf /usr/share/man\n      \n      # fix the setlocale error\n      sed -i 's/en_US.UTF-8/POSIX/g' /etc/sysconfig/language\n      \n      exit 0";
+    private static final String EXPECTED_SCRIPT_2 = "#!/bin/bash\n      #\n      # This script is executed whenever your appliance boots.  Here you can add\n      # commands to be executed before the system enters the first runlevel.  This\n      # could include loading kernel modules, starting daemons that aren't managed\n      # by init files, asking questions at the console, etc.\n      #\n      # The 'kiwi_type' variable will contain the format of the appliance (oem =\n      # disk image, vmx = VMware, iso = CD/DVD, xen = Xen).\n      #\n      \n      # read in some variables\n      . /studio/profile\n      \n      if [ -f /etc/init.d/suse_studio_firstboot ]\n      then\n        \n        # Put commands to be run on the first boot of your appliance here\n        echo \"Running SUSE Studio first boot script...\"\n      \n      fi";
 
     @Test
     public void testAccount() {
@@ -212,7 +216,7 @@ public class ExamplesTest {
 
         assertEquals(24, configuration.getId());
         assertEquals("LAMP Server", configuration.getName());
-        assertEquals("This is a LAMP server.", configuration.getDescription());
+        assertEquals("This is a LAMP server.\n\nIt provides Linux, Apache, MySQL, and Perl.", configuration.getDescription());
         assertEquals("0.0.1", configuration.getVersion());
         assertEquals("oem", configuration.getType());
         assertEquals("http://susestudio.com", configuration.getWebsite());
@@ -288,7 +292,7 @@ public class ExamplesTest {
         List<String> eulas = configuration.getEulas();
         assertNotNull(eulas);
         assertEquals(1, eulas.size());
-        assertEquals("This is an End User License Agreement.", eulas.get(0));
+        assertEquals("This is an End User License Agreement.\n", eulas.get(0));
 
         List<Database> databases = configuration.getDatabases();
         assertNotNull(databases);
@@ -322,7 +326,7 @@ public class ExamplesTest {
         assertEquals(512, settings.getMemorySize());
         assertEquals(16, settings.getDiskSize());
         assertEquals(512, settings.getSwapSize());
-        assertEquals(true, settings.isPaeEnabled());
+        assertEquals(false, settings.isPaeEnabled());
         assertEquals(true, settings.isXenHostModeEnabled());
         assertEquals(true, settings.isCdromEnabled());
         assertEquals(false, settings.isWebYaSTEnabled());
@@ -353,10 +357,10 @@ public class ExamplesTest {
         Script buildScript = scripts.getBuildScript();
         assertNotNull(buildScript);
         assertEquals(true, buildScript.isEnabled());
-        assertEquals("#!/bin/script1", buildScript.getScript());
+        assertEquals(EXPECTED_SCRIPT_1, buildScript.getScript());
         assertNotNull(bootScript);
         assertEquals(true, bootScript.isEnabled());
-        assertEquals("#!/bin/script2", bootScript.getScript());
+        assertEquals(EXPECTED_SCRIPT_2, bootScript.getScript());
         Script autoYaSTScript = scripts.getAutoYaSTScript();
         assertNotNull(autoYaSTScript);
         assertEquals(false, autoYaSTScript.isEnabled());
