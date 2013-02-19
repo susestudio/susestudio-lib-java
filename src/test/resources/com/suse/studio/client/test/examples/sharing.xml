@@ -1,0 +1,6 @@
+<appliance>
+  <id>22</id>
+  <read_users count="1">
+    <username>steam</username>
+  </read_users>
+</appliance>

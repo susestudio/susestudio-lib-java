@@ -1,0 +1,20 @@
+<gallery>
+  <appliance>
+    <id>22</id>
+    <comments count="2">
+      <comment>
+        <id>3</id>
+        <timestamp>2010-10-11 14:01:24 UTC</timestamp>
+        <username>Matt Barringer</username>
+        <text>This is a comment posted via the API</text>
+      </comment>
+      <comment>
+        <id>4</id>
+        <parent_id>3</parent_id>
+        <timestamp>2010-10-11 14:02:05 UTC</timestamp>
+        <username>Matt Barringer</username>
+        <text>This is a reply to a comment posted via the API</text>
+      </comment>
+    </comments>
+  </appliance>
+</gallery>

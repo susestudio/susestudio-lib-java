@@ -1,0 +1,16 @@
+<builds>
+  <build>
+    <id>28</id>
+    <version>0.0.1</version>
+    <state>finished</state>
+    <expired>false</expired>
+    <image_type>oem</image_type>
+    <checksum>
+      <md5>bf1a0f08884ebac13f30b0fc62dfc44a</md5>
+      <sha1>bf988e8a338bd4996be33c840de804126fecfeab</sha1>
+    </checksum>
+    <size>238</size>
+    <compressed_image_size>87</compressed_image_size>
+    <download_url>http://susestudio.com/download/bf1a0f08884ebac13f30b0fc62dfc44a/Cornelius_JeOS.x86_64-0.0.1.oem.tar.gz</download_url>
+  </build>
+</builds>
