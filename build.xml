@@ -95,13 +95,13 @@
   <target name="run-tests" depends="dist-jar, dist-tests">
     <junit printsummary="yes" haltonfailure="yes">
       <classpath refid="classpath-tests" />
-      <test name="com.suse.studio.client.test.ExamplesTest" outfile="result">
+      <test name="com.suse.studio.client.test.RequestTest" outfile="result">
+        <formatter type="plain" />
+      </test>
+      <test name="com.suse.studio.client.test.ResponseTest" outfile="result">
         <formatter type="plain" />
       </test>
       <test name="com.suse.studio.client.test.EmptyModelTest" outfile="result">
-        <formatter type="plain" />
-      </test>
-      <test name="com.suse.studio.client.test.SUSEStudioTest" outfile="result">
         <formatter type="plain" />
       </test>
     </junit>

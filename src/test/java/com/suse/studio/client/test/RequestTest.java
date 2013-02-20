@@ -2,7 +2,6 @@ package com.suse.studio.client.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -19,18 +18,31 @@ import com.suse.studio.client.model.ScheduleBuildResult;
 import com.suse.studio.client.model.Status;
 import com.suse.studio.client.model.TemplateSet;
 import com.suse.studio.client.model.Testdrive;
+import com.suse.studio.client.model.User;
 import com.suse.studio.client.model.configuration.Configuration;
-import com.suse.studio.client.test.httpservermock.ExchangeDetails;
 import com.suse.studio.client.test.httpservermock.HttpServerMock;
 import com.suse.studio.client.test.util.SUSEStudioRequester;
-import com.suse.studio.client.test.util.TestExampleResponder;
 import com.suse.studio.client.test.util.TestUtils;
 
 /**
  * Test that appropriate requests are sent to SUSE Studio server.
  */
-public class SUSEStudioTest {
+public class RequestTest {
 
+    @Test
+    public void testGetUser() throws Exception {
+        SUSEStudioRequester<User> requester = new SUSEStudioRequester<User>() {
+            public User request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.getUser();
+            }
+        };
+        Request request = new HttpServerMock().getRequest(requester);
+
+        assertNotNull(request);
+        assertEquals("GET", request.getMethod());
+        assertEquals("/api/v2/user/account", request.getPath().toString());
+    }
+    
     @Test
     public void testGetApiVersion() throws Exception {
         SUSEStudioRequester<String> requester = new SUSEStudioRequester<String>() {
@@ -38,17 +50,11 @@ public class SUSEStudioTest {
                 return suseStudio.getApiVersion();
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("api_version.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<String> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("GET", request.getMethod());
         assertEquals("/api/v2/user/api_version", request.getPath().toString());
-
-        String result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -58,17 +64,11 @@ public class SUSEStudioTest {
                 return suseStudio.getAppliances();
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("appliances.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<List<Appliance>> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("GET", request.getMethod());
         assertEquals("/api/v2/user/appliances", request.getPath().toString());
-
-        List<Appliance> result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -78,17 +78,11 @@ public class SUSEStudioTest {
                 return suseStudio.getAppliance(0);
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("appliance.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<Appliance> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("GET", request.getMethod());
         assertEquals("/api/v2/user/appliances/0", request.getPath().toString());
-
-        Appliance result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -98,17 +92,11 @@ public class SUSEStudioTest {
                 return suseStudio.getApplianceStatus(0);
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("appliance_status.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<Status> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("GET", request.getMethod());
         assertEquals("/api/v2/user/appliances/0/status", request.getPath().toString());
-
-        Status result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -118,11 +106,8 @@ public class SUSEStudioTest {
                 return suseStudio.cloneApplianceFrom(1, "one", "i586");
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("appliance.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<Appliance> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("POST", request.getMethod());
         assertEquals("/api/v2/user/appliances", request.getPath().toString());
@@ -131,9 +116,6 @@ public class SUSEStudioTest {
         assertEquals("1", query.get("clone_from"));
         assertEquals("one", query.get("name"));
         assertEquals("i586", query.get("arch"));
-
-        Appliance result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -145,17 +127,11 @@ public class SUSEStudioTest {
                 return true;
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("success.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<Boolean> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("DELETE", request.getMethod());
         assertEquals("/api/v2/user/appliances/0", request.getPath().toString());
-
-        Boolean result = runDetails.getResult();
-        assertTrue(result);
     }
 
     @Test
@@ -165,20 +141,14 @@ public class SUSEStudioTest {
                 return suseStudio.getGallery("latest");
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("gallery.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<Gallery> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("GET", request.getMethod());
         assertEquals("/api/v2/user/gallery/appliances", request.getPath().toString());
 
         Query query = request.getQuery();
         assertEquals("", query.get("latest"));
-
-        Gallery result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -188,20 +158,14 @@ public class SUSEStudioTest {
                 return suseStudio.searchGallery("dadada");
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("gallery.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<Gallery> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("GET", request.getMethod());
         assertEquals("/api/v2/user/gallery/appliances", request.getPath().toString());
 
         Query query = request.getQuery();
         assertEquals("dadada", query.get("search"));
-
-        Gallery result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -211,17 +175,11 @@ public class SUSEStudioTest {
                 return suseStudio.getConfiguration(0);
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("configuration.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<Configuration> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("GET", request.getMethod());
         assertEquals("/api/v2/user/appliances/0/configuration", request.getPath().toString());
-
-        Configuration result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -235,18 +193,12 @@ public class SUSEStudioTest {
                 return true;
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("success.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<Boolean> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("PUT", request.getMethod());
         assertEquals("/api/v2/user/appliances/0/configuration", request.getPath().toString());
         assertEquals(TestUtils.persistInString(configuration), request.getContent());
-
-        Boolean result = runDetails.getResult();
-        assertTrue(result);
     }
 
     @Test
@@ -256,17 +208,11 @@ public class SUSEStudioTest {
                 return suseStudio.getTemplateSet("default");
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("template_set.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<TemplateSet> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("GET", request.getMethod());
         assertEquals("/api/v2/user/template_sets/default", request.getPath().toString());
-
-        TemplateSet result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -276,17 +222,11 @@ public class SUSEStudioTest {
                 return suseStudio.getTemplateSets();
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("template_sets.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<List<TemplateSet>> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("GET", request.getMethod());
         assertEquals("/api/v2/user/template_sets", request.getPath().toString());
-
-        List<TemplateSet> result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -296,17 +236,11 @@ public class SUSEStudioTest {
                 return suseStudio.getTestdrives();
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("testdrives.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<List<Testdrive>> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("GET", request.getMethod());
         assertEquals("/api/v2/user/testdrives", request.getPath().toString());
-
-        List<Testdrive> result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -316,20 +250,14 @@ public class SUSEStudioTest {
                 return suseStudio.startTestdrive(0);
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("testdrive.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<Testdrive> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("POST", request.getMethod());
         assertEquals("/api/v2/user/testdrives", request.getPath().toString());
 
         Query query = request.getQuery();
         assertEquals("0", query.get("build_id"));
-
-        Testdrive result = runDetails.getResult();
-        assertNotNull(result);
     }
 
     @Test
@@ -339,11 +267,8 @@ public class SUSEStudioTest {
                 return suseStudio.scheduleBuild(0, ImageType.iso);
             }
         };
-        TestExampleResponder responder = new TestExampleResponder("build.xml");
+        Request request = new HttpServerMock().getRequest(requester);
 
-        ExchangeDetails<ScheduleBuildResult> runDetails = new HttpServerMock().runExchange(requester, responder);
-
-        Request request = runDetails.getReceivedRequest();
         assertNotNull(request);
         assertEquals("POST", request.getMethod());
         assertEquals("/api/v2/user/running_builds", request.getPath().toString());
@@ -352,8 +277,5 @@ public class SUSEStudioTest {
         assertEquals("0", query.get("appliance_id"));
         assertEquals("true", query.get("force"));
         assertEquals("iso", query.get("image_type"));
-
-        ScheduleBuildResult result = runDetails.getResult();
-        assertNotNull(result);
     }
 }
