@@ -28,7 +28,7 @@ public class HttpServerMock {
      * @throws Exception if network errors arise
      */
     public Request getRequest(Callable<?> requester) throws Exception {
-        return runExchange(requester, new NotImplementedResponder(), true).request;
+        return runExchange(requester, new NotImplementedResponder()).request;
     }
 
     /**
@@ -40,7 +40,7 @@ public class HttpServerMock {
      * @throws Exception if requester throws an exception or network errors arise
      */
     public <T> T getResult(Callable<T> requester, Responder responder) throws Exception {
-        return runExchange(requester, responder, false).result;
+        return runExchange(requester, responder).result;
     }
 
     /**
@@ -55,8 +55,7 @@ public class HttpServerMock {
      * @throws Exception if requester throws an exception or network errors arise
      */
     private <T> ExchangeDetails<T> runExchange(Callable<T> requester,
-            Responder responder,
-            boolean ignoreRequesterExceptions) throws Exception {
+            Responder responder) throws Exception {
         ContainerMock containerMock = new ContainerMock(responder);
 
         Connection connection = null;
@@ -69,9 +68,7 @@ public class HttpServerMock {
             try {
                 exchangeDetails.result = requester.call();
             } catch (Exception e) {
-                if (!ignoreRequesterExceptions) {
-                    throw e;
-                }
+                throw e;
             }
         } finally {
             if (connection != null) {

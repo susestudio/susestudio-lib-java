@@ -25,8 +25,14 @@ public abstract class SUSEStudioRequester<T> implements Callable<T> {
      * 
      * @see java.util.concurrent.Callable#call()
      */
-    public T call() throws SUSEStudioException {
-        return request(new SUSEStudio(DUMMY_USER, DUMMY_API_KEY, "http://localhost:" + HttpServerMock.PORT));
+    public T call() {
+        T ret = null;
+        try {
+            ret = request(new SUSEStudio(DUMMY_USER, DUMMY_API_KEY, "http://localhost:" + HttpServerMock.PORT));
+        } catch (SUSEStudioException e) {
+            // Catch it in here, we are expecting it
+        }
+        return ret;
     }
 
     /**
