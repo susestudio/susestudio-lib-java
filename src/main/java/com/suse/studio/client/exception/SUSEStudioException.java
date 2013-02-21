@@ -63,9 +63,9 @@ public class SUSEStudioException extends Exception {
     @Override
     public String toString() {
         if (getCode() != null) {
-            return "SUSE Studio error \"" + getCode() + "\": " + getMessage();
+            return getMessage() + " (" + getCode() + ")";
         } else {
-            return "I/O error:" + getMessage();
+            return getMessage();
         }
     }
 }
