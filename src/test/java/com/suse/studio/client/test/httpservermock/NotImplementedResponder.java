@@ -13,6 +13,7 @@ public class NotImplementedResponder implements Responder {
      */
     @Override
     public void respond(Response response) {
-        response.setCode(505);
+        response.setCode(501);
+        response.setDescription("Not Implemented");
     }
 }
