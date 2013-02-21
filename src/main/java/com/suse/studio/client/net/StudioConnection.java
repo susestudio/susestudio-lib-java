@@ -121,8 +121,12 @@ public class StudioConnection {
 
             // request was not successful, get a response error
             InputStream inputStream = connection.getErrorStream();
-            ErrorResult error = ParserUtils.parseBodyStream(ErrorResult.class, inputStream);
-            throw new SUSEStudioException(error.getCode(), error.getMessage());
+            if (inputStream != null) {
+                ErrorResult error = ParserUtils.parseBodyStream(ErrorResult.class, inputStream);
+                throw new SUSEStudioException(error.getCode(), error.getMessage());
+            } else {
+                throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage());
+            }
         } catch (IOException e) {
             throw new SUSEStudioException(e);
         }
