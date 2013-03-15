@@ -85,7 +85,7 @@ It provides Linux, Apache, MySQL, and Perl.</description>
     <memory_size>512</memory_size>
     <disk_size>16</disk_size>
     <swap_size>512</swap_size>
-    <pae_enabled></pae_enabled>
+    <pae_enabled>false</pae_enabled>
     <xen_host_mode_enabled>true</xen_host_mode_enabled>
     <cdrom_enabled>true</cdrom_enabled>
     <webyast_enabled>false</webyast_enabled>

@@ -15,7 +15,7 @@ public class Settings {
     @Element(name = "swap_size")
     private int swapSize;
 
-    @Element(name = "pae_enabled", required = false)
+    @Element(name = "pae_enabled")
     private boolean paeEnabled;
 
     @Element(name = "xen_host_mode_enabled", required = false)
