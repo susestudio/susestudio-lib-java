@@ -128,8 +128,8 @@ public class ResponseTest {
         assertNull(result.getType());
         Date lastEdited = TestUtils.getDate(2009, 3, 24, 12, 9, 42);
         assertEquals(lastEdited, result.getLastEdited());
-        assertNull(result.getEstimatedRawSize());
-        assertNull(result.getEstimatedCompressedSize());
+        assertEquals(result.getEstimatedRawSize(), "560 MB");
+        assertEquals(result.getEstimatedCompressedSize(), "160 MB");
         assertEquals("http://susestudio.com/appliance/edit/24", result.getEditUrl());
         assertEquals("http://susestudio.com/api/v1/user/appliance_icon/1234", result.getIconUrl());
         assertEquals("11.1", result.getBasesystem());

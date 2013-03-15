@@ -3,6 +3,8 @@
     <id>24</id>
     <name>Cornelius' JeOS</name>
     <last_edited>2009-04-24 12:09:42 UTC</last_edited>
+    <estimated_raw_size>540 MB</estimated_raw_size>
+    <estimated_compressed_size>160 MB</estimated_compressed_size>
     <edit_url>http://susestudio.com/appliance/edit/24</edit_url>
     <icon_url>http://susestudio.com/api/v1/user/appliance_icon/1234</icon_url>
     <basesystem>11.1</basesystem>
@@ -25,6 +27,8 @@
     <id>8</id>
     <name>Text Only</name>
     <last_edited>2009-04-20 14:21:49 UTC</last_edited>
+    <estimated_raw_size>490 MB</estimated_raw_size>
+    <estimated_compressed_size>160 MB</estimated_compressed_size>
     <edit_url>http://susestudio.com/appliance/edit/8</edit_url>
     <icon_url>http://susestudio.com/api/v1/user/appliance_icon/1234</icon_url>
     <parent>
