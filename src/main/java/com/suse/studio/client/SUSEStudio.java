@@ -287,7 +287,7 @@ public class SUSEStudio {
     }
 
     /**
-     * Return the template set with given id.
+     * Return the template set with a given name.
      * 
      * GET /api/v2/user/template_sets/<name>
      * 
