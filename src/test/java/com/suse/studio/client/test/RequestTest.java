@@ -126,7 +126,6 @@ public class RequestTest {
     @Test
     public void testDeleteAppliance() throws Exception {
         SUSEStudioRequester<Boolean> requester = new SUSEStudioRequester<Boolean>() {
-            @Test
             public Boolean request(SUSEStudio suseStudio) throws SUSEStudioException {
                 suseStudio.deleteAppliance(0);
                 return true;
@@ -192,7 +191,6 @@ public class RequestTest {
         final Configuration configuration = TestUtils.parseExampleFile(Configuration.class, "configuration.xml");
 
         SUSEStudioRequester<Boolean> requester = new SUSEStudioRequester<Boolean>() {
-            @Test
             public Boolean request(SUSEStudio suseStudio) throws SUSEStudioException {
                 suseStudio.setConfiguration(0, configuration);
                 return true;
