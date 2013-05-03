@@ -22,8 +22,6 @@
 
 package com.suse.studio.client;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 import com.suse.studio.client.exception.SUSEStudioException;
@@ -45,6 +43,7 @@ import com.suse.studio.client.model.configuration.Configuration;
 import com.suse.studio.client.net.StudioConnection;
 import com.suse.studio.client.util.Base64;
 import com.suse.studio.client.util.StudioConfig;
+import com.suse.studio.client.util.URLUtils;
 
 /**
  * Library class for the SUSE Studio REST API.
@@ -58,6 +57,9 @@ public class SUSEStudio {
     public static final String GALLERY_LATEST = "latest";
     public static final String GALLERY_POPULAR = "popular";
     public static final String GALLERY_USERNAME = "username";
+
+    // To be used as a URL parameter value
+    public static final String TRUE = "true";
 
     // Supported image types
     public static enum ImageType {
@@ -195,11 +197,11 @@ public class SUSEStudio {
         uri.append(id);
         if (name != null) {
             uri.append("&name=");
-            uri.append(name);
+            uri.append(URLUtils.encode(name));
         }
         if (arch != null) {
             uri.append("&arch=");
-            uri.append(arch);
+            uri.append(URLUtils.encode(arch));
         }
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         Appliance appliance = sc.post(Appliance.class);
@@ -232,7 +234,7 @@ public class SUSEStudio {
      */
     public Gallery getGallery(String queryType) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/gallery/appliances?");
-        uri.append(queryType);
+        uri.append(URLUtils.encode(queryType));
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         Gallery gallery = sc.get(Gallery.class);
         return gallery;
@@ -307,22 +309,12 @@ public class SUSEStudio {
         if (baseSystem != null) {
             uri.append('?');
             uri.append("base_system=");
-            try {
-                baseSystem = URLEncoder.encode(baseSystem, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException("unexpected error in URLEncoder.encode", e);
-            }
-            uri.append(baseSystem);
+            uri.append(URLUtils.encode(baseSystem));
         }
         if (filter != null) {
             uri.append(baseSystem == null ? '?' : '&');
             uri.append("filter=");
-            try {
-                filter = URLEncoder.encode(filter, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException("unexpected error in URLEncoder.encode", e);
-            }
-            uri.append(filter);
+            uri.append(URLUtils.encode(filter));
         }
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         Repositories repositories = sc.get(Repositories.class);
@@ -340,7 +332,7 @@ public class SUSEStudio {
      */
     public TemplateSet getTemplateSet(String name) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/template_sets/");
-        uri.append(name);
+        uri.append(URLUtils.encode(name));
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         TemplateSet templateSet = sc.get(TemplateSet.class);
         return templateSet;
@@ -406,9 +398,9 @@ public class SUSEStudio {
         StringBuilder uri = new StringBuilder("/user/running_builds?appliance_id=");
         uri.append(applianceID);
         uri.append("&force=");
-        uri.append("true");
+        uri.append(URLUtils.encode(TRUE));
         uri.append("&image_type=");
-        uri.append(imgType);
+        uri.append(URLUtils.encode(imgType.name()));
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         return sc.post(ScheduleBuildResult.class);
     }
