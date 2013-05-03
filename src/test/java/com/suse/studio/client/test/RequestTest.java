@@ -14,6 +14,7 @@ import com.suse.studio.client.SUSEStudio.ImageType;
 import com.suse.studio.client.exception.SUSEStudioException;
 import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Gallery;
+import com.suse.studio.client.model.Repository;
 import com.suse.studio.client.model.ScheduleBuildResult;
 import com.suse.studio.client.model.Status;
 import com.suse.studio.client.model.TemplateSet;
@@ -277,5 +278,77 @@ public class RequestTest {
         assertEquals("0", query.get("appliance_id"));
         assertEquals("true", query.get("force"));
         assertEquals("iso", query.get("image_type"));
+    }
+
+    @Test
+    public void testGetRepositoriesAll() throws Exception {
+        SUSEStudioRequester<List<Repository>> requester = new SUSEStudioRequester<List<Repository>>() {
+            public List<Repository> request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.getRepositories(null, null);
+            }
+        };
+        Request request = new HttpServerMock().getRequest(requester);
+
+        assertNotNull(request);
+        assertEquals("GET", request.getMethod());
+        assertEquals("/api/v2/user/repositories", request.getPath().toString());
+
+        Query query = request.getQuery();
+        assertEquals(0, query.size());
+    }
+
+    @Test
+    public void testGetRepositoriesByBaseSystem() throws Exception {
+        SUSEStudioRequester<List<Repository>> requester = new SUSEStudioRequester<List<Repository>>() {
+            public List<Repository> request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.getRepositories("BASESYSTEMx&x+x/x%x", null);
+            }
+        };
+        Request request = new HttpServerMock().getRequest(requester);
+
+        assertNotNull(request);
+        assertEquals("GET", request.getMethod());
+        assertEquals("/api/v2/user/repositories", request.getPath().toString());
+
+        Query query = request.getQuery();
+        assertEquals(1, query.size());
+        assertEquals("BASESYSTEMx&x+x/x%x", query.get("base_system"));
+    }
+
+    @Test
+    public void testGetRepositoriesByFilter() throws Exception {
+        SUSEStudioRequester<List<Repository>> requester = new SUSEStudioRequester<List<Repository>>() {
+            public List<Repository> request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.getRepositories(null, "FILTERx&x+x/x%x");
+            }
+        };
+        Request request = new HttpServerMock().getRequest(requester);
+
+        assertNotNull(request);
+        assertEquals("GET", request.getMethod());
+        assertEquals("/api/v2/user/repositories", request.getPath().toString());
+
+        Query query = request.getQuery();
+        assertEquals(1, query.size());
+        assertEquals("FILTERx&x+x/x%x", query.get("filter"));
+    }
+
+    @Test
+    public void testGetRepositoriesByBaseSystemAndFilter() throws Exception {
+        SUSEStudioRequester<List<Repository>> requester = new SUSEStudioRequester<List<Repository>>() {
+            public List<Repository> request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.getRepositories("BASESYSTEMx&x+x/x%x", "FILTERx&x+x/x%x");
+            }
+        };
+        Request request = new HttpServerMock().getRequest(requester);
+
+        assertNotNull(request);
+        assertEquals("GET", request.getMethod());
+        assertEquals("/api/v2/user/repositories", request.getPath().toString());
+
+        Query query = request.getQuery();
+        assertEquals(2, query.size());
+        assertEquals("BASESYSTEMx&x+x/x%x", query.get("base_system"));
+        assertEquals("FILTERx&x+x/x%x", query.get("filter"));
     }
 }

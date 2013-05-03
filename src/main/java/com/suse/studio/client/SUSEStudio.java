@@ -22,12 +22,16 @@
 
 package com.suse.studio.client;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import com.suse.studio.client.exception.SUSEStudioException;
 import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Appliances;
 import com.suse.studio.client.model.Gallery;
+import com.suse.studio.client.model.Repositories;
+import com.suse.studio.client.model.Repository;
 import com.suse.studio.client.model.ScheduleBuildResult;
 import com.suse.studio.client.model.Status;
 import com.suse.studio.client.model.SuccessResult;
@@ -284,6 +288,45 @@ public class SUSEStudio {
         uri.append("/configuration");
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         sc.put(SuccessResult.class, newConfiguration);
+    }
+
+    /**
+     * Get repositories with optional filtering.
+     *
+     * GET /api/v2/user/repositories?base_system=<base>&filter=<search_string>
+     *
+     * @param baseSystem Limit the results to repositories with this
+     *      base system. Set to null, to omit filtering
+     * @param filter Only show repositories matching this search string.
+     *      Set to null, to omit filtering
+     * @return list of the queried repositories
+     * @throws SUSEStudioException if SUSE Studio returns an error response
+     */
+    public List<Repository> getRepositories(String baseSystem, String filter) throws SUSEStudioException {
+        StringBuilder uri = new StringBuilder("/user/repositories");
+        if (baseSystem != null) {
+            uri.append('?');
+            uri.append("base_system=");
+            try {
+                baseSystem = URLEncoder.encode(baseSystem, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException("unexpected error in URLEncoder.encode", e);
+            }
+            uri.append(baseSystem);
+        }
+        if (filter != null) {
+            uri.append(baseSystem == null ? '?' : '&');
+            uri.append("filter=");
+            try {
+                filter = URLEncoder.encode(filter, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException("unexpected error in URLEncoder.encode", e);
+            }
+            uri.append(filter);
+        }
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        Repositories repositories = sc.get(Repositories.class);
+        return repositories.getRepositories();
     }
 
     /**

@@ -13,6 +13,8 @@ import com.suse.studio.client.model.Build;
 import com.suse.studio.client.model.Gallery;
 import com.suse.studio.client.model.GalleryAppliance;
 import com.suse.studio.client.model.GalleryAppliances;
+import com.suse.studio.client.model.Repositories;
+import com.suse.studio.client.model.Repository;
 import com.suse.studio.client.model.Template;
 import com.suse.studio.client.model.TemplateSet;
 import com.suse.studio.client.model.TemplateSets;
@@ -72,6 +74,14 @@ public class EmptyModelTest {
         assertNotNull(galleryAppliances);
         List<GalleryAppliance> list = galleryAppliances.getAppliances();
         assertNotNull(list);
+        assertEquals(0, list.size());
+    }
+
+    @Test
+    public void testEmptyRepositories() {
+        Repositories repositories = TestUtils.parseExampleFile(Repositories.class, "empty_repositories.xml");
+        assertNotNull(repositories);
+        List<Repository> list = repositories.getRepositories();
         assertEquals(0, list.size());
     }
 }

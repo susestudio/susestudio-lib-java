@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.core.Persister;
 
 /**
@@ -35,7 +36,7 @@ public class ParserUtils {
         }
 
         T result = null;
-        Serializer serializer = new Persister();
+        Serializer serializer = new Persister(new AnnotationStrategy());
         try {
             result = serializer.read(clazz, stream);
         } catch (Exception e) {
@@ -51,7 +52,7 @@ public class ParserUtils {
      * @param stream a stream containing object serialized in XML
      */
     public static void persistInStream(Object object, OutputStream stream) {
-        Serializer serializer = new Persister();
+        Serializer serializer = new Persister(new AnnotationStrategy());
         try {
             serializer.write(object, stream);
         } catch (Exception e) {
