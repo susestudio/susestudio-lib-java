@@ -30,6 +30,10 @@ import com.suse.studio.client.test.util.TestUtils;
  */
 public class RequestTest {
 
+    // Filter and base system for querying repositories
+    private static String FILTER = "FILTERx&x+x/x%x";
+    private static String BASE_SYSTEM = "BASESYSTEMx&x+x/x%x";
+
     @Test
     public void testGetUser() throws Exception {
         SUSEStudioRequester<User> requester = new SUSEStudioRequester<User>() {
@@ -301,7 +305,7 @@ public class RequestTest {
     public void testGetRepositoriesByBaseSystem() throws Exception {
         SUSEStudioRequester<List<Repository>> requester = new SUSEStudioRequester<List<Repository>>() {
             public List<Repository> request(SUSEStudio suseStudio) throws SUSEStudioException {
-                return suseStudio.getRepositories("BASESYSTEMx&x+x/x%x", null);
+                return suseStudio.getRepositories(BASE_SYSTEM, null);
             }
         };
         Request request = new HttpServerMock().getRequest(requester);
@@ -312,14 +316,14 @@ public class RequestTest {
 
         Query query = request.getQuery();
         assertEquals(1, query.size());
-        assertEquals("BASESYSTEMx&x+x/x%x", query.get("base_system"));
+        assertEquals(BASE_SYSTEM, query.get("base_system"));
     }
 
     @Test
     public void testGetRepositoriesByFilter() throws Exception {
         SUSEStudioRequester<List<Repository>> requester = new SUSEStudioRequester<List<Repository>>() {
             public List<Repository> request(SUSEStudio suseStudio) throws SUSEStudioException {
-                return suseStudio.getRepositories(null, "FILTERx&x+x/x%x");
+                return suseStudio.getRepositories(null, FILTER);
             }
         };
         Request request = new HttpServerMock().getRequest(requester);
@@ -330,14 +334,14 @@ public class RequestTest {
 
         Query query = request.getQuery();
         assertEquals(1, query.size());
-        assertEquals("FILTERx&x+x/x%x", query.get("filter"));
+        assertEquals(FILTER, query.get("filter"));
     }
 
     @Test
     public void testGetRepositoriesByBaseSystemAndFilter() throws Exception {
         SUSEStudioRequester<List<Repository>> requester = new SUSEStudioRequester<List<Repository>>() {
             public List<Repository> request(SUSEStudio suseStudio) throws SUSEStudioException {
-                return suseStudio.getRepositories("BASESYSTEMx&x+x/x%x", "FILTERx&x+x/x%x");
+                return suseStudio.getRepositories(BASE_SYSTEM, FILTER);
             }
         };
         Request request = new HttpServerMock().getRequest(requester);
@@ -348,7 +352,7 @@ public class RequestTest {
 
         Query query = request.getQuery();
         assertEquals(2, query.size());
-        assertEquals("BASESYSTEMx&x+x/x%x", query.get("base_system"));
-        assertEquals("FILTERx&x+x/x%x", query.get("filter"));
+        assertEquals(BASE_SYSTEM, query.get("base_system"));
+        assertEquals(FILTER, query.get("filter"));
     }
 }
