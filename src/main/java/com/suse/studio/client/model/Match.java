@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2012 Novell Inc.
+/**
+ * Copyright (c) 2013 SUSE
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,11 @@ import org.simpleframework.xml.convert.Converter;
 import org.simpleframework.xml.stream.InputNode;
 import org.simpleframework.xml.stream.OutputNode;
 
-
+/**
+ * A {@link Match} is a generic key value pair that is parsed using the {@link ListConverter} below.
+ */
 public class Match {
+
     private String key;
     private String value;
 
