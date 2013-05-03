@@ -83,11 +83,11 @@ public class Repository {
         return baseUrl;
     }
 
-    public String getSmtName() {
+    public String getSMTName() {
         return smtName;
     }
 
-    public String getSmtTarget() {
+    public String getSMTTarget() {
         return smtTarget;
     }
 
