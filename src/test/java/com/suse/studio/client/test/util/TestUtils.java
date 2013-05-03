@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.core.Persister;
 
 import com.suse.studio.client.util.ParserUtils;
@@ -50,7 +51,7 @@ public class TestUtils {
      * @return the string
      */
     public static String persistInString(Object object) {
-        Serializer serializer = new Persister();
+        Serializer serializer = new Persister(new AnnotationStrategy());
         String result = null;
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
