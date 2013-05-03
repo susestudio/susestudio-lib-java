@@ -297,11 +297,11 @@ public class SUSEStudio {
      *
      * GET /api/v2/user/repositories?base_system=<base>&filter=<search_string>
      *
-     * @param baseSystem Limit the results to repositories with this
-     *      base system. Set to null, to omit filtering
-     * @param filter Only show repositories matching this search string.
-     *      Set to null, to omit filtering
-     * @return list of the queried repositories
+     * @param baseSystem
+     *            Limit the results to repositories with this base system. Set to null to omit filtering.
+     * @param filter
+     *            Only show repositories matching this search string. Set to null to omit filtering.
+     * @return list of queried repositories
      * @throws SUSEStudioException if SUSE Studio returns an error response
      */
     public List<Repository> getRepositories(String baseSystem, String filter) throws SUSEStudioException {
