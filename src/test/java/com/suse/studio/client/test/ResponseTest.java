@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,9 @@ import com.suse.studio.client.model.Gallery;
 import com.suse.studio.client.model.GalleryAppliance;
 import com.suse.studio.client.model.GalleryAppliances;
 import com.suse.studio.client.model.Issue;
+import com.suse.studio.client.model.Match;
 import com.suse.studio.client.model.Parent;
+import com.suse.studio.client.model.Repository;
 import com.suse.studio.client.model.ScheduleBuildResult;
 import com.suse.studio.client.model.Solution;
 import com.suse.studio.client.model.Status;
@@ -530,5 +533,32 @@ public class ResponseTest {
 
         assertNotNull(result);
         assertEquals(result.getId(), 28);
+    }
+
+    @Test
+    public void testGetRepositories() throws Exception {
+        SUSEStudioRequester<List<Repository>> requester = new SUSEStudioRequester<List<Repository>>() {
+            public List<Repository> request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.getRepositories(null, null);
+            }
+        };
+        TestExampleResponder responder = new TestExampleResponder("repositories.xml");
+        List<Repository> result = new HttpServerMock().getResult(requester, responder);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        Repository repository = result.get(0);
+        assertEquals(7, repository.getId());
+        assertEquals("Moblin Base", repository.getName());
+        assertEquals("11.1", repository.getBaseSystem());
+        assertEquals("http://download.opensuse.org/repositories/Moblin:/Base/openSUSE_11.1", repository.getBaseUrl());
+        assertEquals(null, repository.getRepoTag());
+        List<Match> m = repository.getMatches();
+        assertNotNull(m);
+        assertEquals(2, m.size());
+        assertEquals(m.get(0).getKey(), "repository_name");
+        assertEquals(m.get(0).getValue(), "moblin base");
+        assertEquals(m.get(1).getKey(), "repository_base_url");
+        assertEquals(m.get(1).getValue(), "http://download.opensuse.org/repositories/moblin:/base/opensuse_11.1");
     }
 }
