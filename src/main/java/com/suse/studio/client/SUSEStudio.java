@@ -349,6 +349,24 @@ public class SUSEStudio {
     }
 
     /**
+     * Instructs the server to update package metadata for repository id.
+     *
+     * POST /api/v2/user/repositories/<id>/refresh
+     *
+     * @param id
+     *            Id of the repository to update.
+     * @throws SUSEStudioException
+     */
+    public void refreshRepository(int id) throws SUSEStudioException {
+        if (id < 0) {
+            throw new IllegalArgumentException("The id cannot be negative");
+        }
+        String uri = "/user/repositories/" + id + "/refresh";
+        StudioConnection sc = new StudioConnection(uri, config);
+        sc.post();
+    }
+
+    /**
      * Return the template set with a given name.
      * 
      * GET /api/v2/user/template_sets/<name>

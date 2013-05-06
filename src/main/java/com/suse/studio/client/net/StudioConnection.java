@@ -43,6 +43,15 @@ public class StudioConnection {
     }
 
     /**
+     * Perform a POST request and ignore the result.
+     *
+     * @throws SUSEStudioException if the request was not successful
+     */
+    public void post() throws SUSEStudioException {
+        request(null, "POST", null, true);
+    }
+
+    /**
      * Perform a POST request and parse the result into given {@link Class}.
      * 
      * @param clazz
@@ -63,7 +72,7 @@ public class StudioConnection {
      * @throws SUSEStudioException if the request was not successful
      */
     public <T> T put(Class<T> clazz, Object object) throws SUSEStudioException {
-        return request(clazz, "PUT", object);
+        return request(clazz, "PUT", object, false);
     }
 
     /**
@@ -86,7 +95,7 @@ public class StudioConnection {
      * @throws SUSEStudioException if the request was not successful
      */
     private <T> T request(Class<T> clazz, String method) throws SUSEStudioException {
-        return request(clazz, method, null);
+        return request(clazz, method, null, false);
     }
 
     /**
@@ -96,10 +105,11 @@ public class StudioConnection {
      * @param clazz result's expected class
      * @param method the HTTP method to use
      * @param object object to persist in request body or null
+     * @param ignoreResult Ignore the server response and return null. The parameter clazz will be ignored as well.
      * @return instance of clazz
      * @throws SUSEStudioException if the request was not successful
      */
-    private <T> T request(Class<T> clazz, String method, Object object) throws SUSEStudioException {
+    private <T> T request(Class<T> clazz, String method, Object object, boolean ignoreResult) throws SUSEStudioException {
         try {
             HttpURLConnection connection = RequestFactory.getInstance().initConnection(method, uri, encodedCredentials);
 
@@ -113,6 +123,10 @@ public class StudioConnection {
                 int responseCode = connection.getResponseCode();
 
                 if (responseCode >= HttpURLConnection.HTTP_OK && responseCode < HttpURLConnection.HTTP_MULT_CHOICE) {
+                    if (ignoreResult) {
+                        // don't care about the result or there is no result.
+                        return null;
+                    }
                     // request was successful, get response body
                     InputStream inputStream = connection.getInputStream();
                     try {
