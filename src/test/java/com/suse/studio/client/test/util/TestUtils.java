@@ -51,7 +51,12 @@ public class TestUtils {
      */
     public static <T> T parseExampleFile(Class<T> clazz, String filename) {
         InputStream stream = getStreamFromExampleFile(filename);
-        return ParserUtils.parseBodyStream(clazz, stream);
+        try {
+            return ParserUtils.parseBodyStream(clazz, stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

@@ -109,23 +109,48 @@ public class StudioConnection {
             }
 
             connection.connect();
-            int responseCode = connection.getResponseCode();
+            try {
+                int responseCode = connection.getResponseCode();
 
-            if (responseCode >= HttpURLConnection.HTTP_OK && responseCode < HttpURLConnection.HTTP_MULT_CHOICE) {
-                // request was successful, get response body
-                InputStream inputStream = connection.getInputStream();
-                T result = ParserUtils.parseBodyStream(clazz, inputStream);
-                connection.disconnect();
-                return result;
-            }
+                if (responseCode >= HttpURLConnection.HTTP_OK && responseCode < HttpURLConnection.HTTP_MULT_CHOICE) {
+                    // request was successful, get response body
+                    InputStream inputStream = connection.getInputStream();
+                    try {
+                        return ParserUtils.parseBodyStream(clazz, inputStream);
+                    } catch (Exception e) {
+                        throw new SUSEStudioException("invalid_response", "Could not parse server response as type " + clazz.getName() + ": " + e.getMessage(), e);
+                    } finally {
+                        try {
+                            inputStream.close();
+                        } catch (IOException e) {
+                        }
+                    }
+                }
 
-            // request was not successful, get a response error
-            InputStream inputStream = connection.getErrorStream();
-            if (inputStream != null) {
-                ErrorResult error = ParserUtils.parseBodyStream(ErrorResult.class, inputStream);
-                throw new SUSEStudioException(error.getCode(), error.getMessage());
-            } else {
-                throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage());
+                // request was not successful, get a response error
+                InputStream inputStream = connection.getErrorStream();
+                if (inputStream != null) {
+                    ErrorResult error;
+                    try {
+                        error = ParserUtils.parseBodyStream(ErrorResult.class, inputStream);
+                    } catch (Exception e) {
+                        // ignore the content of the stream and use the responseCode for the exception.
+                        throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage(), e);
+                    } finally {
+                        try {
+                            inputStream.close();
+                        } catch (IOException e) {
+                        }
+                    }
+                    throw new SUSEStudioException(error.getCode(), error.getMessage());
+                } else {
+                    throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage());
+                }
+            } finally {
+                try {
+                    connection.disconnect();
+                } catch (Exception e) {
+                }
             }
         } catch (IOException e) {
             throw new SUSEStudioException(e);

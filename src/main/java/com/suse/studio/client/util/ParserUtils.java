@@ -26,8 +26,9 @@ public class ParserUtils {
      * @param clazz
      * @param stream
      * @return an object corresponding to the XML in stream
+     * @throws Exception
      */
-    public static <T> T parseBodyStream(Class<T> clazz, InputStream stream) {
+    public static <T> T parseBodyStream(Class<T> clazz, InputStream stream) throws Exception {
         // Print stream contents for debugging
         if (StudioConfig.getInstance().printStreamContents()) {
             String s = streamToString(stream);
@@ -35,14 +36,8 @@ public class ParserUtils {
             stream = stringToStream(s);
         }
 
-        T result = null;
         Serializer serializer = new Persister(new AnnotationStrategy());
-        try {
-            result = serializer.read(clazz, stream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+        return serializer.read(clazz, stream);
     }
 
     /**
