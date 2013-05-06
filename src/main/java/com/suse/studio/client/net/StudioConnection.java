@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 
 import com.suse.studio.client.exception.SUSEStudioException;
 import com.suse.studio.client.model.ErrorResult;
+import com.suse.studio.client.util.IOUtils;
 import com.suse.studio.client.util.ParserUtils;
 import com.suse.studio.client.util.StudioConfig;
 
@@ -109,23 +110,37 @@ public class StudioConnection {
             }
 
             connection.connect();
-            int responseCode = connection.getResponseCode();
+            try {
+                int responseCode = connection.getResponseCode();
 
-            if (responseCode >= HttpURLConnection.HTTP_OK && responseCode < HttpURLConnection.HTTP_MULT_CHOICE) {
-                // request was successful, get response body
-                InputStream inputStream = connection.getInputStream();
-                T result = ParserUtils.parseBodyStream(clazz, inputStream);
+                if (responseCode >= HttpURLConnection.HTTP_OK && responseCode < HttpURLConnection.HTTP_MULT_CHOICE) {
+                    // request was successful, get response body
+                    InputStream inputStream = connection.getInputStream();
+                    try {
+                        return ParserUtils.parseBodyStream(clazz, inputStream);
+                    } finally {
+                        IOUtils.closeQuietly(inputStream);
+                    }
+                }
+
+                // request was not successful, get a response error
+                InputStream inputStream = connection.getErrorStream();
+                if (inputStream != null) {
+                    ErrorResult error;
+                    try {
+                        error = ParserUtils.parseBodyStream(ErrorResult.class, inputStream);
+                    } catch (SUSEStudioException e) {
+                        // ignore the content of the stream and use the responseCode for the exception.
+                        throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage());
+                    } finally {
+                        IOUtils.closeQuietly(inputStream);
+                    }
+                    throw new SUSEStudioException(error.getCode(), error.getMessage());
+                } else {
+                    throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage());
+                }
+            } finally {
                 connection.disconnect();
-                return result;
-            }
-
-            // request was not successful, get a response error
-            InputStream inputStream = connection.getErrorStream();
-            if (inputStream != null) {
-                ErrorResult error = ParserUtils.parseBodyStream(ErrorResult.class, inputStream);
-                throw new SUSEStudioException(error.getCode(), error.getMessage());
-            } else {
-                throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage());
             }
         } catch (IOException e) {
             throw new SUSEStudioException(e);
