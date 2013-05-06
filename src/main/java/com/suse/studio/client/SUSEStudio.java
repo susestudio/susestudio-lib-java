@@ -322,6 +322,33 @@ public class SUSEStudio {
     }
 
     /**
+     * Imports a new repository into Studio. Returns the metadata for
+     * the created repository.
+     *
+     * POST /api/v2/user/repositories?url=<url>&name=<name>
+     *
+     * @param name
+     *            Name for the repository.
+     * @param url
+     *            Base url of the repository.
+     * @return Returns the metadata for the created repository.
+     * @throws SUSEStudioException
+     */
+    public Repository importRepository(String name, String url) throws SUSEStudioException {
+        if (name == null) {
+            throw new IllegalArgumentException("name cannot be null");
+        }
+        if (url == null) {
+            throw new IllegalArgumentException("url cannot be null");
+        }
+        String uri = "/user/repositories?" +
+            "url=" + URLUtils.encode(url) + "&" +
+            "name=" + URLUtils.encode(name);
+        StudioConnection sc = new StudioConnection(uri, config);
+        return sc.post(Repository.class);
+    }
+
+    /**
      * Return the template set with a given name.
      * 
      * GET /api/v2/user/template_sets/<name>

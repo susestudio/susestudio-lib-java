@@ -375,4 +375,25 @@ public class RequestTest {
         assertEquals(BASE_SYSTEM, query.get("base_system"));
         assertEquals(FILTER, query.get("filter"));
     }
+
+    @Test
+    public void testImportRepository() throws Exception {
+        final String NAME = "NAMEx&x+x/x%x x   x";
+        final String URL = "URLx&x+x/x%x x   x";
+        SUSEStudioRequester<Repository> requester = new SUSEStudioRequester<Repository>() {
+            public Repository request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.importRepository(NAME, URL);
+            }
+        };
+        Request request = new HttpServerMock().getRequest(requester);
+
+        assertNotNull(request);
+        assertEquals("POST", request.getMethod());
+        assertEquals("/api/v2/user/repositories", request.getPath().toString());
+
+        Query query = request.getQuery();
+        assertEquals(2, query.size());
+        assertEquals(NAME, query.get("name"));
+        assertEquals(URL, query.get("url"));
+    }
 }
