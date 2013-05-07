@@ -362,8 +362,10 @@ public class SUSEStudio {
         if (id < 0) {
             throw new IllegalArgumentException("The id cannot be negative");
         }
-        String uri = "/user/repositories/" + id + "/refresh";
-        StudioConnection sc = new StudioConnection(uri, config);
+        StringBuilder uri = new StringBuilder("/user/repositories/");
+        uri.append(id);
+        uri.append("/refresh");
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
         sc.post();
     }
 
