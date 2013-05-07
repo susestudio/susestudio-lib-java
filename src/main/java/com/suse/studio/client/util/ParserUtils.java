@@ -13,6 +13,8 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.core.Persister;
 
+import com.suse.studio.client.exception.SUSEStudioException;
+
 /**
  * A wrapper around core Simple XML library functionality plus some utility methods.
  * 
@@ -28,7 +30,7 @@ public class ParserUtils {
      * @return an object corresponding to the XML in stream
      * @throws Exception
      */
-    public static <T> T parseBodyStream(Class<T> clazz, InputStream stream) throws Exception {
+    public static <T> T parseBodyStream(Class<T> clazz, InputStream stream) throws SUSEStudioException {
         // Print stream contents for debugging
         if (StudioConfig.getInstance().printStreamContents()) {
             String s = streamToString(stream);
@@ -37,7 +39,13 @@ public class ParserUtils {
         }
 
         Serializer serializer = new Persister(new AnnotationStrategy());
-        return serializer.read(clazz, stream);
+        T result;
+        try {
+            result = serializer.read(clazz, stream);
+        } catch (Exception e) {
+            throw new SUSEStudioException("invalid_response", "Could not parse data as type " + clazz.getName() + ": " + e.getMessage(), e);
+        }
+        return result;
     }
 
     /**

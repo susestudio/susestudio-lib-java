@@ -131,8 +131,6 @@ public class StudioConnection {
                     InputStream inputStream = connection.getInputStream();
                     try {
                         return ParserUtils.parseBodyStream(clazz, inputStream);
-                    } catch (Exception e) {
-                        throw new SUSEStudioException("invalid_response", "Could not parse server response as type " + clazz.getName() + ": " + e.getMessage(), e);
                     } finally {
                         try {
                             inputStream.close();
@@ -147,7 +145,7 @@ public class StudioConnection {
                     ErrorResult error;
                     try {
                         error = ParserUtils.parseBodyStream(ErrorResult.class, inputStream);
-                    } catch (Exception e) {
+                    } catch (SUSEStudioException e) {
                         // ignore the content of the stream and use the responseCode for the exception.
                         throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage(), e);
                     } finally {
