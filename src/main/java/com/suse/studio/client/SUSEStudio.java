@@ -341,10 +341,11 @@ public class SUSEStudio {
         if (url == null) {
             throw new IllegalArgumentException("url cannot be null");
         }
-        String uri = "/user/repositories?" +
-            "url=" + URLUtils.encode(url) + "&" +
-            "name=" + URLUtils.encode(name);
-        StudioConnection sc = new StudioConnection(uri, config);
+        StringBuilder uri = new StringBuilder("/user/repositories?url=");
+        uri.append(URLUtils.encode(url));
+        uri.append("&name=");
+        uri.append(URLUtils.encode(name));
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
         return sc.post(Repository.class);
     }
 
