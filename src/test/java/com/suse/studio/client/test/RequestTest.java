@@ -415,4 +415,22 @@ public class RequestTest {
         Query query = request.getQuery();
         assertEquals(0, query.size());
     }
+
+    @Test
+    public void testGetRepository() throws Exception {
+        final int id = 4711;
+        SUSEStudioRequester<Repository> requester = new SUSEStudioRequester<Repository>() {
+            public Repository request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.getRepository(id);
+            }
+        };
+        Request request = new HttpServerMock().getRequest(requester);
+
+        assertNotNull(request);
+        assertEquals("GET", request.getMethod());
+        assertEquals("/api/v2/user/repositories/" + id, request.getPath().toString());
+
+        Query query = request.getQuery();
+        assertEquals(0, query.size());
+    }
 }
