@@ -370,6 +370,25 @@ public class SUSEStudio {
     }
 
     /**
+     * Show information on the repository for the given id.
+     *
+     * GET /api/v2/user/repositories/<id>
+     *
+     * @param id  Id of the repository.
+     * @return Returns the metadata for the repository.
+     * @throws SUSEStudioException
+     */
+    public Repository getRepository(int id) throws SUSEStudioException {
+        if (id < 0) {
+            throw new IllegalArgumentException("The id cannot be negative");
+        }
+        StringBuilder uri = new StringBuilder("/user/repositories/");
+        uri.append(id);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        return sc.get(Repository.class);
+    }
+
+    /**
      * Return the template set with a given name.
      * 
      * GET /api/v2/user/template_sets/<name>
