@@ -366,7 +366,7 @@ public class SUSEStudio {
         uri.append(id);
         uri.append("/refresh");
         StudioConnection sc = new StudioConnection(uri.toString(), config);
-        sc.post();
+        sc.post(SuccessResult.class);
     }
 
     /**
