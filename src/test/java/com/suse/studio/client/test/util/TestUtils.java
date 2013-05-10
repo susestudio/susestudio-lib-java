@@ -32,6 +32,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.core.Persister;
 
+import com.suse.studio.client.exception.SUSEStudioException;
 import com.suse.studio.client.util.ParserUtils;
 
 /**
@@ -53,7 +54,7 @@ public class TestUtils {
         InputStream stream = getStreamFromExampleFile(filename);
         try {
             return ParserUtils.parseBodyStream(clazz, stream);
-        } catch (Exception e) {
+        } catch (SUSEStudioException e) {
             e.printStackTrace();
         }
         return null;
