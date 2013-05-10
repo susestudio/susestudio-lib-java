@@ -43,7 +43,7 @@ public class ParserUtils {
         try {
             result = serializer.read(clazz, stream);
         } catch (Exception e) {
-            throw new SUSEStudioException(null, "Could not parse data as type " + clazz.getName() + ": " + e.getMessage(), e);
+            throw new SUSEStudioException(null, "Could not parse data as type " + clazz.getName() + ": " + e.getMessage());
         }
         return result;
     }

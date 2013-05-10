@@ -133,7 +133,7 @@ public class StudioConnection {
                         error = ParserUtils.parseBodyStream(ErrorResult.class, inputStream);
                     } catch (SUSEStudioException e) {
                         // ignore the content of the stream and use the responseCode for the exception.
-                        throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage(), e);
+                        throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage());
                     } finally {
                         try {
                             inputStream.close();
