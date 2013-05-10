@@ -43,7 +43,7 @@ import com.suse.studio.client.model.configuration.Configuration;
 import com.suse.studio.client.net.StudioConnection;
 import com.suse.studio.client.util.Base64;
 import com.suse.studio.client.util.StudioConfig;
-import com.suse.studio.client.util.URLUtils;
+import com.suse.studio.client.util.StudioUtils;
 
 /**
  * Library class for the SUSE Studio REST API.
@@ -197,11 +197,11 @@ public class SUSEStudio {
         uri.append(id);
         if (name != null) {
             uri.append("&name=");
-            uri.append(URLUtils.encode(name));
+            uri.append(StudioUtils.encode(name));
         }
         if (arch != null) {
             uri.append("&arch=");
-            uri.append(URLUtils.encode(arch));
+            uri.append(StudioUtils.encode(arch));
         }
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         Appliance appliance = sc.post(Appliance.class);
@@ -234,7 +234,7 @@ public class SUSEStudio {
      */
     public Gallery getGallery(String queryType) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/gallery/appliances?");
-        uri.append(URLUtils.encode(queryType));
+        uri.append(StudioUtils.encode(queryType));
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         Gallery gallery = sc.get(Gallery.class);
         return gallery;
@@ -309,12 +309,12 @@ public class SUSEStudio {
         if (baseSystem != null) {
             uri.append('?');
             uri.append("base_system=");
-            uri.append(URLUtils.encode(baseSystem));
+            uri.append(StudioUtils.encode(baseSystem));
         }
         if (filter != null) {
             uri.append(baseSystem == null ? '?' : '&');
             uri.append("filter=");
-            uri.append(URLUtils.encode(filter));
+            uri.append(StudioUtils.encode(filter));
         }
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         Repositories repositories = sc.get(Repositories.class);
@@ -342,9 +342,9 @@ public class SUSEStudio {
             throw new IllegalArgumentException("url cannot be null");
         }
         StringBuilder uri = new StringBuilder("/user/repositories?url=");
-        uri.append(URLUtils.encode(url));
+        uri.append(StudioUtils.encode(url));
         uri.append("&name=");
-        uri.append(URLUtils.encode(name));
+        uri.append(StudioUtils.encode(name));
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         return sc.post(Repository.class);
     }
@@ -399,7 +399,7 @@ public class SUSEStudio {
      */
     public TemplateSet getTemplateSet(String name) throws SUSEStudioException {
         StringBuilder uri = new StringBuilder("/user/template_sets/");
-        uri.append(URLUtils.encode(name));
+        uri.append(StudioUtils.encode(name));
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         TemplateSet templateSet = sc.get(TemplateSet.class);
         return templateSet;
@@ -465,9 +465,9 @@ public class SUSEStudio {
         StringBuilder uri = new StringBuilder("/user/running_builds?appliance_id=");
         uri.append(applianceID);
         uri.append("&force=");
-        uri.append(URLUtils.encode(TRUE));
+        uri.append(StudioUtils.encode(TRUE));
         uri.append("&image_type=");
-        uri.append(URLUtils.encode(imgType.name()));
+        uri.append(StudioUtils.encode(imgType.name()));
         StudioConnection sc = new StudioConnection(uri.toString(), config);
         return sc.post(ScheduleBuildResult.class);
     }

@@ -22,18 +22,32 @@
 
 package com.suse.studio.client.util;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import com.suse.studio.client.exception.SUSEStudioException;
 
 /**
- * Utility methods for working with URLs.
+ * General utility methods.
  */
-public class URLUtils {
+public class StudioUtils {
 
     /**
-     * Encode parameter values to be used in URLs.
+     * Quietly close a given stream, suppressing exceptions.
+     *
+     * @param stream
+     */
+    public static void closeQuietly(InputStream stream) {
+        try {
+            stream.close();
+        } catch (IOException e) {
+        }
+    }
+
+    /**
+     * Encode a parameter value given as {@link String} to be used within a URL.
      *
      * @param parameterValue parameter value
      * @return encoded parameter value
