@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Utility methods for working with URLs.
+ * General utility methods.
  */
 public class IOUtils {
 
