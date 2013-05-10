@@ -322,6 +322,73 @@ public class SUSEStudio {
     }
 
     /**
+     * Imports a new repository into Studio. Returns the metadata for
+     * the created repository.
+     *
+     * POST /api/v2/user/repositories?url=<url>&name=<name>
+     *
+     * @param name
+     *            Name for the repository.
+     * @param url
+     *            Base url of the repository.
+     * @return Returns the metadata for the created repository.
+     * @throws SUSEStudioException
+     */
+    public Repository importRepository(String name, String url) throws SUSEStudioException {
+        if (name == null) {
+            throw new IllegalArgumentException("name cannot be null");
+        }
+        if (url == null) {
+            throw new IllegalArgumentException("url cannot be null");
+        }
+        StringBuilder uri = new StringBuilder("/user/repositories?url=");
+        uri.append(URLUtils.encode(url));
+        uri.append("&name=");
+        uri.append(URLUtils.encode(name));
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        return sc.post(Repository.class);
+    }
+
+    /**
+     * Instructs the server to update package metadata for repository id.
+     *
+     * POST /api/v2/user/repositories/<id>/refresh
+     *
+     * @param id
+     *            Id of the repository to update.
+     * @throws SUSEStudioException
+     */
+    public void refreshRepository(int id) throws SUSEStudioException {
+        if (id < 0) {
+            throw new IllegalArgumentException("The id cannot be negative");
+        }
+        StringBuilder uri = new StringBuilder("/user/repositories/");
+        uri.append(id);
+        uri.append("/refresh");
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        sc.post(SuccessResult.class);
+    }
+
+    /**
+     * Show information on the repository for the given id.
+     *
+     * GET /api/v2/user/repositories/<id>
+     *
+     * @param id  Id of the repository.
+     * @return Returns the metadata for the repository.
+     * @throws SUSEStudioException
+     */
+    public Repository getRepository(int id) throws SUSEStudioException {
+        if (id < 0) {
+            throw new IllegalArgumentException("The id cannot be negative");
+        }
+        StringBuilder uri = new StringBuilder("/user/repositories/");
+        uri.append(id);
+        StudioConnection sc = new StudioConnection(uri.toString(), config);
+        return sc.get(Repository.class);
+    }
+
+    /**
      * Return the template set with a given name.
      * 
      * GET /api/v2/user/template_sets/<name>

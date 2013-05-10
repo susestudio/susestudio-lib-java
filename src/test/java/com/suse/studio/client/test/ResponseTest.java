@@ -582,4 +582,25 @@ public class ResponseTest {
         assertEquals(m.get(1).getKey(), "repository_base_url");
         assertEquals(m.get(1).getValue(), "http://download.opensuse.org/repositories/moblin:/base/opensuse_11.1");
     }
+
+    @Test
+    public void testGetRepository() throws Exception {
+        SUSEStudioRequester<Repository> requester = new SUSEStudioRequester<Repository>() {
+            public Repository request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.getRepository(4711);
+            }
+        };
+        TestExampleResponder responder = new TestExampleResponder("repository.xml");
+        Repository repository = new HttpServerMock().getResult(requester, responder);
+
+        assertNotNull(repository);
+        assertEquals(7, repository.getId());
+        assertEquals("Moblin Base", repository.getName());
+        assertEquals("rpm-md", repository.getType());
+        assertEquals("11.1", repository.getBaseSystem());
+        assertEquals("http://download.opensuse.org/repositories/Moblin:/Base/openSUSE_11.1", repository.getBaseUrl());
+        assertEquals(null, repository.getRepoTag());
+        List<Match> m = repository.getMatches();
+        assertNull(m);
+    }
 }

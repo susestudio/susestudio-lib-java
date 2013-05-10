@@ -45,6 +45,20 @@ public class SUSEStudioException extends Exception {
     }
 
     /**
+     * Alternative constructor that takes an additional {@link Throwable} signaling
+     * the cause.
+     *
+     * @param code
+     * @param message
+     * @param cause
+     */
+    public SUSEStudioException(String code, String message, Throwable cause) {
+        super(cause);
+        this.code = code;
+        this.message = message;
+    }
+
+    /**
      * Returns a SUSE Studio error code.
      * 
      * @see <a href="http://susestudio.com/help/api/v2/general.html">SUSE Studio API guide</a>

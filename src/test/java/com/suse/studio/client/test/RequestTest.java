@@ -375,4 +375,62 @@ public class RequestTest {
         assertEquals(BASE_SYSTEM, query.get("base_system"));
         assertEquals(FILTER, query.get("filter"));
     }
+
+    @Test
+    public void testImportRepository() throws Exception {
+        final String NAME = "NAMEx&x+x/x%x x   x";
+        final String URL = "URLx&x+x/x%x x   x";
+        SUSEStudioRequester<Repository> requester = new SUSEStudioRequester<Repository>() {
+            public Repository request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.importRepository(NAME, URL);
+            }
+        };
+        Request request = new HttpServerMock().getRequest(requester);
+
+        assertNotNull(request);
+        assertEquals("POST", request.getMethod());
+        assertEquals("/api/v2/user/repositories", request.getPath().toString());
+
+        Query query = request.getQuery();
+        assertEquals(2, query.size());
+        assertEquals(NAME, query.get("name"));
+        assertEquals(URL, query.get("url"));
+    }
+
+    @Test
+    public void testRefreshRepository() throws Exception {
+        final int id = 4711;
+        SUSEStudioRequester<Object> requester = new SUSEStudioRequester<Object>() {
+            public Object request(SUSEStudio suseStudio) throws SUSEStudioException {
+                suseStudio.refreshRepository(id);
+                return null;
+            }
+        };
+        Request request = new HttpServerMock().getRequest(requester);
+
+        assertNotNull(request);
+        assertEquals("POST", request.getMethod());
+        assertEquals("/api/v2/user/repositories/" + id + "/refresh", request.getPath().toString());
+
+        Query query = request.getQuery();
+        assertEquals(0, query.size());
+    }
+
+    @Test
+    public void testGetRepository() throws Exception {
+        final int id = 4711;
+        SUSEStudioRequester<Repository> requester = new SUSEStudioRequester<Repository>() {
+            public Repository request(SUSEStudio suseStudio) throws SUSEStudioException {
+                return suseStudio.getRepository(id);
+            }
+        };
+        Request request = new HttpServerMock().getRequest(requester);
+
+        assertNotNull(request);
+        assertEquals("GET", request.getMethod());
+        assertEquals("/api/v2/user/repositories/" + id, request.getPath().toString());
+
+        Query query = request.getQuery();
+        assertEquals(0, query.size());
+    }
 }
