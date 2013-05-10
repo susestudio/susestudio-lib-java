@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 
 import com.suse.studio.client.exception.SUSEStudioException;
 import com.suse.studio.client.model.ErrorResult;
+import com.suse.studio.client.util.IOUtils;
 import com.suse.studio.client.util.ParserUtils;
 import com.suse.studio.client.util.StudioConfig;
 
@@ -118,10 +119,7 @@ public class StudioConnection {
                     try {
                         return ParserUtils.parseBodyStream(clazz, inputStream);
                     } finally {
-                        try {
-                            inputStream.close();
-                        } catch (IOException e) {
-                        }
+                        IOUtils.closeQuietly(inputStream);
                     }
                 }
 
@@ -135,20 +133,14 @@ public class StudioConnection {
                         // ignore the content of the stream and use the responseCode for the exception.
                         throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage());
                     } finally {
-                        try {
-                            inputStream.close();
-                        } catch (IOException e) {
-                        }
+                        IOUtils.closeQuietly(inputStream);
                     }
                     throw new SUSEStudioException(error.getCode(), error.getMessage());
                 } else {
                     throw new SUSEStudioException(String.valueOf(responseCode), connection.getResponseMessage());
                 }
             } finally {
-                try {
-                    connection.disconnect();
-                } catch (Exception e) {
-                }
+                connection.disconnect();
             }
         } catch (IOException e) {
             throw new SUSEStudioException(e);
