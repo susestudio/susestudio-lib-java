@@ -401,9 +401,9 @@ public class RequestTest {
     public void testRefreshRepository() throws Exception {
         final int id = 4711;
         SUSEStudioRequester<Object> requester = new SUSEStudioRequester<Object>() {
-            public Object request(SUSEStudio suseStudio) throws SUSEStudioException {
+            public Boolean request(SUSEStudio suseStudio) throws SUSEStudioException {
                 suseStudio.refreshRepository(id);
-                return null;
+                return true;
             }
         };
         Request request = new HttpServerMock().getRequest(requester);
