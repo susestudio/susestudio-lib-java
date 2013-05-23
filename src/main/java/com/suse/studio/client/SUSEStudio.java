@@ -359,7 +359,7 @@ public class SUSEStudio {
      *            Id of the repository to update.
      * @throws SUSEStudioException
      */
-    public void refreshRepository(int id) throws SUSEStudioException {
+    public void refreshRepository(long id) throws SUSEStudioException {
         if (id < 0) {
             throw new IllegalArgumentException("The id cannot be negative");
         }
@@ -379,7 +379,7 @@ public class SUSEStudio {
      * @return Returns the metadata for the repository.
      * @throws SUSEStudioException
      */
-    public Repository getRepository(int id) throws SUSEStudioException {
+    public Repository getRepository(long id) throws SUSEStudioException {
         if (id < 0) {
             throw new IllegalArgumentException("The id cannot be negative");
         }
