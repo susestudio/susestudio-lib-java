@@ -2,7 +2,6 @@ package com.suse.studio.client.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
@@ -80,7 +79,7 @@ public class ParserUtils {
                     throw new SUSEStudioException(new IllegalArgumentException(
                             "Stream could not be parsed as " + clazz.getName() + "."));
                 }
-            } catch (IOException | InstantiationException | IllegalAccessException e) {
+            } catch (Exception e) {
                 throw new SUSEStudioException(e);
             }
         } else {
