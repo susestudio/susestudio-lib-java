@@ -61,6 +61,8 @@ public class ParserUtils {
 
     /**
      * Try to parse a non-XML {@link InputStream} into a given class after the XML parser failed.
+     * This hack is necessary, because some API methods return an empty result instead of valid
+     * XML, e.g. a repository refresh (see http://susestudio.com/help/api/v2/repositories.html).
      *
      * @param clazz
      * @param stream
