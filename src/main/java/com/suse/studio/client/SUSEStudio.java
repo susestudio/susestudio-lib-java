@@ -27,6 +27,7 @@ import java.util.List;
 import com.suse.studio.client.exception.SUSEStudioException;
 import com.suse.studio.client.model.Appliance;
 import com.suse.studio.client.model.Appliances;
+import com.suse.studio.client.model.EmptyResult;
 import com.suse.studio.client.model.Gallery;
 import com.suse.studio.client.model.Repositories;
 import com.suse.studio.client.model.Repository;
@@ -366,7 +367,7 @@ public class SUSEStudio {
         uri.append(id);
         uri.append("/refresh");
         StudioConnection sc = new StudioConnection(uri.toString(), config);
-        sc.post(SuccessResult.class);
+        sc.post(EmptyResult.class);
     }
 
     /**

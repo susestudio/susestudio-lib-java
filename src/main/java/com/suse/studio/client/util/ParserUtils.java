@@ -2,6 +2,7 @@ package com.suse.studio.client.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
@@ -9,11 +10,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.xml.stream.XMLStreamException;
+
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.core.Persister;
 
 import com.suse.studio.client.exception.SUSEStudioException;
+import com.suse.studio.client.model.EmptyResult;
 
 /**
  * A wrapper around core Simple XML library functionality plus some utility methods.
@@ -27,8 +31,8 @@ public class ParserUtils {
      * 
      * @param clazz
      * @param stream
-     * @return an object corresponding to the XML in stream
-     * @throws Exception
+     * @return object corresponding to the XML in stream
+     * @throws SUSEStudioException
      */
     public static <T> T parseBodyStream(Class<T> clazz, InputStream stream) throws SUSEStudioException {
         // Print stream contents for debugging
@@ -43,7 +47,45 @@ public class ParserUtils {
         try {
             result = serializer.read(clazz, stream);
         } catch (Exception e) {
-            throw new SUSEStudioException(e);
+            if (e instanceof XMLStreamException) {
+                try {
+                    result = parseNonXML(clazz, stream);
+                } catch (SUSEStudioException sse) {
+                    throw new SUSEStudioException(e);
+                }
+            } else {
+                throw new SUSEStudioException(e);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Try to parse a non-XML {@link InputStream} into a given class after the XML parser failed.
+     *
+     * @param clazz
+     * @param stream
+     * @return object parsed from the stream
+     * @throws SUSEStudioException
+     */
+    private static <T> T parseNonXML(Class<T> clazz, InputStream stream) throws SUSEStudioException {
+        T result;
+        if (stream.markSupported()) {
+            try {
+                stream.reset();
+                String contents = streamToString(stream);
+                if (clazz.equals(EmptyResult.class) && contents.equals(EmptyResult.VALUE)) {
+                    result = clazz.newInstance();
+                } else {
+                    throw new SUSEStudioException(new IllegalArgumentException(
+                            "Stream could not be parsed as " + clazz.getName() + "."));
+                }
+            } catch (IOException | InstantiationException | IllegalAccessException e) {
+                throw new SUSEStudioException(e);
+            }
+        } else {
+            throw new SUSEStudioException(new IllegalArgumentException(
+                    "Stream does not support the reset() method."));
         }
         return result;
     }
