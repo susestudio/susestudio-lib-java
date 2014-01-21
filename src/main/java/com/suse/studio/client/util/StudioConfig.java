@@ -37,7 +37,7 @@ public class StudioConfig {
     public static String KEY_PRINT_STREAM_CONTENTS = "print-stream-contents";
 
     // Default values
-    private static final String DEFAULT_URL = "http://susestudio.com/api/v2";
+    private static final String DEFAULT_URL = "https://susestudio.com/api/v2";
 
     // The properties object
     private Properties properties;
