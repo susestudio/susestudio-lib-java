@@ -72,7 +72,7 @@ public class SUSEStudio {
 
     /**
      * Create a client object by providing user and API key. This client will talk to the public SUSE Studio default URL
-     * (http://susestudio.com).
+     * (https://susestudio.com).
      * 
      * @param user
      * @param apiKey
@@ -90,7 +90,7 @@ public class SUSEStudio {
 
     /**
      * Create a client by providing user, API key and SUSE Studio base URL. Passing <code>null</code> as the url is
-     * supported, we will fall back to the public SUSE Studio default URL (http://susestudio.com) in this case.
+     * supported, we will fall back to the public SUSE Studio default URL (https://susestudio.com) in this case.
      * 
      * @param user
      * @param apiKey
