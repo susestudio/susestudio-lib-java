@@ -34,7 +34,7 @@ public class StudioConfig {
     public static String KEY_ENCODED_CREDS = "encodedCreds";
 
     // Default values
-    private static final String DEFAULT_URL = "http://susestudio.com/api/v2";
+    private static final String DEFAULT_URL = "https://susestudio.com/api/v2";
 
     // The properties object
     private Properties properties;
